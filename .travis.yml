@@ -17,5 +17,5 @@ before_script:
   - phpenv rehash
 
 script: 
-  - phpunit --coverage-text
+  - phpunit --coverage-text --coverage-clover /tmp/thibaud-evaneos/events/coverage.xml
   - ./vendor/bin/phpcs --standard=./phpcs.xml -n --report=gitblame
