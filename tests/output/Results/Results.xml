@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="All" tests="6" assertions="18" failures="0" errors="0" time="0.057038">
+    <testsuite name="Evaneos\Events\Tests\EventSerializerTest" file="/home/thibaud/NetBeansProjects/com.evaneos.events/tests/EventSerializerTest.php" namespace="Evaneos\Events\Tests" fullPackage="Evaneos.Events.Tests" tests="6" assertions="18" failures="0" errors="0" time="0.057038">
+      <testcase name="testGetUnboundCategorySerializerThrowsException" class="Evaneos\Events\Tests\EventSerializerTest" file="/home/thibaud/NetBeansProjects/com.evaneos.events/tests/EventSerializerTest.php" line="49" assertions="3" time="0.019760"/>
+      <testcase name="testGetBoundCategorySerializerReturnsCorrectSerializer" class="Evaneos\Events\Tests\EventSerializerTest" file="/home/thibaud/NetBeansProjects/com.evaneos.events/tests/EventSerializerTest.php" line="56" assertions="3" time="0.008420"/>
+      <testcase name="testSerializingUnboundCategoryThrowsException" class="Evaneos\Events\Tests\EventSerializerTest" file="/home/thibaud/NetBeansProjects/com.evaneos.events/tests/EventSerializerTest.php" line="67" assertions="3" time="0.011161"/>
+      <testcase name="testDeserializingUnboundCategoryThrowsException" class="Evaneos\Events\Tests\EventSerializerTest" file="/home/thibaud/NetBeansProjects/com.evaneos.events/tests/EventSerializerTest.php" line="78" assertions="3" time="0.006358"/>
+      <testcase name="testSerializeReturnsExpectedValue" class="Evaneos\Events\Tests\EventSerializerTest" file="/home/thibaud/NetBeansProjects/com.evaneos.events/tests/EventSerializerTest.php" line="85" assertions="3" time="0.006585"/>
+      <testcase name="testDeserializeReturnsExpectedValue" class="Evaneos\Events\Tests\EventSerializerTest" file="/home/thibaud/NetBeansProjects/com.evaneos.events/tests/EventSerializerTest.php" line="94" assertions="3" time="0.004754"/>
+    </testsuite>
+  </testsuite>
+</testsuites>
