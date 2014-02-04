@@ -18,4 +18,4 @@ before_script:
 
 script: 
   - phpunit --coverage-text --coverage-clover /tmp/thibaud-evaneos/events/coverage.xml
-  - ./vendor/bin/phpcs --standard=./phpcs.xml -n --report=gitblame
+  - ./vendor/bin/phpcs --standard=./phpcs.xml -n --report=gitblame ./src
