@@ -1,0 +1,17 @@
+{
+	"name" : "evaneos/events",
+	"description" : "Evaneos Event Library",
+	"type" : "library",
+	"require" : {
+		"psr/log": "1.0"
+	},
+	"minimum-stability" : "dev",
+	"autoload" : {
+		"psr-4" : {
+			"Evaneos\\Events\\" : "src"
+		}
+	},
+	"require-dev": {
+		"squizlabs/php_codesniffer": "1.5.1"
+	}
+}
