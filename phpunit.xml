@@ -45,7 +45,7 @@
 	                    <string>https://coveralls.io/api/v1/jobs</string>
 	                </element>
 	                <element key="coverage_dir">
-	                    <string>/tmp/thibaud-evaneos/events</string>
+	                    <string>/tmp/thibaud-evaneos/events/</string>
 	                </element>
 	            </array>
 	        </arguments>
