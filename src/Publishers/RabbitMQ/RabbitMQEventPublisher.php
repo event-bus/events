@@ -41,10 +41,10 @@ class RabbitMQEventPublisher implements EventPublisher
      */
     public function publish(Event $event)
     {
-    	$serializedEvent = $this->serializer->serialize($event);
+        $serializedEvent = $this->serializer->serialize($event);
 
         $message = new AMQPMessage($serializedEvent, array(
-        	'delivery_mode' => 2,
+            'delivery_mode' => 2,
             'correlation_id' => Uuid::uuid4()
         ));
 
