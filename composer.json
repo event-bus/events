@@ -3,7 +3,8 @@
 	"description" : "Evaneos Event Library",
 	"type" : "library",
 	"require" : {
-		"psr/log": "1.0"
+		"psr/log" : "1.0",
+		"rhumsaa/uuid" : "2.7.0"
 	},
 	"minimum-stability" : "dev",
 	"autoload" : {
@@ -11,8 +12,16 @@
 			"Evaneos\\Events\\" : "src"
 		}
 	},
-	"require-dev": {
-		"squizlabs/php_codesniffer": "1.5.1",
-		"league/phpunit-coverage-listener" : "~1.0"
+	"require-dev" : {
+		"squizlabs/php_codesniffer" : "1.5.1",
+		"league/phpunit-coverage-listener" : "~1.0",
+		"videlalvaro/php-amqplib" : "~2",
+		"predis/predis" : "~0.8"
+	},
+	"suggest" : {
+		"videlalvaro/php-amqplib" : "Allows usage of the RabbitMQ event publisher.",
+		"predis/predis" : "Allows usage of the Redis event publisher.",
+		"ext-mysql" : "Allows usage of the PDO event publisher with MySQL",
+		"ext-pgsql" : "Allows usage of the PDO event publisher with PostgreSQL"
 	}
 }
