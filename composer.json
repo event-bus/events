@@ -6,7 +6,6 @@
 		"psr/log" : "~1.0",
 		"rhumsaa/uuid" : "~2.7"
 	},
-	"minimum-stability" : "dev",
 	"autoload" : {
 		"psr-4" : {
 			"Evaneos\\Events\\" : "src"

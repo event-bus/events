@@ -5,4 +5,6 @@ interface EventDispatcher
 {
 
     public function addListener($category, EventSubscriber $subscriber);
+
+    public function dispatch(Event $event);
 }
