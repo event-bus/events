@@ -22,10 +22,9 @@ class StandardDispatcher implements EventDispatcher
         foreach ($this->subscriptions as $subscription) {
             $hasMatch = $subscription->matches($category);
 
-            if ($hasMatch) {
+            if ($hasMatch && $subscription->getSubscriber()->supports($event)) {
                 $subscription->getSubscriber()->handle($event);
             }
         }
     }
-
 }
