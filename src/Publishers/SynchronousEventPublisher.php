@@ -19,6 +19,6 @@ class SynchronousEventPublisher implements \Evaneos\Events\EventPublisher
 
     public function publish(Event $event)
     {
-        $this->dispatcher->dispatch($event);
+        return $this->dispatcher->dispatch($event);
     }
 }
