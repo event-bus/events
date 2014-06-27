@@ -2,7 +2,8 @@
 namespace Evaneos\Events\Queue;
 
 use Evaneos\Events\Event;
-class EventQueueManager
+
+interface EventQueueManager
 {
     /**
      * Add an event to the queue
