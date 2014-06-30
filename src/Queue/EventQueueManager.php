@@ -15,9 +15,11 @@ interface EventQueueManager
     /**
      * Returns the next event in queue
      * 
+     * @param string $category
+     * 
      * @return Event null if no event in queue
      */
-    public function nextEvent();
+    public function nextEvent($category);
     
     /**
      * Notify the queue of the state of an event
