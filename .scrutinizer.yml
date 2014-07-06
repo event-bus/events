@@ -1,5 +1,8 @@
 # .scrutinizer.yml
 
+filter:
+    paths: [ src/* ]
+
 before_commands:
     - "composer install --prefer-source"
 
