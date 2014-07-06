@@ -19,6 +19,6 @@ before_script:
   - wget https://scrutinizer-ci.com/ocular.phar
 
 script: 
-  - phpunit --coverage-text --coverage-clover /tmp/thibaud-evaneos/events/coverage.xml
-  - php ocular.phar code-coverage:upload --format=php-clover /tmp/thibaud-evaneos/events/coverage.xml
+  - phpunit --coverage-text --coverage-clover /tmp/aztech-dev/events/coverage.xml
+  - php ocular.phar code-coverage:upload --format=php-clover /tmp/aztech-dev/events/coverage.xml
   - ./vendor/bin/phpcs --standard=./phpcs.xml -n --report=gitblame ./src
