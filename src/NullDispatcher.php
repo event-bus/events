@@ -8,7 +8,7 @@ class NullDispatcher implements EventDispatcher
 
     public function __construct($verbose = false)
     {
-        $this->verbose = (bool) $verbose;
+        $this->verbose = (bool)$verbose;
     }
 
     public function addListener($category, EventSubscriber $subscriber)

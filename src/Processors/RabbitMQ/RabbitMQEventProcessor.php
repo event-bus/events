@@ -66,6 +66,4 @@ class RabbitMQEventProcessor implements EventProcessor
             $this->channel->wait();
         }
     }
-
-
 }

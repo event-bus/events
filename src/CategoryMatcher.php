@@ -33,5 +33,4 @@ class CategoryMatcher
 
         return true;
     }
-
 }
