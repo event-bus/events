@@ -6,6 +6,5 @@ events
 [![Build Status](https://travis-ci.org/aztech-dev/events.png?branch=master)](https://travis-ci.org/aztech-dev/events)
 [![Coverage Status](https://coveralls.io/repos/aztech-dev/events/badge.png?branch=master)](https://coveralls.io/r/aztech-dev/events?branch=master)
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/aztech-dev/events/badges/quality-score.png?s=668e4df5ba163c804504257d4a026a0a549f220a)](https://scrutinizer-ci.com/g/aztech-dev/events/)
-[![Dependency Status](https://www.versioneye.com/user/projects/52f39c46ec1375381f000075/badge.png)](https://www.versioneye.com/user/projects/52f39c46ec1375381f000075)
-
+[![Dependency Status](https://www.versioneye.com/user/projects/53b92a84609ff04f7f000003/badge.svg)](https://www.versioneye.com/user/projects/53b92a84609ff04f7f000003)
 Simple event lib
