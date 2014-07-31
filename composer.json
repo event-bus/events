@@ -22,5 +22,10 @@
 		"predis/predis" : "Allows usage of the Redis event publisher.",
 		"ext-mysql" : "Allows usage of the PDO event publisher with MySQL",
 		"ext-pgsql" : "Allows usage of the PDO event publisher with PostgreSQL"
-	}
+	},
+	"extra": {
+	   "branch-alias": {
+        	"dev-master": "0.3.x-dev"
+        }
+    }
 }
