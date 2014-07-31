@@ -4,7 +4,7 @@
 	"type" : "library",
 	"require" : {
 		"psr/log" : "~1.0",
-		"rhumsaa/uuid" : "~2.7"
+		"rhumsaa/uuid" : "~2"
 	},
 	"autoload" : {
 		"psr-4" : {
