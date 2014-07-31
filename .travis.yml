@@ -7,18 +7,17 @@ php:
   - 5.6
 
 before_script:
-#  - pear install pear/PHP_CodeSniffer
-#  - wget http://pecl.php.net/get/pecl_http-1.7.6.tgz
-#  - tar -xzf pecl_http-1.7.6.tgz
-#  - sh -c "cd pecl_http-1.7.6 && phpize && ./configure && make && sudo make install"
-#  - echo "extension=http.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
-#  - echo "extension=memcached.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
   - composer selfupdate
   - composer install
-  - phpenv rehash
   - wget https://scrutinizer-ci.com/ocular.phar
 
 script: 
-  - phpunit --coverage-text --coverage-clover /tmp/aztech-dev/events/coverage.xml
-  - php ocular.phar code-coverage:upload --format=php-clover /tmp/aztech-dev/events/coverage.xml
-  - ./vendor/bin/phpcs --standard=./phpcs.xml -n --report=gitblame ./src
+  - phpunit --coverage-text --coverage-clover=coverage.clover
+  - vendor/bin/phpcs --standard=./phpcs.xml -n --report=gitblame ./src
+  - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
+
+matrix:
+  fast_finish: true
+  allow_failures:
+    - php: hhvm
+    - php: hhvm-nightly
