@@ -14,8 +14,6 @@
 	<logging>
 		<log type="coverage-html" target="./tests/output/Coverage/"
 			charset="UTF-8" yui="true" highlight="true" />
-		<log type="junit" target="./tests/output/Results/Results.xml"
-			logIncompleteSkipped="true" />
 	</logging>
 	<filter>
 		<whitelist addUncoveredFilesFromWhitelist="true">
@@ -25,30 +23,4 @@
 			</exclude>
 		</whitelist>
 	</filter>
-	<listeners>
-	    <listener class="League\PHPUnitCoverageListener\Listener">
-	        <arguments>
-	            <array>
-	                <element key="printer">
-	                  <object class="League\PHPUnitCoverageListener\Printer\StdOut"/>
-	                </element>
-	                <element key="hook">
-	                  <object class="League\PHPUnitCoverageListener\Hook\Travis"/>
-	                </element>
-	                <element key="namespace">
-	                    <string>Evaneos\Events</string>
-	                </element>
-	                <element key="repo_token">
-	                    <string>1UMmtQ76An8RITrfNLJl3xvtVVxWMEgIg</string>
-	                </element>
-	                <element key="target_url">
-	                    <string>https://coveralls.io/api/v1/jobs</string>
-	                </element>
-	                <element key="coverage_dir">
-	                    <string>/tmp/thibaud-evaneos/events/</string>
-	                </element>
-	            </array>
-	        </arguments>
-	    </listener>
-	</listeners>
 </phpunit>
