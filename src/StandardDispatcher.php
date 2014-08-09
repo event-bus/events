@@ -5,6 +5,7 @@ namespace Evaneos\Events;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\NullLogger;
 use Psr\Log\LoggerInterface;
+use Aztech\Util\Timer\Timer;
 
 class StandardDispatcher implements EventDispatcher, LoggerAwareInterface
 {
@@ -34,6 +35,8 @@ class StandardDispatcher implements EventDispatcher, LoggerAwareInterface
     public function dispatch(Event $event)
     {
         $timer = new Timer();
+        $timer->start();
+
         $this->logger->info('Dispatching event category : ' . $event->getCategory());
 
         $category = $event->getCategory();
@@ -47,6 +50,7 @@ class StandardDispatcher implements EventDispatcher, LoggerAwareInterface
             }
         }
 
-        $this->logger->info('Dispatch done');
+        $timer->stop();
+        $this->logger->info('Dispatch done in ' . $timer->getElapsed() . ' s.');
     }
 }
