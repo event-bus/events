@@ -49,6 +49,8 @@ class RabbitMQEventProcessor extends AbstractProcessor implements LoggerAwareInt
      */
     public function __construct(AMQPChannel $channel, $queue, EventSerializer $serializer)
     {
+        parent::__construct();
+
         $this->channel = $channel;
         $this->queue = $queue;
         $this->serializer = $serializer;
