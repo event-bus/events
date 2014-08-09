@@ -7,6 +7,7 @@ before_commands:
     - "composer install --prefer-source"
 
 tools:
+    external_code_coverage: true
     php_cpd: true
     php_pdepend: true
     php_code_coverage: true

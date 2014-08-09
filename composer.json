@@ -4,7 +4,7 @@
 	"type" : "library",
 	"require" : {
 		"psr/log" : "~1.0",
-		"rhumsaa/uuid" : "~2.7"
+		"rhumsaa/uuid" : "~2"
 	},
 	"autoload" : {
 		"psr-4" : {
@@ -13,7 +13,6 @@
 	},
 	"require-dev" : {
 		"squizlabs/php_codesniffer" : "~1.5",
-		"league/phpunit-coverage-listener" : "~1.0",
 		"videlalvaro/php-amqplib" : "~2",
 		"predis/predis" : "~0.8"
 	},
@@ -22,5 +21,10 @@
 		"predis/predis" : "Allows usage of the Redis event publisher.",
 		"ext-mysql" : "Allows usage of the PDO event publisher with MySQL",
 		"ext-pgsql" : "Allows usage of the PDO event publisher with PostgreSQL"
-	}
+	},
+	"extra": {
+	   "branch-alias": {
+        	"dev-master": "0.3.x-dev"
+        }
+    }
 }
