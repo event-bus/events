@@ -32,4 +32,16 @@ class StatusEvent implements Event
     {
         return $this->time;
     }
+
+    public function getProperties()
+    {
+        return get_object_vars($this);
+    }
+
+    public function setProperties(array $properties)
+    {
+        foreach ($properties as $name => $value) {
+            $this->{$name} = $value;
+        }
+    }
 }
