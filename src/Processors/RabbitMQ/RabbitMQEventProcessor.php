@@ -47,6 +47,7 @@ class RabbitMQEventProcessor implements EventProcessor
     public function processNext(EventDispatcher $dispatcher)
     {
         $serializer = $this->serializer;
+        $channel = $this->channel;
 
         $callback = function($message) use ($dispatcher, $serializer, $channel) {
             $serializedEvent = $message->body;

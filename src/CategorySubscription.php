@@ -16,10 +16,17 @@ class CategorySubscription
      */
     private $subscriber;
 
+    /**
+     *
+     * @var \Evaneos\Events\CategoryMatcher
+     */
+    private $matcher;
+
     public function __construct($categoryFilter, EventSubscriber $subscriber)
     {
         $this->categoryFilter = $categoryFilter;
         $this->subscriber = $subscriber;
+        $this->matcher = new CategoryMatcher();
     }
 
     public function getSubscriber()
@@ -34,8 +41,6 @@ class CategorySubscription
 
     public function matches($category)
     {
-        $matcher = new CategoryMatcher();
-
-        return $matcher->checkMatch($this->categoryFilter, $category);
+        return $this->matcher->checkMatch($this->categoryFilter, $category);
     }
 }
