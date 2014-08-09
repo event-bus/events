@@ -86,11 +86,11 @@ class RabbitMQEventProcessor extends AbstractProcessor implements LoggerAwareInt
 
     public function handleMessage($message, $dispatcher)
     {
-        $this->onProcessing($event);
-
         try {
             $serializedEvent = $message->body;
             $event = $this->serializer->deserialize($serializedEvent);
+
+            $this->onProcessing($event);
 
             $this->logger->info('Processing event : ' . $event->getCategory());
             $this->logger->debug('Event data : ' . $serializedEvent);
