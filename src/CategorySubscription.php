@@ -22,7 +22,7 @@ class CategorySubscription
      */
     private $matcher;
 
-    public function __construct($categoryFilter, EventSubscriber $subscriber)
+    public function __construct($categoryFilter, EventSubscriber $subscriber = null)
     {
         $this->categoryFilter = $categoryFilter;
         $this->subscriber = $subscriber;

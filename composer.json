@@ -15,13 +15,17 @@
   "require-dev" : {
     "squizlabs/php_codesniffer" : "~1.5",
     "videlalvaro/php-amqplib" : "~2",
-    "predis/predis" : "~0.8"
+    "predis/predis" : "~0.8",
+    "cboden/Ratchet":"dev-master",
+    "react/stomp":"dev-master"
   },
   "suggest" : {
     "videlalvaro/php-amqplib" : "Allows usage of the RabbitMQ event publisher.",
     "predis/predis" : "Allows usage of the Redis event publisher.",
     "ext-mysql" : "Allows usage of the PDO event publisher with MySQL",
-    "ext-pgsql" : "Allows usage of the PDO event publisher with PostgreSQL"
+    "ext-pgsql" : "Allows usage of the PDO event publisher with PostgreSQL",
+    "cboden/Ratchet":"Along with react/stomp to publish event statuses to websockets",
+    "react/stomp":"Along with cboden/Ratchet to publish event statuses to websockets"
   },
   "extra": {
      "branch-alias": {
