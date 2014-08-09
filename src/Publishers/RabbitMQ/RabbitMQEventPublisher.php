@@ -23,6 +23,8 @@ class RabbitMQEventPublisher implements EventPublisher
      */
     private $serializer;
 
+    private $prefix = '';
+
     /**
      *
      * @param \PhpAmqpLib\Channel\AMQPChannel $channel
@@ -34,6 +36,11 @@ class RabbitMQEventPublisher implements EventPublisher
         $this->channel = $channel;
         $this->exchange = $exchange;
         $this->serializer = $serializer;
+    }
+
+    public function setEventPrefix($prefix)
+    {
+        $this->prefix = $prefix;
     }
 
     /**
@@ -48,6 +55,9 @@ class RabbitMQEventPublisher implements EventPublisher
             'correlation_id' => Uuid::uuid4()
         ));
 
-        $this->channel->basic_publish($message, $this->exchange, $event->getCategory());
+        $category  = ($this->prefix) ? $this->prefix . '.' : '';
+        $category .= $event->getCategory();
+
+        $this->channel->basic_publish($message, $this->exchange, $category);
     }
 }
