@@ -31,7 +31,6 @@ class EventSerializer
     public function deserialize($serializedObject)
     {
         $deserialized = json_decode($serializedObject);
-
         $serializer = $this->getSerializer($deserialized->category);
 
         return $serializer->deserialize($serializedObject);
