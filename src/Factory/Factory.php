@@ -31,7 +31,6 @@ class Factory
                 $options['event-queue'] = $options['event-status-queue'];
 
                 $publisher = self::createPublisher($type, $serializer, $options);
-                $publisher->setEventPrefix('event-notify');
                 $processor->on('*', new RabbitMQEventStatusNotifier($publisher));
             }
 

@@ -20,7 +20,7 @@ class StatusEvent implements Event
 
     public function getCategory()
     {
-        return $this->name;
+        return 'event-notify.' . $this->name;
     }
 
     public function getEvent()
