@@ -77,13 +77,9 @@ class RabbitMQEventProcessor implements EventProcessor, LoggerAwareInterface
 
             // Unregister (process only one message at a time)
             $message->delivery_info['channel']->basic_ack($message->delivery_info['delivery_tag']);
-            $message->delivery_info['channel']->basic_cancel($message->delivery_info['consumer_tag']);
         };
 
         $this->channel->basic_consume($this->queue, '', false, false, false, false, $callback);
-
-        while (! empty($this->channel->callbacks)) {
-            $this->channel->wait();
-        }
+        $this->channel->wait();
     }
 }
