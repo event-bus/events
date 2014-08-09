@@ -9,8 +9,11 @@ use PhpAmqpLib\Message\AMQPMessage;
 use Evaneos\Events\EventSubscriber;
 use Evaneos\Events\EventDispatcher;
 use Evaneos\Events\EventProcessor;
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 
-class RabbitMQEventProcessor implements EventProcessor
+class RabbitMQEventProcessor implements EventProcessor, LoggerAwareInterface
 {
 
     /**
@@ -33,6 +36,12 @@ class RabbitMQEventProcessor implements EventProcessor
 
     /**
      *
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    /**
+     *
      * @param \PhpAmqpLib\Channel\AMQPChannel $channel
      * @param string $queue
      * @param \Evaneos\Events\EventSerializer $serializer
@@ -42,22 +51,31 @@ class RabbitMQEventProcessor implements EventProcessor
         $this->channel = $channel;
         $this->queue = $queue;
         $this->serializer = $serializer;
+        $this->logger = new NullLogger();
+    }
+
+    public function setLogger(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
     }
 
     public function processNext(EventDispatcher $dispatcher)
     {
         $serializer = $this->serializer;
         $channel = $this->channel;
+        $logger = $this->logger;
 
-        $callback = function($message) use ($dispatcher, $serializer, $channel) {
+        $callback = function($message) use ($dispatcher, $serializer, $channel, $logger) {
+
             $serializedEvent = $message->body;
             $event = $serializer->deserialize($serializedEvent);
 
+            $this->logger->info('Processing event : ' . $event->getCategory());
+
             $dispatcher->dispatch($event);
 
-            // Ack message
+            // Unregister (process only one message at a time)
             $message->delivery_info['channel']->basic_ack($message->delivery_info['delivery_tag']);
-            // Unregister consumer (single message processing)
             $message->delivery_info['channel']->basic_cancel($message->delivery_info['consumer_tag']);
         };
 
