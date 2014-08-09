@@ -33,6 +33,7 @@ class StandardDispatcher implements EventDispatcher, LoggerAwareInterface
 
     public function dispatch(Event $event)
     {
+        $timer = new Timer();
         $this->logger->info('Dispatching event category : ' . $event->getCategory());
 
         $category = $event->getCategory();

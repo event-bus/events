@@ -1,30 +1,31 @@
 {
-	"name" : "evaneos/events",
-	"description" : "Evaneos Event Library",
-	"type" : "library",
-	"require" : {
-		"psr/log" : "~1.0",
-		"rhumsaa/uuid" : "~2"
-	},
-	"autoload" : {
-		"psr-4" : {
-			"Evaneos\\Events\\" : "src"
-		}
-	},
-	"require-dev" : {
-		"squizlabs/php_codesniffer" : "~1.5",
-		"videlalvaro/php-amqplib" : "~2",
-		"predis/predis" : "~0.8"
-	},
-	"suggest" : {
-		"videlalvaro/php-amqplib" : "Allows usage of the RabbitMQ event publisher.",
-		"predis/predis" : "Allows usage of the Redis event publisher.",
-		"ext-mysql" : "Allows usage of the PDO event publisher with MySQL",
-		"ext-pgsql" : "Allows usage of the PDO event publisher with PostgreSQL"
-	},
-	"extra": {
-	   "branch-alias": {
-        	"dev-master": "0.3.x-dev"
+  "name" : "evaneos/events",
+  "description" : "Evaneos Event Library",
+  "type" : "library",
+  "require" : {
+    "psr/log" : "~1.0",
+    "rhumsaa/uuid" : "~2",
+    "aztech/php-utils": "dev-master"
+  },
+  "autoload" : {
+    "psr-4" : {
+      "Evaneos\\Events\\" : "src"
+    }
+  },
+  "require-dev" : {
+    "squizlabs/php_codesniffer" : "~1.5",
+    "videlalvaro/php-amqplib" : "~2",
+    "predis/predis" : "~0.8"
+  },
+  "suggest" : {
+    "videlalvaro/php-amqplib" : "Allows usage of the RabbitMQ event publisher.",
+    "predis/predis" : "Allows usage of the Redis event publisher.",
+    "ext-mysql" : "Allows usage of the PDO event publisher with MySQL",
+    "ext-pgsql" : "Allows usage of the PDO event publisher with PostgreSQL"
+  },
+  "extra": {
+     "branch-alias": {
+          "dev-master": "0.3.x-dev"
         }
     }
 }

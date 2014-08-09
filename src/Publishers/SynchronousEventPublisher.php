@@ -12,9 +12,9 @@ class SynchronousEventPublisher implements \Evaneos\Events\EventPublisher
      * @var \Evaneos\Events\EventDispatcher
      */
     private $dispatcher;
-    
+
     /**
-     * 
+     *
      * @var EventQueueManager
      */
     private $queueManager;
@@ -30,7 +30,7 @@ class SynchronousEventPublisher implements \Evaneos\Events\EventPublisher
         if ($this->queueManager != null) {
             $this->queueManager->addToQueue($event);
         }
-        
+
         return $this->dispatcher->dispatch($event);
     }
 }
