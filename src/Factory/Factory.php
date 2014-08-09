@@ -5,6 +5,7 @@ namespace Evaneos\Events\Factory;
 use Evaneos\Events\Publishers\RabbitMQ\RabbitMQEventPublisher;
 use PhpAmqpLib\Connection\AMQPConnection;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
+use Evaneos\Events\Processors\RabbitMQ\RabbitMQEventProcessor;
 
 class Factory
 {
@@ -18,4 +19,12 @@ class Factory
         }
     }
 
+    public static function createProcessor($type, $serializer, array $options = array()) {
+        if ($type == 'rabbit') {
+            $connection = new AMQPStreamConnection($options['host'], $options['port'], $options['user'], $options['pass'], $options['vhost']);
+            $channel = $connection->channel();
+
+            return new RabbitMQEventProcessor($channel, $options['event-queue'], $serializer);
+        }
+    }
 }
