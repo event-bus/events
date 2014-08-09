@@ -34,6 +34,8 @@ class Factory
                 $publisher->setEventPrefix('event-notify');
                 $processor->on('*', new RabbitMQEventStatusNotifier($publisher));
             }
+
+            return $processor;
         }
     }
 }
