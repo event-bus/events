@@ -51,6 +51,6 @@ class StandardDispatcher implements EventDispatcher, LoggerAwareInterface
         }
 
         $timer->stop();
-        $this->logger->info('Dispatch done in ' . $timer->getElapsed() . ' s.');
+        $this->logger->notice('Dispatch done in ' . $timer->getElapsed() . ' s.');
     }
 }
