@@ -56,9 +56,9 @@ class RabbitMQEventProcessor implements EventProcessor
             $dispatcher->dispatch($event);
 
             // Ack message
-            $msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);
+            $message->delivery_info['channel']->basic_ack($$message->delivery_info['delivery_tag']);
             // Unregister consumer (single message processing)
-            $msg->delivery_info['channel']->basic_cancel($msg->delivery_info['consumer_tag']);
+            $message->delivery_info['channel']->basic_cancel($message->delivery_info['consumer_tag']);
         };
 
         $this->channel->basic_consume($this->queue, '', false, false, false, false, $callback);
