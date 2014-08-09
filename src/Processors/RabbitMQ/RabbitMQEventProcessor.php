@@ -12,8 +12,9 @@ use Evaneos\Events\EventProcessor;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
+use Evaneos\Events\Processors\AbstractProcessor;
 
-class RabbitMQEventProcessor implements EventProcessor, LoggerAwareInterface
+class RabbitMQEventProcessor extends AbstractProcessor implements LoggerAwareInterface
 {
 
     /**
@@ -61,14 +62,33 @@ class RabbitMQEventProcessor implements EventProcessor, LoggerAwareInterface
 
     public function processNext(EventDispatcher $dispatcher)
     {
+        $self = $this;
         $serializer = $this->serializer;
         $channel = $this->channel;
         $logger = $this->logger;
 
-        $callback = function($message) use ($dispatcher, $serializer, $channel, $logger) {
+        $callback = $this->buildHandleMessageCallback($dispatcher);
 
+        $this->channel->basic_consume($this->queue, '', false, false, false, false, $callback);
+        $this->channel->wait();
+    }
+
+    private function buildHandleMessageCallback($dispatcher)
+    {
+        $self = $this;
+
+        return function($message) use ($self, $dispatcher) {
+            $self->handleMessage($message, $dispatcher);
+        };
+    }
+
+    public function handleMessage($message, $dispatcher)
+    {
+        $this->onProcessing($event);
+
+        try {
             $serializedEvent = $message->body;
-            $event = $serializer->deserialize($serializedEvent);
+            $event = $this->serializer->deserialize($serializedEvent);
 
             $this->logger->info('Processing event : ' . $event->getCategory());
             $this->logger->debug('Event data : ' . $serializedEvent);
@@ -77,9 +97,11 @@ class RabbitMQEventProcessor implements EventProcessor, LoggerAwareInterface
 
             // Unregister (process only one message at a time)
             $message->delivery_info['channel']->basic_ack($message->delivery_info['delivery_tag']);
-        };
+        }
+        catch (\Exception $ex) {
+            $this->onError($event, $ex);
+        }
 
-        $this->channel->basic_consume($this->queue, '', false, false, false, false, $callback);
-        $this->channel->wait();
+        $this->onProcessed($event);
     }
 }
