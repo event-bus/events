@@ -71,6 +71,7 @@ class RabbitMQEventProcessor implements EventProcessor, LoggerAwareInterface
             $event = $serializer->deserialize($serializedEvent);
 
             $this->logger->info('Processing event : ' . $event->getCategory());
+            $this->logger->debug('Event data : ' . $serializedEvent);
 
             $dispatcher->dispatch($event);
 
