@@ -7,7 +7,6 @@
       "Evaneos\\Events\\" : "src"
     }
   },
-  "minimum-stability": "dev",
   "require" : {
     "psr/log" : "~1.0",
     "rhumsaa/uuid" : "~2",
