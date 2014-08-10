@@ -52,7 +52,7 @@ class StandardDispatcher implements EventDispatcher, LoggerAwareInterface
                 }
             }
             catch (\Exception $ex) {
-                $this->error('Event dispatch error', array(
+                $this->logger->error('Event dispatch error', array(
                     'subscription-filter' => $subscription->getCategoryFilter(),
                     'subscriber_class' => get_called_class($subscription->getSubscriber()),
                     'message' => $ex->getMessage(),
