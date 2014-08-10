@@ -21,7 +21,7 @@ script:
   - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
 
 notifications:
-webhooks:
+  webhooks:
     urls:
       - http://satisio.us/repositories/buildhook/
     on_success: always
