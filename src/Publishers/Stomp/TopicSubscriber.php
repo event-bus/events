@@ -23,7 +23,7 @@ class TopicSubscriber implements EventSubscriber
     public function handle(Event $event)
     {
         $serialized = $this->serializer->serialize($event);
-
+        
         $this->topic->broadcast($serialized);
     }
 
@@ -31,5 +31,4 @@ class TopicSubscriber implements EventSubscriber
     {
         return true;
     }
-
 }

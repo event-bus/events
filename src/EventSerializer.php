@@ -17,14 +17,14 @@ class EventSerializer
         if (! array_key_exists($category, $this->serializationMap)) {
             throw new \OutOfBoundsException('Unknown serialization key : ' . $category);
         }
-
+        
         return $this->serializationMap[$category];
     }
 
     public function serialize(Event $object)
     {
         $serializer = $this->getSerializer($object->getCategory());
-
+        
         return $serializer->serialize($object);
     }
 
@@ -32,7 +32,7 @@ class EventSerializer
     {
         $deserialized = json_decode($serializedObject);
         $serializer = $this->getSerializer($deserialized->category);
-
+        
         return $serializer->deserialize($serializedObject);
     }
 }

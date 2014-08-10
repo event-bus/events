@@ -23,24 +23,24 @@ abstract class AbstractProcessor implements EventProcessor
         $this->dispatcher->addListener($name, $subscriber);
     }
 
-    protected function onError(Event $event, \Exception $ex)
+    protected function onError(Event $event,\Exception $ex)
     {
         $status = new StatusEvent(self::EVENT_ERROR, $event);
-
+        
         $this->raise($status);
     }
 
     protected function onProcessing(Event $event)
     {
         $status = new StatusEvent(self::EVENT_PROCESSING, $event);
-
+        
         $this->raise($status);
     }
 
     protected function onProcessed(Event $event)
     {
         $status = new StatusEvent(self::EVENT_PROCESSED, $event);
-
+        
         $this->raise($status);
     }
 
@@ -48,5 +48,4 @@ abstract class AbstractProcessor implements EventProcessor
     {
         $this->dispatcher->dispatch($event);
     }
-
 }

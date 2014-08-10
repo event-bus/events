@@ -50,9 +50,9 @@ class EventPublisher implements EventPublisher, WampServerInterface, LoggerAware
         if (array_key_exists($topic->getId(), $this->subscribedTopics)) {
             return;
         }
-
+        
         $this->logger->debug(sprintf('Registering topic subscription : "%s".', $topic->getId()));
-
+        
         $topicSub = new TopicSubscriber($topic, $this->serializer);
         $this->subscribedTopics[$topic->getId()] = new CategorySubscription($topic->getId(), $topicSub);
     }
@@ -73,7 +73,7 @@ class EventPublisher implements EventPublisher, WampServerInterface, LoggerAware
         if ($topic != 'auth.register') {
             $conn->callError($id, $topic, 'Invalid call detected.')->close();
         }
-
+        
         $token = $params[0];
     }
 
@@ -82,7 +82,7 @@ class EventPublisher implements EventPublisher, WampServerInterface, LoggerAware
         $conn->close();
     }
 
-    public function onError(ConnectionInterface $conn,\Exception $e)
+    public function onError(ConnectionInterface $conn, \Exception $e)
     {
         $this->logger->error($e->getMessage() . PHP_EOL . $e->getTraceAsString());
     }

@@ -36,12 +36,12 @@ class EventFactory
         if (self::$publisher !== null) {
             if (! (self::$publisher instanceof CompositePublisher)) {
                 $composite = new CompositePublisher();
-
+                
                 $composite->addPublisher(self::$publisher);
-
+                
                 self::$publisher = $composer;
             }
-
+            
             self::$publisher->addPublisher($publisher);
         }
         else {
@@ -52,15 +52,14 @@ class EventFactory
     public function getDispatcher()
     {
         self::initializeDispatcher(false);
-
+        
         return self::$dispatcher;
     }
 
     public function getPublisher()
     {
         self::initializeListener(false);
-
+        
         return self::$listener;
     }
-
 }

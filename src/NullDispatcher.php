@@ -1,4 +1,5 @@
 <?php
+
 namespace Evaneos\Events;
 
 class NullDispatcher implements EventDispatcher

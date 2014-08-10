@@ -35,17 +35,19 @@ class PDOEventPublisher implements EventPublisher
     public function publish(Event $event)
     {
         $query = $this->getQuery();
-
+        
         $data = $this->eventSerializer->serialize($event);
         $category = $event->getCategory();
-
+        
         $statement = $this->pdo->prepare($query);
-        $statement->execute(array(':category' => $category, ':data' => $data));
+        $statement->execute(array(
+            ':category' => $category,
+            ':data' => $data
+        ));
     }
 
     private function getQuery()
     {
-        return sprintf('INSERT INTO %s (%s, %s) VALUES (:category, :data)', $this->eventTable, $this->categoryColumn,
-            $this->dataColumn);
+        return sprintf('INSERT INTO %s (%s, %s) VALUES (:category, :data)', $this->eventTable, $this->categoryColumn, $this->dataColumn);
     }
 }

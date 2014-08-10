@@ -36,5 +36,4 @@ class PublishingSubscriber implements EventSubscriber
     {
         return $this->publisher->publish($event);
     }
-
 }

@@ -50,7 +50,7 @@ class RabbitMQEventProcessor extends AbstractProcessor implements LoggerAwareInt
     public function __construct(AMQPChannel $channel, $queue, EventSerializer $serializer)
     {
         parent::__construct();
-
+        
         $this->channel = $channel;
         $this->queue = $queue;
         $this->serializer = $serializer;
@@ -68,9 +68,9 @@ class RabbitMQEventProcessor extends AbstractProcessor implements LoggerAwareInt
         $serializer = $this->serializer;
         $channel = $this->channel;
         $logger = $this->logger;
-
+        
         $callback = $this->buildHandleMessageCallback($dispatcher);
-
+        
         $this->channel->basic_consume($this->queue, '', false, false, false, false, $callback);
         $this->channel->wait();
     }
@@ -78,8 +78,9 @@ class RabbitMQEventProcessor extends AbstractProcessor implements LoggerAwareInt
     private function buildHandleMessageCallback($dispatcher)
     {
         $self = $this;
-
-        return function($message) use ($self, $dispatcher) {
+        
+        return function ($message) use($self, $dispatcher)
+        {
             $self->handleMessage($message, $dispatcher);
         };
     }
@@ -89,21 +90,21 @@ class RabbitMQEventProcessor extends AbstractProcessor implements LoggerAwareInt
         try {
             $serializedEvent = $message->body;
             $event = $this->serializer->deserialize($serializedEvent);
-
+            
             $this->onProcessing($event);
-
+            
             $this->logger->info('Processing event : ' . $event->getCategory());
             $this->logger->debug('Event data : ' . $serializedEvent);
-
+            
             $dispatcher->dispatch($event);
-
+            
             // Unregister (process only one message at a time)
             $message->delivery_info['channel']->basic_ack($message->delivery_info['delivery_tag']);
         }
         catch (\Exception $ex) {
             $this->onError($event, $ex);
         }
-
+        
         $this->onProcessed($event);
     }
 }

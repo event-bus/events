@@ -27,5 +27,4 @@ class RabbitMQEventStatusNotifier implements EventSubscriber
     {
         $this->publisher->publish($event);
     }
-
 }

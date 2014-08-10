@@ -7,6 +7,7 @@ use Evaneos\Events\Queue\EventQueueManager;
 
 class SynchronousEventPublisher implements \Evaneos\Events\EventPublisher
 {
+
     /**
      *
      * @var \Evaneos\Events\EventDispatcher
@@ -30,7 +31,7 @@ class SynchronousEventPublisher implements \Evaneos\Events\EventPublisher
         if ($this->queueManager != null) {
             $this->queueManager->addToQueue($event);
         }
-
+        
         return $this->dispatcher->dispatch($event);
     }
 }

@@ -4,6 +4,7 @@ namespace Evaneos\Events;
 
 class CategorySubscription
 {
+
     /**
      *
      * @var string

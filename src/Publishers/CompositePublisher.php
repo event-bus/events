@@ -7,6 +7,7 @@ use Evaneos\Events\Event;
 
 class CompositePublisher implements EventPublisher
 {
+
     /**
      *
      * @var EventPublisher[]
@@ -34,10 +35,8 @@ class CompositePublisher implements EventPublisher
 
     public function publish(Event $event)
     {
-        foreach ($this->publishers as $publisher)
-        {
+        foreach ($this->publishers as $publisher) {
             $publisher->publish($event);
         }
     }
-
 }
