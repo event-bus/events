@@ -10,7 +10,7 @@ php:
 
 before_script:
   - composer selfupdate
-  - composer install -vv
+  - composer install -vvv
   - wget https://scrutinizer-ci.com/ocular.phar
 
 script: 
