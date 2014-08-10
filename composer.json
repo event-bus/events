@@ -2,15 +2,16 @@
   "name" : "evaneos/events",
   "description" : "Evaneos Event Library",
   "type" : "library",
-  "require" : {
-    "psr/log" : "~1.0",
-    "rhumsaa/uuid" : "~2",
-    "aztech/php-utils": "dev-master"
-  },
   "autoload" : {
     "psr-4" : {
       "Evaneos\\Events\\" : "src"
     }
+  },
+  "minimum-stability": "dev",
+  "require" : {
+    "psr/log" : "~1.0",
+    "rhumsaa/uuid" : "~2",
+    "aztech/php-utils": "dev-master"
   },
   "require-dev" : {
     "squizlabs/php_codesniffer" : "~1.5",
