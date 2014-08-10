@@ -9,6 +9,7 @@ use Aztech\Util\Timer\Timer;
 
 class StandardDispatcher implements EventDispatcher, LoggerAwareInterface
 {
+
     /**
      *
      * @var CategorySubscription[]
@@ -42,11 +43,21 @@ class StandardDispatcher implements EventDispatcher, LoggerAwareInterface
         $category = $event->getCategory();
 
         foreach ($this->subscriptions as $subscription) {
-            $hasMatch = $subscription->matches($category);
+            try {
+                $hasMatch = $subscription->matches($category);
 
-            if ($hasMatch && $subscription->getSubscriber()->supports($event)) {
-                $this->logger->debug('Dispatched to ' . get_class($subscription->getSubscriber()));
-                $subscription->getSubscriber()->handle($event);
+                if ($hasMatch && $subscription->getSubscriber()->supports($event)) {
+                    $this->logger->debug('Dispatched to ' . get_class($subscription->getSubscriber()));
+                    $subscription->getSubscriber()->handle($event);
+                }
+            }
+            catch (\Exception $ex) {
+                $this->error('Event dispatch error', array(
+                    'subscription-filter' => $subscription->getCategoryFilter(),
+                    'subscriber_class' => get_called_class($subscription->getSubscriber()),
+                    'message' => $ex->getMessage(),
+                    'trace' => $ex->getTraceAsString()
+                ));
             }
         }
 
