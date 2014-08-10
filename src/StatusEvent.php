@@ -2,7 +2,7 @@
 
 namespace Evaneos\Events;
 
-class StatusEvent implements Event
+class StatusEvent extends AbstractEvent
 {
 
     protected $name;
@@ -31,17 +31,5 @@ class StatusEvent implements Event
     public function getTime()
     {
         return $this->time;
-    }
-
-    public function getProperties()
-    {
-        return get_object_vars($this);
-    }
-
-    public function setProperties(array $properties)
-    {
-        foreach ($properties as $name => $value) {
-            $this->{$name} = $value;
-        }
     }
 }
