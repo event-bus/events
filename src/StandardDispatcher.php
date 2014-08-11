@@ -35,17 +35,17 @@ class StandardDispatcher implements EventDispatcher, LoggerAwareInterface
 
     public function dispatch(Event $event)
     {
+        $this->logger->info('Dispatching event category : ' . $event->getCategory());
+
         $timer = new Timer();
         $timer->start();
-        
-        $this->logger->info('Dispatching event category : ' . $event->getCategory());
-        
+
         $category = $event->getCategory();
-        
+
         foreach ($this->subscriptions as $subscription) {
             try {
                 $hasMatch = $subscription->matches($category);
-                
+
                 if ($hasMatch && $subscription->getSubscriber()->supports($event)) {
                     $this->logger->debug('Dispatched to ' . get_class($subscription->getSubscriber()));
                     $subscription->getSubscriber()->handle($event);
@@ -60,7 +60,7 @@ class StandardDispatcher implements EventDispatcher, LoggerAwareInterface
                 ));
             }
         }
-        
+
         $timer->stop();
         $this->logger->notice('Dispatch done in ' . $timer->getElapsed() . ' s.');
     }

@@ -13,8 +13,9 @@ use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Evaneos\Events\Processors\AbstractProcessor;
+use Rhumsaa\Uuid\Uuid;
 
-class RabbitMQEventProcessor extends AbstractProcessor implements LoggerAwareInterface
+class RabbitMQEventProcessor extends AbstractProcessor
 {
 
     /**
@@ -35,11 +36,6 @@ class RabbitMQEventProcessor extends AbstractProcessor implements LoggerAwareInt
      */
     private $queue;
 
-    /**
-     *
-     * @var LoggerInterface
-     */
-    private $logger;
 
     /**
      *
@@ -54,12 +50,6 @@ class RabbitMQEventProcessor extends AbstractProcessor implements LoggerAwareInt
         $this->channel = $channel;
         $this->queue = $queue;
         $this->serializer = $serializer;
-        $this->logger = new NullLogger();
-    }
-
-    public function setLogger(LoggerInterface $logger)
-    {
-        $this->logger = $logger;
     }
 
     public function processNext(EventDispatcher $dispatcher)
@@ -89,36 +79,69 @@ class RabbitMQEventProcessor extends AbstractProcessor implements LoggerAwareInt
     {
         try {
             if ($message->has('correlation_id')) {
-                $this->logger->debug('Handling message with correlation id "' . $message->get('correlation_id') . '"');
+                $correlationId = $message->get('correlation_id');
             }
+            else {
+                $key = $message->has('routing_key') ? $message->get('routing_key') : Uuid::uuid4();
+                $correlationId = 'local-' . Uuid::uuid5(Uuid::uuid4(), $key);
+            }
+
+            $this->logger->debug('[ "' . $correlationId . '" ] Handling message payload', array('payload' => $message->body));
 
             if ($message->body == 'QUIT') {
-                $this->onShutdown();
-
-                return;
+                return $this->handleQuitMessage($correlationId, $message);
             }
 
-            $serializedEvent = $message->body;
-            $event = $this->serializer->deserialize($serializedEvent);
+            $event = $this->serializer->deserialize($message->body);
 
             if (! $event) {
-                $this->logger->warning('Received invalid payload, ignoring message.', array('payload' => $message->body));
+                $this->handleInvalidMessage($correlationId, $message);
+            }
+            else {
+                $this->handleValidMessage($correlationId, $message, $event, $dispatcher);
             }
 
-            $this->onProcessing($event);
 
-            $this->logger->info('Processing event : ' . $event->getCategory());
-            $this->logger->debug('Event data : ' . $serializedEvent);
-
-            $dispatcher->dispatch($event);
-
-            // Unregister (process only one message at a time)
-            $message->delivery_info['channel']->basic_ack($message->delivery_info['delivery_tag']);
         }
         catch (\Exception $ex) {
             $this->onError($event, $ex);
         }
 
         $this->onProcessed($event);
+    }
+
+    public function handleQuitMessage($correlationId, $message)
+    {
+        $this->logger->debug('[ "' . $correlationId . '" ] Received shutdown message.');
+
+        $this->onShutdown();
+
+        $message->delivery_info['channel']->basic_ack($message->delivery_info['delivery_tag']);
+    }
+
+    public function handleInvalidMessage($correlationId, $message)
+    {
+        $this->logger->warning('[ "' . $correlationId . '" ] Received invalid payload, ignoring message.', array('payload' => $message->body));
+        $this->logger->warning('[ "' . $correlationId . '" ] Acknowledging invalid message to avoid redelivery.');
+
+        return $this->doMessageAck($correlationId, $message);
+    }
+
+    public function handleValidMessage($correlationId, $message, Event $event, $dispatcher)
+    {
+        $this->onProcessing($event);
+
+        $this->logger->info('[ "' . $correlationId . '" ] Dispatching event : ' . $event->getCategory());
+
+        $dispatcher->dispatch($event);
+
+        $this->doMessageAck($correlationId, $message);
+    }
+
+    public function doMessageAck($correlationId, $message)
+    {
+        $message->delivery_info['channel']->basic_ack($message->delivery_info['delivery_tag']);
+
+        $this->logger->info('[ "' . $correlationId . '" ] Acknowledged.');
     }
 }

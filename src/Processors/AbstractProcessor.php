@@ -7,19 +7,33 @@ use Evaneos\Events\Event;
 use Evaneos\Events\EventSubscriber;
 use Evaneos\Events\StandardDispatcher;
 use Evaneos\Events\StatusEvent;
+use Evaneos\Events\EventDispatcher;
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 
-abstract class AbstractProcessor implements EventProcessor
+abstract class AbstractProcessor implements EventProcessor, LoggerAwareInterface
 {
 
     protected $dispatcher;
 
+    protected $logger;
+
     public function __construct()
     {
         $this->dispatcher = new StandardDispatcher();
+        $this->setLogger(new NullLogger());
+    }
+
+    public function setLogger(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+        $this->dispatcher->setLogger($logger);
     }
 
     public function on($categoryFilter, EventSubscriber $subscriber)
     {
+        $this->logger->debug('Binding "' . get_class($subscriber) . '" instance to filter "' . $categoryFilter . '"');
         $this->dispatcher->addListener($categoryFilter, $subscriber);
     }
 
@@ -53,6 +67,7 @@ abstract class AbstractProcessor implements EventProcessor
 
     private function raise(Event $event)
     {
+        $this->logger->debug('Raising event : ' . $event->getCategory());
         $this->dispatcher->dispatch($event);
     }
 }
