@@ -26,6 +26,8 @@ abstract class AbstractProcessor implements EventProcessor
     protected function onShutdown()
     {
         $status = new StatusEvent(self::EVENT_NODE_STOP, null);
+
+        $this->raise($status);
     }
 
     protected function onError(Event $event,\Exception $ex)
