@@ -18,29 +18,34 @@ abstract class AbstractProcessor implements EventProcessor
         $this->dispatcher = new StandardDispatcher();
     }
 
-    public function on($name, EventSubscriber $subscriber)
+    public function on($categoryFilter, EventSubscriber $subscriber)
     {
-        $this->dispatcher->addListener($name, $subscriber);
+        $this->dispatcher->addListener($categoryFilter, $subscriber);
+    }
+
+    protected function onShutdown()
+    {
+        $status = new StatusEvent(self::EVENT_NODE_STOP, null);
     }
 
     protected function onError(Event $event,\Exception $ex)
     {
         $status = new StatusEvent(self::EVENT_ERROR, $event);
-        
+
         $this->raise($status);
     }
 
     protected function onProcessing(Event $event)
     {
         $status = new StatusEvent(self::EVENT_PROCESSING, $event);
-        
+
         $this->raise($status);
     }
 
     protected function onProcessed(Event $event)
     {
         $status = new StatusEvent(self::EVENT_PROCESSED, $event);
-        
+
         $this->raise($status);
     }
 

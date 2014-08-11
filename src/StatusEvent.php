@@ -11,7 +11,7 @@ class StatusEvent extends AbstractEvent
 
     protected $time;
 
-    public function __construct($name, Event $event)
+    public function __construct($name, Event $event = null)
     {
         $this->name = $name;
         $this->event = $event;

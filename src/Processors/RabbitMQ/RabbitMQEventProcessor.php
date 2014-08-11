@@ -92,6 +92,12 @@ class RabbitMQEventProcessor extends AbstractProcessor implements LoggerAwareInt
                 $this->logger->debug('Handling message with correlation id "' . $message->get('correlation_id') . '"');
             }
 
+            if ($message->body == 'QUIT') {
+                $this->onShutdown();
+
+                return;
+            }
+
             $serializedEvent = $message->body;
             $event = $this->serializer->deserialize($serializedEvent);
 
