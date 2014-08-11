@@ -101,6 +101,10 @@ class RabbitMQEventProcessor extends AbstractProcessor implements LoggerAwareInt
             $serializedEvent = $message->body;
             $event = $this->serializer->deserialize($serializedEvent);
 
+            if (! $event) {
+                $this->logger->warning('Received invalid payload, ignoring message.', array('payload' => $message->body));
+            }
+
             $this->onProcessing($event);
 
             $this->logger->info('Processing event : ' . $event->getCategory());
