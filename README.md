@@ -183,7 +183,7 @@ topic.* will match with topic.subtopic, but not with topic nor topic.subtopic.le
 
 There is also '#', which means 0 or more components :
 ```
-\# will match all possible topics. 
+# will match all possible topics. 
 topic.# will match topic, topic.subtopic, and topic.subtopic.leaf and any subtopic of topic no matter its nesting level
 topic.#.leaf will match topic.subtopic.leaf and topic.other.leaf and many others, but not topic.subtopic.other
 ```
