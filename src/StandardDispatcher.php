@@ -35,7 +35,7 @@ class StandardDispatcher implements EventDispatcher, LoggerAwareInterface
 
     public function dispatch(Event $event)
     {
-        $this->logger->info('Dispatching event category : ' . $event->getCategory());
+        $this->logger->info('[ "' . $event->getId() . '" ] Starting event dispatch to ' . count($this->subscriptions) . ' potential subscribers.');
 
         $timer = new Timer();
         $timer->start();
@@ -47,14 +47,20 @@ class StandardDispatcher implements EventDispatcher, LoggerAwareInterface
                 $hasMatch = $subscription->matches($category);
 
                 if ($hasMatch && $subscription->getSubscriber()->supports($event)) {
-                    $this->logger->debug('Dispatched to ' . get_class($subscription->getSubscriber()));
+                    $this->logger->debug('[ "' . $event->getId() . '" ] Dispatched to ' . get_class($subscription->getSubscriber()));
                     $subscription->getSubscriber()->handle($event);
+                }
+                elseif (! $hasMatch) {
+                    $this->logger->debug('[ "' . $event->getId() . '" ] No match for filter value "' . $subscription->getCategoryFilter() . '"');
+                }
+                else {
+                    $this->logger->debug('[ "' . $event->getId() . '" ] Validated match, but event was rejected by subscriber ' . get_class($subscription->getSubscriber()) . '.');
                 }
             }
             catch (\Exception $ex) {
-                $this->logger->error('Event dispatch error', array(
+                $this->logger->error('[ "' . $event->getId() . '" ] Event dispatch error', array(
                     'subscription-filter' => $subscription->getCategoryFilter(),
-                    'subscriber_class' => get_called_class($subscription->getSubscriber()),
+                    'subscriber_class' => get_class($subscription->getSubscriber()),
                     'message' => $ex->getMessage(),
                     'trace' => $ex->getTraceAsString()
                 ));
@@ -62,6 +68,6 @@ class StandardDispatcher implements EventDispatcher, LoggerAwareInterface
         }
 
         $timer->stop();
-        $this->logger->notice('Dispatch done in ' . $timer->getElapsed() . ' s.');
+        $this->logger->notice('[ "' . $event->getId() . '" ] Dispatch done in ' . $timer->getElapsed() . ' s.');
     }
 }

@@ -86,7 +86,7 @@ class RabbitMQEventProcessor extends AbstractProcessor
                 $correlationId = 'local-' . Uuid::uuid5(Uuid::uuid4(), $key);
             }
 
-            $this->logger->debug('[ "' . $correlationId . '" ] Handling message payload', array('payload' => $message->body));
+            $this->logger->debug('[ "' . $correlationId . '" ] Handling message payload : ' . $message->body);
 
             if ($message->body == 'QUIT') {
                 return $this->handleQuitMessage($correlationId, $message);
@@ -95,10 +95,10 @@ class RabbitMQEventProcessor extends AbstractProcessor
             $event = $this->serializer->deserialize($message->body);
 
             if (! $event) {
-                $this->handleInvalidMessage($correlationId, $message);
+                $this->handleInvalidMessage($event->getId(), $message);
             }
             else {
-                $this->handleValidMessage($correlationId, $message, $event, $dispatcher);
+                $this->handleValidMessage($message, $event, $dispatcher);
             }
 
 
@@ -127,15 +127,15 @@ class RabbitMQEventProcessor extends AbstractProcessor
         return $this->doMessageAck($correlationId, $message);
     }
 
-    public function handleValidMessage($correlationId, $message, Event $event, $dispatcher)
+    public function handleValidMessage($message, Event $event, $dispatcher)
     {
         $this->onProcessing($event);
 
-        $this->logger->info('[ "' . $correlationId . '" ] Dispatching event : ' . $event->getCategory());
+        $this->logger->info('[ "' . $event->getId() . '" ] Submitting event for dispatch.');
 
         $dispatcher->dispatch($event);
 
-        $this->doMessageAck($correlationId, $message);
+        $this->doMessageAck($event->getId(), $message);
     }
 
     public function doMessageAck($correlationId, $message)

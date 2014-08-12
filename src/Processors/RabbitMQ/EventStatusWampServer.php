@@ -11,4 +11,9 @@ class EventStatusWampServer
     {
         $this->processor = $processor;
     }
+
+    public function run()
+    {
+
+    }
 }

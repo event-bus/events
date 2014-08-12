@@ -67,7 +67,10 @@ abstract class AbstractProcessor implements EventProcessor, LoggerAwareInterface
 
     private function raise(Event $event)
     {
-        $this->logger->debug('Raising event : ' . $event->getCategory());
+        if ($event instanceof StatusEvent && $event->getEvent()) {
+            $this->logger->debug('[ "' . $event->getEvent()->getId() . '" ] Raising status event "' . $event->getId() . '"');
+        }
+
         $this->dispatcher->dispatch($event);
     }
 }

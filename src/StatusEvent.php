@@ -13,6 +13,8 @@ class StatusEvent extends AbstractEvent
 
     public function __construct($name, Event $event = null)
     {
+        parent::__construct();
+
         $this->name = $name;
         $this->event = $event;
         $this->time = microtime(true);
