@@ -4,9 +4,15 @@ namespace Evaneos\Events;
 
 use Evaneos\Events\Factory\RabbitMqFactory;
 use Evaneos\Events\Factory\WampFactory;
+use Evaneos\Events\Providers\Simple\SimpleEvent;
 
-class Factory
+class Events
 {
+
+    public static function create($name, array $properties = array())
+    {
+        return new SimpleEvent($name, $properties);
+    }
 
     public static function createAmqpFactory(Serializer $serializer = null)
     {

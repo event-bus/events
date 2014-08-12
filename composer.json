@@ -18,7 +18,8 @@
     "videlalvaro/php-amqplib" : "~2",
     "predis/predis" : "~1",
     "cboden/Ratchet":"dev-master",
-    "react/stomp":"dev-master"
+    "react/stomp":"dev-master",
+    "fusesource/stomp-php" : "2.0.*"
   },
   "suggest" : {
     "videlalvaro/php-amqplib" : "Allows usage of the RabbitMQ event publisher.",

@@ -25,6 +25,8 @@ abstract class AbstractProcessor implements EventProcessor, LoggerAwareInterface
         $this->setLogger(new NullLogger());
     }
 
+    public abstract function processNext(EventDispatcher $dispatcher);
+
     public function setLogger(LoggerInterface $logger)
     {
         $this->logger = $logger;

@@ -1,4 +1,6 @@
-**Table of Contents**
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
 
 - [evaneos/events](#evaneosevents)
     - [Build status](#build-status)
@@ -18,6 +20,8 @@
       - [Event publishing to WebSockets using the WAMP protocol](#event-publishing-to-websockets-using-the-wamp-protocol)
         - [Publishing](#publishing-2)
       - [Event matching rules](#event-matching-rules)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 # evaneos/events
 
@@ -72,9 +76,9 @@ For simplicity, there are factories available to create publishers and dispatche
 
 ```php
 
-$factory = \Evaneos\Events\Factory::createSimpleFactory();
+$factory = \Evaneos\Events\Events::createSimpleFactory();
 $publisher = $factory->createPublisher();
-$event = new \Evaneos\Events\SimpleEvent('category', array('property' => 'value'));
+$event = \Evaneos\Events\Events::create('category', array('property' => 'value'));
 
 $publisher->publish($event);
 ```
@@ -82,7 +86,7 @@ $publisher->publish($event);
 ##### Consuming
 
 ```php
-$factory = \Evaneos\Events\Factory::createSimpleFactory();
+$factory = \Evaneos\Events\Events::createSimpleFactory();
 $consumer = $factory->createConsumer($options);
 
 // Subscribe to all events using a wildcard filter
@@ -109,9 +113,9 @@ $options = array(
     'exchange' => 'exchangeName'
 );
 
-$factory = \Evaneos\Events\Factory::createAmqpFactory();
+$factory = \Evaneos\Events\Events::createAmqpFactory();
 $publisher = $factory->createPublisher($options);
-$event = new \Evaneos\Events\SimpleEvent('category', array('property' => 'value'));
+$event = new \Evaneos\Events\Events::create('category', array('property' => 'value'));
 
 $publisher->publish($event);
 ```
@@ -128,7 +132,7 @@ $options = array(
     'event-queue' => 'queueName'
 );
 
-$factory = \Evaneos\Events\Factory::createAmqpFactory();
+$factory = \Evaneos\Events\Events::createAmqpFactory();
 $consumer = $factory->createConsumer($options);
 
 // Subscribe to all events using a wildcard filter
@@ -158,7 +162,7 @@ The Wamp publisher does not create nor run a server or an event loop. Instead, t
 
 ```php
 // See below for $options definition
-$factory = \Evaneos\Events\Factory::createWampFactory();
+$factory = \Evaneos\Events\Events::createWampFactory();
 $publisher = $factory->createPublisher($options);
 
 // Create a loop and a listening socket
@@ -167,7 +171,7 @@ $loop = \React\EventLoop\Factory::create();
 // Use your loop to do some stuff, like... create or fetch events and publish them to the socket
 // Here, we're just sending sample messages every second
 $loop->addPeriodicTimer(1, function() use ($publisher) {
-    $event = new SimpleEvent('hello', array('time' => time());
+    $event = \Evaneos\Events\Events::create('hello', array('time' => time());
     $publisher->publish($event);
 });
 
