@@ -7,7 +7,7 @@ use Psr\Log\NullLogger;
 use Psr\Log\LoggerInterface;
 use Aztech\Util\Timer\Timer;
 
-class StandardDispatcher implements EventDispatcher, LoggerAwareInterface
+class SimpleDispatcher implements EventDispatcher, LoggerAwareInterface
 {
 
     /**

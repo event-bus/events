@@ -9,6 +9,10 @@ class EventSerializer
 
     public function bindSerializer($eventCategory, Serializer $serializer)
     {
+        if ($serializer === $this) {
+            throw new \InvalidArgumentException('Cannot bind to self, infinite recursion ahead.');
+        }
+
         $this->serializationMap[$eventCategory] = $serializer;
     }
 

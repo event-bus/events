@@ -5,7 +5,7 @@ namespace Evaneos\Events\Processors;
 use Evaneos\Events\EventProcessor;
 use Evaneos\Events\Event;
 use Evaneos\Events\EventSubscriber;
-use Evaneos\Events\StandardDispatcher;
+use Evaneos\Events\SimpleDispatcher;
 use Evaneos\Events\StatusEvent;
 use Evaneos\Events\EventDispatcher;
 use Psr\Log\LoggerAwareInterface;
@@ -21,7 +21,7 @@ abstract class AbstractProcessor implements EventProcessor, LoggerAwareInterface
 
     public function __construct()
     {
-        $this->dispatcher = new StandardDispatcher();
+        $this->dispatcher = new SimpleDispatcher();
         $this->setLogger(new NullLogger());
     }
 
@@ -31,8 +31,12 @@ abstract class AbstractProcessor implements EventProcessor, LoggerAwareInterface
         $this->dispatcher->setLogger($logger);
     }
 
-    public function on($categoryFilter, EventSubscriber $subscriber)
+    public function on($categoryFilter, $subscriber)
     {
+        if (! is_callable($subscriber) && ! ($subscriber instanceof EventSubscriber)) {
+            throw new \InvalidArgumentException('Subscriber must be a callback or an instance of EventSubscriber.');
+        }
+
         $this->logger->debug('Binding "' . get_class($subscriber) . '" instance to filter "' . $categoryFilter . '"');
         $this->dispatcher->addListener($categoryFilter, $subscriber);
     }

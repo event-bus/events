@@ -2,7 +2,7 @@
 
 namespace Evaneos\Events;
 
-class AbstractEventSerializer implements Serializer
+class SimpleEventSerializer implements Serializer
 {
 
     public function serialize($object)
