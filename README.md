@@ -79,7 +79,7 @@ $consumer = $factory->createConsumer($options);
 
 // Subscribe to all events using a wildcard filter
 $consumer->on('*', function (Event $event) {
-    echo 'Received a new event : " . $event->getCategory();
+    echo 'Received a new event : ' . $event->getCategory();
 });
 
 while (true) {
