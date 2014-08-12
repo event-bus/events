@@ -1,6 +1,6 @@
 <?php
 
-namespace Evaneos\Events\Publishers\Stomp;
+namespace Evaneos\Events\Publishers\Wamp;
 
 use Evaneos\Events\EventSubscriber;
 use Evaneos\Events\Serializer;
@@ -23,7 +23,7 @@ class TopicSubscriber implements EventSubscriber
     public function handle(Event $event)
     {
         $serialized = $this->serializer->serialize($event);
-        
+
         $this->topic->broadcast($serialized);
     }
 

@@ -45,7 +45,37 @@ If you want to consume published events, you will need to use a **processor**. A
 
 For simplicity, there are factories available to create publishers and dispatchers.
 
-#### Publishing an event
+#### Simple event publish/subscribe
+
+##### Publishing
+
+```php
+
+$factory = \Evaneos\Events\Factory::createSimpleFactory();
+$publisher = $factory->createPublisher();
+$event = new \Evaneos\Events\SimpleEvent('category', array('property' => 'value'));
+
+$publisher->publish($event);
+``̀
+
+##### Consuming
+
+$factory = \Evaneos\Events\Factory::createSimpleFactory();
+$consumer = $factory->createConsumer($options);
+
+// Subscribe to all events using a wildcard filter
+$consumer->on('*', function (Event $event) {
+    echo 'Received a new event : " . $event->getCategory();
+});
+
+while (true) {
+    $consumer->consumeNext();
+}
+
+
+#### Event publish/subscriber via an AMQP broker
+
+##### Publishing
 
 ```php
 $options = array(
@@ -53,7 +83,8 @@ $options = array(
     'port' => '5672',
     'user' => 'username',
     'pass' => 'password',
-    'vhost' => '/'
+    'vhost' => '/',
+    'exchange' => 'exchangeName'
 );
 
 $factory = \Evaneos\Events\Factory::createAmqpFactory();
@@ -63,7 +94,7 @@ $event = new \Evaneos\Events\SimpleEvent('category', array('property' => 'value'
 $publisher->publish($event);
 ```
 
-#### Consuming an event
+##### Consuming
 
 ```php
 $options = array(
@@ -71,7 +102,8 @@ $options = array(
     'port' => '5672',
     'user' => 'username',
     'pass' => 'password',
-    'vhost' => '/'
+    'vhost' => '/',
+    'event-queue' => 'queueName'
 );
 
 $factory = \Evaneos\Events\Factory::createAmqpFactory();
@@ -92,15 +124,4 @@ The `on` method accepts as a first argument a category filter expression. The in
 
 ##### Event matching "truth table"
 
-| Event category | Filter    | Matches  |
-| -------------- | --------- | -------- |
-| category       | category  | true     |
-| category       | other     | false    |
-| cat.sub        | category  | false    |
-| cat.sub        | cat       | false    |
-| cat.sub        | cat.*     | true     |
-| cat.sub        | *         | true     |
-| cat.sub        | *.sub     | true     |
-| cat.sub        | cat.sub   | true     |
-| cat.sub        | sub.*     | false    |
-| cat.sub        | \*.sub.*   | false    |
+To get check the latest truth table of event matching, please refer to the source of `Evaneos\Events\Tests\Unit\CategoryMatchTruthTable`.

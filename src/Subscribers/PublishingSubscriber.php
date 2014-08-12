@@ -20,7 +20,7 @@ class PublishingSubscriber implements EventSubscriber
 
     private $matcher;
 
-    public function __construct(EventPublisher $publisher, $constraint = '*')
+    public function __construct(EventPublisher $publisher, $constraint = '#')
     {
         $this->publisher = $publisher;
         $this->constraint = $constraint;

@@ -2,7 +2,8 @@
 
 namespace Evaneos\Events\Factory;
 
-class StompFactory implements Factory
+use Evaneos\Events\Publishers\Wamp\EventPublisher;
+class WampFactory implements Factory
 {
 
     public function createConsumer(array $options = array())
@@ -23,7 +24,7 @@ class StompFactory implements Factory
     public function createDispatcher(array $options = array())
     {
         $dispatcher = new SimpleDispatcher();
-        $publisher = new StompEventPublisher($this->serializer);
+        $publisher = new EventPublisher($this->serializer);
 
         $dispatcher->addListener('*', new PublishingSubscriber($publisher));
 

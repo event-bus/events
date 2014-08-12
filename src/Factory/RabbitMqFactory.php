@@ -11,6 +11,7 @@ use Evaneos\Events\SimpleDispatcher;
 use Evaneos\Events\Subscribers\PublishingSubscriber;
 use PhpAmqpLib\Connection\AMQPConnection;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
+use Evaneos\Events\SimpleConsumer;
 
 class RabbitMqFactory implements Factory
 {
@@ -56,7 +57,23 @@ class RabbitMqFactory implements Factory
         return new RabbitMQEventPublisher($channel, $options['exchange'], $this->serializer);
     }
 
+    public function createDispatcher(array $options = array())
+    {
+        $dispatcher = new SimpleDispatcher();
+        $publisher = new EventPublisher($this->serializer);
+
+        $dispatcher->addListener('*', new PublishingSubscriber($publisher));
+
+        return $dispatcher;
+    }
+
+
     public function createConsumer(array $options = array())
+    {
+        return new SimpleConsumer($this->createProcessor($options), $this->createDispatcher($options));
+    }
+
+    public function createProcessor(array $options = array())
     {
         $options = $this->validateOptions($options);
 
@@ -67,31 +84,13 @@ class RabbitMqFactory implements Factory
 
         if (isset($options['event-status-queue'])) {
             $options['event-queue'] = $options['event-status-queue'];
+            unset($options['event-status-queue']);
 
-            $publisher = self::createPublisher($type, $this->serializer, $options);
+            $publisher = $this->createPublisher($options);
+
             $processor->on('*', new RabbitMQEventStatusNotifier($publisher));
         }
-    }
 
-    public function createStatusProcessor(array $options = array())
-    {
-        $options = $this->validateOptions($options);
-
-        $connection = new AMQPStreamConnection($options['host'], $options['port'], $options['user'], $options['pass'], $options['vhost']);
-        $channel = $connection->channel();
-
-        $processor = new RabbitMQEventProcessor($channel, $options['event-status-queue'], $this->serializer);
-    }
-
-    public function createStompDispatcher()
-    {
-        $options = $this->validateOptions($options);
-
-        $dispatcher = new SimpleDispatcher();
-        $publisher = new StompEventPublisher($this->serializer);
-
-        $dispatcher->addListener('*', new PublishingSubscriber($publisher));
-
-        return $dispatcher;
+        return $processor;
     }
 }
