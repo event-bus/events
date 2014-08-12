@@ -133,24 +133,28 @@ requires Ratchet to create an async event loop that you can use to publish your 
 The Wamp publisher does not create nor run a server or an event loop. Instead, the provided publisher implements
 `Ratchet\Wamp\WampServerInterface` allowing to use the publisher to initialize a WampServer instance :
 
-```
+```php
 // See below for $options definition
 $factory = \Evaneos\Events\Factory::createWampFactory();
 $publisher = $factory->createPublisher($options);
 
 // Create a loop and a listening socket
 $loop = \React\EventLoop\Factory::create();
-$factory = new \React\Stomp\Factory($loop);
+
+// Use your loop to do some stuff, like... create or fetch events and publish them to the socket
+// Here, we're just sending sample messages every second
+$loop->addPeriodicTimer(1, function() use ($publisher) {
+    $event = new SimpleEvent('hello', array('time' => time());
+    $publisher->publish($event);
+});
+
+// Required to get a server running
 $socket = new \React\Socket\Server($loop);
 $socket->listen(8080, '127.0.0.1');
-
 $wampServer = new \Ratchet\Wamp\WampServer($publisher);
-// Required to get a server running
 $wsServer = new \Ratchet\WebSocket\WsServer($wampServer);
 $httpServer = new \Ratchet\Http\HttpServer($wsServer);
 $server = \Ratchet\Server\IoServer($httpServer, $socket, $loop);
-
-// Setup your loop to do some stuff, like... fetch events and publish them to the socket
 
 $server->run();
 ```
