@@ -65,7 +65,7 @@ $factory = \Evaneos\Events\Factory::createSimpleFactory();
 $consumer = $factory->createConsumer($options);
 
 // Subscribe to all events using a wildcard filter
-$consumer->on('*', function (Event $event) {
+$consumer->on('#', function (Event $event) {
     echo 'Received a new event : ' . $event->getCategory();
 });
 
@@ -111,7 +111,7 @@ $factory = \Evaneos\Events\Factory::createAmqpFactory();
 $consumer = $factory->createConsumer($options);
 
 // Subscribe to all events using a wildcard filter
-$consumer->on('*', function (Event $event) {
+$consumer->on('#', function (Event $event) {
     echo 'Received a new event : ' . $event->getCategory();
 });
 
@@ -161,6 +161,31 @@ $server = \Ratchet\Server\IoServer($httpServer, $socket, $loop);
 $server->run();
 ```
 
-#### Event matching "truth table"
+#### Event matching rules
+
+Event category matching actually follows the AMQP topic routing spec, which is quite flexible.
+
+Basically, a topic name must be composed of letters and/or numbers and dashes. Sub-topics can be 
+specified by using dots :
+
+```
+topic
+topic.subtopic
+topic.subtopic.leaf
+```
+**tl;dr** Use '#' to match absolutely anything.
+
+You can use '*' as a wildcard to match exactly one component in a topic :
+
+```
+topic.* will match with topic.subtopic, but not with topic nor topic.subtopic.leaf
+```
+
+There is also '#', which means 0 or more components :
+```
+\# will match all possible topics. 
+topic.# will match topic, topic.subtopic, and topic.subtopic.leaf and any subtopic of topic no matter its nesting level
+topic.#.leaf will match topic.subtopic.leaf and topic.other.leaf and many others, but not topic.subtopic.other
+```
 
 To get check the latest truth table of event matching, please refer to the source of `Evaneos\Events\Tests\Unit\CategoryMatchTruthTable`.
