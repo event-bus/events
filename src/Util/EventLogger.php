@@ -25,5 +25,4 @@ class EventLogger extends AbstractLogger
 
         return $this->logger->log($level, $prefix . $message, $context);
     }
-
 }
