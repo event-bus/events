@@ -1,6 +1,6 @@
 <?php
 
-namespace Evaneos\Events;
+namespace Evaneos\Events\Providers\Simple;
 
 class SimpleEvent extends AbstractEvent
 {

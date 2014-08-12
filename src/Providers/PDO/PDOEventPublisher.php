@@ -1,6 +1,6 @@
 <?php
 
-namespace Evaneos\Events\Publishers\PDO;
+namespace Evaneos\Events\Providers\PDO;
 
 use Evaneos\Events\EventPublisher;
 use Evaneos\Events\Event;
@@ -35,10 +35,10 @@ class PDOEventPublisher implements EventPublisher
     public function publish(Event $event)
     {
         $query = $this->getQuery();
-        
+
         $data = $this->eventSerializer->serialize($event);
         $category = $event->getCategory();
-        
+
         $statement = $this->pdo->prepare($query);
         $statement->execute(array(
             ':category' => $category,

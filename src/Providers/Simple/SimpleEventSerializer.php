@@ -1,6 +1,6 @@
 <?php
 
-namespace Evaneos\Events;
+namespace Evaneos\Events\Providers\Simple;
 
 class SimpleEventSerializer implements Serializer
 {

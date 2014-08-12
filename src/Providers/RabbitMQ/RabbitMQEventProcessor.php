@@ -1,6 +1,6 @@
 <?php
 
-namespace Evaneos\Events\Processors\RabbitMQ;
+namespace Evaneos\Events\Providers\RabbitMQ;
 
 use Evaneos\Events\Event;
 use Evaneos\Events\EventSerializer;
@@ -12,8 +12,8 @@ use Evaneos\Events\EventProcessor;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
-use Evaneos\Events\Processors\AbstractProcessor;
 use Rhumsaa\Uuid\Uuid;
+use Evaneos\Events\AbstractProcessor;
 
 class RabbitMQEventProcessor extends AbstractProcessor
 {

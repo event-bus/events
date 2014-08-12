@@ -1,6 +1,6 @@
 <?php
 
-namespace Evaneos\Events;
+namespace Evaneos\Events\Providers\Simple;
 
 class NullDispatcher implements EventDispatcher
 {
@@ -14,14 +14,11 @@ class NullDispatcher implements EventDispatcher
 
     public function addListener($category, EventSubscriber $subscriber)
     {
-        // Do nothing ! As my name implies....
+        // Do nothing
     }
 
     public function dispatch(Event $event)
     {
-        // Do... guess ? Nothing ! Ok, maybe just mention we got an event...
-        if ($this->verbose) {
-            echo 'Got an event : ' . $event->getCategory() . ', yeah !', PHP_EOL;
-        }
+        // Do nothing
     }
 }

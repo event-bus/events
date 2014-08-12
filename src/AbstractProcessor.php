@@ -1,6 +1,6 @@
 <?php
 
-namespace Evaneos\Events\Processors;
+namespace Evaneos\Events;
 
 use Evaneos\Events\EventProcessor;
 use Evaneos\Events\Event;

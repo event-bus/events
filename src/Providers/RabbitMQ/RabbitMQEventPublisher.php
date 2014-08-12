@@ -1,6 +1,6 @@
 <?php
 
-namespace Evaneos\Events\Publishers\RabbitMQ;
+namespace Evaneos\Events\Providers\RabbitMQ;
 
 use Evaneos\Events\EventPublisher;
 use Evaneos\Events\Event;

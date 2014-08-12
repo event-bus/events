@@ -1,10 +1,9 @@
 <?php
 
-namespace Evaneos\Events\Processors\PDO;
+namespace Evaneos\Events\Providers\PDO;
 
-use Evaneos\Events\EventProcessor;
 use Evaneos\Events\EventDispatcher;
-use Evaneos\Events\Processors\AbstractProcessor;
+use Evaneos\Events\AbstractProcessor;
 
 class PDOEventProcessor extends AbstractProcessor
 {

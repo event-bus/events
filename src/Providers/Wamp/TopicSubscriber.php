@@ -1,6 +1,6 @@
 <?php
 
-namespace Evaneos\Events\Publishers\Wamp;
+namespace Evaneos\Events\Providers\Wamp;
 
 use Evaneos\Events\EventSubscriber;
 use Evaneos\Events\Serializer;

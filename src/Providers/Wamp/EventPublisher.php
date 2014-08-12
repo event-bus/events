@@ -1,6 +1,6 @@
 <?php
 
-namespace Evaneos\Events\Publishers\Wamp;
+namespace Evaneos\Events\Providers\Wamp;
 
 use Evaneos\Events\EventPublisher;
 use Ratchet\Wamp\WampServerInterface;
