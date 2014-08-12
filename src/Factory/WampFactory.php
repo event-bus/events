@@ -3,6 +3,7 @@
 namespace Evaneos\Events\Factory;
 
 use Evaneos\Events\Publishers\Wamp\EventPublisher;
+
 class WampFactory implements Factory
 {
 

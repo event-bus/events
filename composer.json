@@ -16,7 +16,7 @@
     "phpunit/phpunit":"~4.2",
     "squizlabs/php_codesniffer" : "~1.5",
     "videlalvaro/php-amqplib" : "~2",
-    "predis/predis" : "~0.8",
+    "predis/predis" : "~1",
     "cboden/Ratchet":"dev-master",
     "react/stomp":"dev-master"
   },

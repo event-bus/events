@@ -123,6 +123,64 @@ while (true) {
 
 The `on` method accepts as a first argument a category filter expression. The internal matching engine evaluates matches on a first-match-wins basis, and accepts wildcards.
 
+#### Event publishing to WebSockets using the WAMP protocol
+
+**Important points** 
+
+Only publishing to a WebSocket is implemented for the time being. Publishing to a WebSocket requires
+requires Ratchet to create an async event loop that you can use to publish your events.
+
+The Wamp publisher does not create nor run a server or an event loop. Instead, the provided publisher implements
+`Ratchet\Wamp\WampServerInterface` allowing to use the publisher to initialize a WampServer instance :
+
+```
+// See below for $options definition
+$factory = \Evaneos\Events\Factory::createWampFactory();
+$publisher = $factory->createPublisher($options);
+
+// Create a loop and a listening socket
+$loop = \React\EventLoop\Factory::create();
+$factory = new \React\Stomp\Factory($loop);
+$socket = new \React\Socket\Server($loop);
+$socket->listen(8080, '127.0.0.1');
+
+$wampServer = new \Ratchet\Wamp\WampServer($publisher);
+// Required to get a server running
+$wsServer = new \Ratchet\WebSocket\WsServer($wampServer);
+$httpServer = new \Ratchet\Http\HttpServer($wsServer);
+$server = \Ratchet\Server\IoServer($httpServer, $socket, $loop);
+
+// Setup your loop to do some stuff, like... fetch events and publish them to the socket
+
+$server->run();
+```
+
+##### Publishing
+
+```php
+$options = array(
+    'host' => '127.0.0.1',
+    'port' => '5672',
+    'user' => 'username',
+    'pass' => 'password',
+    'vhost' => '/',
+    'event-queue' => 'queueName'
+);
+
+$factory = \Evaneos\Events\Factory::createAmqpFactory();
+$consumer = $factory->createConsumer($options);
+
+// Subscribe to all events using a wildcard filter
+$consumer->on('*', function (Event $event) {
+    echo 'Received a new event : ' . $event->getCategory();
+});
+
+while (true) {
+    $consumer->consumeNext();
+}
+
+```
+
 ##### Event matching "truth table"
 
 To get check the latest truth table of event matching, please refer to the source of `Evaneos\Events\Tests\Unit\CategoryMatchTruthTable`.
