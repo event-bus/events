@@ -131,7 +131,9 @@ Only publishing to a WebSocket is implemented for the time being. Publishing to 
 requires Ratchet to create an async event loop that you can use to publish your events.
 
 The Wamp publisher does not create nor run a server or an event loop. Instead, the provided publisher implements
-`Ratchet\Wamp\WampServerInterface` allowing to use the publisher to initialize a WampServer instance :
+`Ratchet\Wamp\WampServerInterface` allowing to use the publisher to initialize a WampServer instance.
+
+##### Publishing
 
 ```php
 // See below for $options definition
@@ -159,32 +161,6 @@ $server = \Ratchet\Server\IoServer($httpServer, $socket, $loop);
 $server->run();
 ```
 
-##### Publishing
-
-```php
-$options = array(
-    'host' => '127.0.0.1',
-    'port' => '5672',
-    'user' => 'username',
-    'pass' => 'password',
-    'vhost' => '/',
-    'event-queue' => 'queueName'
-);
-
-$factory = \Evaneos\Events\Factory::createAmqpFactory();
-$consumer = $factory->createConsumer($options);
-
-// Subscribe to all events using a wildcard filter
-$consumer->on('*', function (Event $event) {
-    echo 'Received a new event : ' . $event->getCategory();
-});
-
-while (true) {
-    $consumer->consumeNext();
-}
-
-```
-
-##### Event matching "truth table"
+#### Event matching "truth table"
 
 To get check the latest truth table of event matching, please refer to the source of `Evaneos\Events\Tests\Unit\CategoryMatchTruthTable`.
