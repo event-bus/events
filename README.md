@@ -1,3 +1,24 @@
+**Table of Contents**
+
+- [evaneos/events](#evaneosevents)
+    - [Build status](#build-status)
+    - [Stability](#stability)
+  - [Simple event lib](#simple-event-lib)
+    - [Installation](#installation)
+      - [Via Composer](#via-composer)
+    - [Autoloading](#autoloading)
+    - [Concepts](#concepts)
+    - [Usage](#usage)
+      - [Simple event publish/subscribe](#simple-event-publishsubscribe)
+        - [Publishing](#publishing)
+        - [Consuming](#consuming)
+      - [Event publish/subscriber via an AMQP broker](#event-publishsubscriber-via-an-amqp-broker)
+        - [Publishing](#publishing-1)
+        - [Consuming](#consuming-1)
+      - [Event publishing to WebSockets using the WAMP protocol](#event-publishing-to-websockets-using-the-wamp-protocol)
+        - [Publishing](#publishing-2)
+      - [Event matching rules](#event-matching-rules)
+
 # evaneos/events
 
 
