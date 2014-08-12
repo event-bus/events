@@ -56,10 +56,11 @@ $publisher = $factory->createPublisher();
 $event = new \Evaneos\Events\SimpleEvent('category', array('property' => 'value'));
 
 $publisher->publish($event);
-``̀
+```
 
 ##### Consuming
 
+```php
 $factory = \Evaneos\Events\Factory::createSimpleFactory();
 $consumer = $factory->createConsumer($options);
 
@@ -71,7 +72,7 @@ $consumer->on('*', function (Event $event) {
 while (true) {
     $consumer->consumeNext();
 }
-
+```
 
 #### Event publish/subscriber via an AMQP broker
 
