@@ -9,4 +9,6 @@ interface Factory {
     function createDispatcher(array $options = array());
 
     function createProcessor(array $options = array());
+
+    function createConsumer(array $options = array());
 }

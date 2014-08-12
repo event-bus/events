@@ -2,22 +2,22 @@
 
 namespace Evaneos\Events\Factory;
 
+use Evaneos\Events\EventSerializer;
 use Evaneos\Events\Publishers\RabbitMQ\RabbitMQEventPublisher;
-use PhpAmqpLib\Connection\AMQPConnection;
-use PhpAmqpLib\Connection\AMQPStreamConnection;
+use Evaneos\Events\Publishers\Stomp\EventPublisher as StompEventPublisher;
 use Evaneos\Events\Processors\RabbitMQ\RabbitMQEventProcessor;
 use Evaneos\Events\Processors\RabbitMQ\RabbitMQEventStatusNotifier;
 use Evaneos\Events\SimpleDispatcher;
 use Evaneos\Events\Subscribers\PublishingSubscriber;
-use Evaneos\Events\Publishers\Stomp\EventPublisher as StompEventPublisher;
-use Evaneos\Events\Serializer;
+use PhpAmqpLib\Connection\AMQPConnection;
+use PhpAmqpLib\Connection\AMQPStreamConnection;
 
-class RabbitMqFactory
+class RabbitMqFactory implements Factory
 {
 
     private $serializer;
 
-    public function __construct(Serializer $serializer)
+    public function __construct(EventSerializer $serializer)
     {
         $this->serializer = $serializer;
     }

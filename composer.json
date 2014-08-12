@@ -13,6 +13,7 @@
     "aztech/php-utils": "dev-master"
   },
   "require-dev" : {
+    "phpunit/phpunit":"~4.2",
     "squizlabs/php_codesniffer" : "~1.5",
     "videlalvaro/php-amqplib" : "~2",
     "predis/predis" : "~0.8",
@@ -29,9 +30,7 @@
   },
   "extra": {
      "branch-alias": {
-          "dev-master": "0.3.x-dev",
-          "dev-master": "latest-unstable",
-          "0.2": "latest-stable"
+          "dev-master": "0.3.x-dev"
         }
     }
 }
