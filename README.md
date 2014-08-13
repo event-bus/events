@@ -50,8 +50,16 @@ require_once 'vendor/autoload.php';
 
 ### Concepts
 
-In *evaneos/events*, the event dispatch process is split in two separate processes, **publishing** (or emitting events), and **dispatching** (submitting the event to the 
-relevant **subscribers**). This pattern simplifies "out-of-process" event processing by allowing asynchronous transports to be used.
+In *evaneos/events*, unlike other PHP event libraries, the event dispatch process is split in two separate processes, **publishing** (or emitting events), and **dispatching** (submitting the event to the 
+relevant **subscribers**). This pattern simplifies "out-of-process" event processing by allowing asynchronous transports to be used. This means you can publish and dispatch events using the following transports :
+
+    * Memory (tested)
+    * Database via PDO (untested)
+    * AMQP (tested)
+    * STOMP (untested)
+    * Redis (untested)
+    
+**TODO** : Test the untested transports
 
 If you want to create and publish events, you will need to use a **publisher**. Currently, the library provides native support for publishing events to AMQP-compatible message queues and synchronous event publishing.
 
@@ -60,6 +68,8 @@ If you want to consume published events, you will need to use a **processor**. A
 ### Usage
 
 For simplicity, there are factories available to create publishers and dispatchers.
+
+Listed below are examples for some of the providers. The full documentation is available [here](./doc/providers.md).
 
 #### Simple event publish/subscribe
 
