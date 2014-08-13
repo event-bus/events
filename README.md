@@ -1,3 +1,5 @@
+# evaneos/events
+
 **Table of Contents**
 
 - [Installation](#installation)
@@ -14,10 +16,6 @@
     - [Event publishing to WebSockets using the WAMP protocol](#event-publishing-to-websockets-using-the-wamp-protocol)
       - [Publishing](#publishing-2)
     - [Event matching rules](#event-matching-rules)
-
-
-# evaneos/events
-
 
 ### Build status
 
