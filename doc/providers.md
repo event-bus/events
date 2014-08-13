@@ -26,7 +26,7 @@ REQUIRE VIA COMPOSER THE PROVIDER'S DEPENDENCIES WHEN NEEDED.**
 
 include __DIR__ . '/vendor/autoload.php';
 
-$factory = \Evaneos\Events\Events::createSimpleFactory();
+$factory = \Aztech\Events\Events::createSimpleFactory();
 $publisher = $factory->createPublisher();
 
 // ...
@@ -49,7 +49,7 @@ $publisher = $factory->createPublisher();
 
 include __DIR__ . '/vendor/autoload.php';
 
-$factory = \Evaneos\Events\Events::createAmqpFactory();
+$factory = \Aztech\Events\Events::createAmqpFactory();
 $publisher = $factory->createPublisher();
 
 // ...
@@ -71,7 +71,7 @@ $publisher = $factory->createPublisher();
 
 include __DIR__ . '/vendor/autoload.php';
 
-$factory = \Evaneos\Events\Events::createWampFactory();
+$factory = \Aztech\Events\Events::createWampFactory();
 $publisher = $factory->createPublisher();
 
 // ...
@@ -94,7 +94,7 @@ $publisher = $factory->createPublisher();
 
 include __DIR__ . '/vendor/autoload.php';
 
-$factory = \Evaneos\Events\Events::createStompFactory();
+$factory = \Aztech\Events\Events::createStompFactory();
 $publisher = $factory->createPublisher();
 
 // ...
@@ -119,7 +119,7 @@ $publisher = $factory->createPublisher();
 
 include __DIR__ . '/vendor/autoload.php';
 
-$factory = \Evaneos\Events\Events::createPdoFactory();
+$factory = \Aztech\Events\Events::createPdoFactory();
 $publisher = $factory->createPublisher();
 
 // ...
@@ -142,7 +142,7 @@ $publisher = $factory->createPublisher();
 
 include __DIR__ . '/vendor/autoload.php';
 
-$factory = \Evaneos\Events\Events::createRedisFactory();
+$factory = \Aztech\Events\Events::createRedisFactory();
 $publisher = $factory->createPublisher();
 
 // ...

@@ -1,10 +1,10 @@
 {
-  "name" : "evaneos/events",
-  "description" : "Evaneos Event Library",
+  "name" : "aztech/events",
+  "description" : "PHP Event Library with AMQP, WAMP, Stomp, Redis, PDO, ... support",
   "type" : "library",
   "autoload" : {
     "psr-4" : {
-      "Evaneos\\Events\\" : "src"
+      "Aztech\\Events\\" : "src"
     }
   },
   "require" : {
@@ -19,9 +19,12 @@
     "predis/predis" : "~1",
     "cboden/Ratchet":"dev-master",
     "react/stomp":"dev-master",
-    "fusesource/stomp-php" : "2.0.*"
+    "fusesource/stomp-php" : "~2",
+    "centraldesktop/protobuf-php": "~0.5",
+    "mixpanel/mixpanel-php": "~2"
   },
   "suggest" : {
+    "centraldesktop/protobuf-php": "To use Protocol Buffers serialization",
     "videlalvaro/php-amqplib" : "Allows usage of the RabbitMQ event publisher.",
     "predis/predis" : "Allows usage of the Redis event publisher.",
     "ext-mysql" : "Allows usage of the PDO event publisher with MySQL",
@@ -31,7 +34,7 @@
   },
   "extra": {
      "branch-alias": {
-          "dev-master": "0.3.x-dev"
+          "dev-master": "1.0.x-dev"
         }
     }
 }

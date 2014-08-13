@@ -1,10 +1,10 @@
 <?php
 
-namespace Evaneos\Events\Util;
+namespace Aztech\Events\Util;
 
 use Psr\Log\LoggerInterface;
 use Psr\Log\AbstractLogger;
-use Evaneos\Events\Event;
+use Aztech\Events\Event;
 
 class EventLogger extends AbstractLogger
 {

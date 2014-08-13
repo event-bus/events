@@ -1,8 +1,9 @@
 <?php
 
-namespace Evaneos\Events\Tests;
+namespace Aztech\Events\Tests;
 
-use Evaneos\Events\EventSerializer;
+use Aztech\Events\EventSerializer;
+use Aztech\Events\Core\Serializer;
 
 class EventSerializerTest extends \PHPUnit_Framework_TestCase
 {
@@ -24,12 +25,12 @@ class EventSerializerTest extends \PHPUnit_Framework_TestCase
             return json_encode($obj);
         };
 
-        $this->event = $this->getMock('\Evaneos\Events\Event');
+        $this->event = $this->getMock('\Aztech\Events\Event');
         $this->event->expects($this->any())
             ->method('getCategory')
             ->will($this->returnValue('test'));
 
-        $this->serializer = $this->getMock('\Evaneos\Events\Serializer');
+        $this->serializer = $this->getMock('\Aztech\Events\Serializer');
 
         $this->serializer->expects($this->any())
             ->method('serialize')
@@ -39,7 +40,7 @@ class EventSerializerTest extends \PHPUnit_Framework_TestCase
             ->method('deserialize')
             ->will($this->returnValue($this->event));
 
-        $this->eventSerializer = new EventSerializer();
+        $this->eventSerializer = new Serializer();
         $this->eventSerializer->bindSerializer('test', $this->serializer);
     }
 
@@ -48,14 +49,14 @@ class EventSerializerTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetUnboundCategorySerializerThrowsException()
     {
-        $serializer = new EventSerializer();
+        $serializer = new Serializer();
 
         $serializer->getSerializer('test');
     }
 
     public function testGetBoundCategorySerializerReturnsCorrectSerializer()
     {
-        $serializer = new EventSerializer();
+        $serializer = new Serializer();
         $serializer->bindSerializer('test', $this->serializer);
 
         $this->assertSame($this->serializer, $serializer->getSerializer('test'));
@@ -66,7 +67,7 @@ class EventSerializerTest extends \PHPUnit_Framework_TestCase
      */
     public function testSerializingUnboundCategoryThrowsException()
     {
-        $serializer = new EventSerializer();
+        $serializer = new Serializer();
 
         $serializer->serialize($this->event);
     }
@@ -77,7 +78,7 @@ class EventSerializerTest extends \PHPUnit_Framework_TestCase
      */
     public function testDeserializingUnboundCategoryThrowsException()
     {
-        $serializer = new EventSerializer();
+        $serializer = new Serializer();
 
         $serializer->deserialize($this->serializer->serialize($this->event));
     }

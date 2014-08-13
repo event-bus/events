@@ -1,6 +1,6 @@
 <?php
 
-use Evaneos\Events\Util\Trie\Trie;
+use Aztech\Events\Util\Trie\Trie;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 

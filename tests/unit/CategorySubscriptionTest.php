@@ -1,8 +1,8 @@
 <?php
 
-namespace Evaneos\Events\Tests;
+namespace Aztech\Events\Tests;
 
-use Evaneos\Events\CategorySubscription;
+use Aztech\Events\Core\CategorySubscription;
 class CategorySubscriptionTest extends \PHPUnit_Framework_TestCase
 {
 
@@ -18,7 +18,7 @@ class CategorySubscriptionTest extends \PHPUnit_Framework_TestCase
     public function testParametersAreCorrectlyAssigned()
     {
         $categoryFilter = '*';
-        $subscriber = $this->getMock('\Evaneos\Events\EventSubscriber');
+        $subscriber = $this->getMock('\Aztech\Events\Subscriber');
         $subscription = new CategorySubscription($categoryFilter, $subscriber);
 
         $this->assertEquals($categoryFilter, $subscription->getCategoryFilter());
@@ -37,7 +37,7 @@ class CategorySubscriptionTest extends \PHPUnit_Framework_TestCase
      */
     public function testCategoryAreCorrectlyMatched($category, $filter, $expected)
     {
-        $subscriber = $this->getMock('\Evaneos\Events\EventSubscriber');
+        $subscriber = $this->getMock('\Aztech\Events\Subscriber');
         $subscription = new CategorySubscription($filter, $subscriber);
 
         $this->assertEquals($expected, $subscription->matches($category));

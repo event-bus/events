@@ -51,13 +51,22 @@ require_once 'vendor/autoload.php';
 ### Concepts
 
 In *evaneos/events*, unlike other PHP event libraries, the event dispatch process is split in two separate processes, **publishing** (or emitting events), and **dispatching** (submitting the event to the 
-relevant **subscribers**). This pattern simplifies "out-of-process" event processing by allowing asynchronous transports to be used. This means you can publish and dispatch events using the following transports :
+relevant **subscribers**). This pattern simplifies "out-of-process" event processing by allowing asynchronous transports to be used. Instead of directly dispatching an event to listeners, it is first serialized
+and pushed to a queue of any kind via a Transport class. On the other end of the queue, you can attach a processor which will use a Transport also, but this time to deserialize the event data and dispatch it
+to listeners. This architecture makes it simple to add new transports, and the library already includes a set of transports.
 
-    * Memory (tested)
-    * Database via PDO (untested)
-    * AMQP (tested)
-    * STOMP (untested)
-    * Redis (untested)
+This means you can publish and dispatch events using the following methods :
+
+    * In process (tested)
+    * Out-of-process
+      * Database via PDO (untested)
+      * AMQP (tested)
+      * STOMP (untested)
+      * Wamp (publish only, partially tested)
+      * Redis (untested)
+      * Mixpanel (publish only, untested)
+      * File (tested)
+      * And more to come...
     
 **TODO** : Test the untested transports
 
@@ -71,13 +80,11 @@ For simplicity, there are factories available to create publishers and dispatche
 
 Listed below are examples for some of the providers. The full documentation is available [here](./doc/providers.md).
 
-#### Simple event publish/subscribe
-
-##### Publishing
+#### In process publish/subscribe
 
 ```php
 
-$factory = \Evaneos\Events\Events::createSimpleFactory();
+$factory = \Evaneos\Events\Events::createInProcessPublisher();
 $publisher = $factory->createPublisher();
 $event = \Evaneos\Events\Events::create('category', array('property' => 'value'));
 

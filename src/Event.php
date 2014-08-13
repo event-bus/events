@@ -1,6 +1,6 @@
 <?php
 
-namespace Evaneos\Events;
+namespace Aztech\Events;
 
 interface Event
 {

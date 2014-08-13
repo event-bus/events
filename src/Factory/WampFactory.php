@@ -1,11 +1,19 @@
 <?php
 
-namespace Evaneos\Events\Factory;
+namespace Aztech\Events\Factory;
 
-use Evaneos\Events\Publishers\Wamp\EventPublisher;
+use Aztech\Events\Publishers\Wamp\EventPublisher;
+use Aztech\Events\Serializer;
 
 class WampFactory implements Factory
 {
+
+    private $serializer;
+
+    public function __construct(Serializer $serializer)
+    {
+        $this->serializer = $serializer;
+    }
 
     public function createConsumer(array $options = array())
     {
@@ -19,7 +27,7 @@ class WampFactory implements Factory
 
     public function createPublisher(array $options = array())
     {
-        throw new \BadMethodCallException();
+        return new \Aztech\Events\Providers\Wamp\EventPublisher($this->serializer);
     }
 
     public function createDispatcher(array $options = array())

@@ -1,6 +1,6 @@
 <?php
 
-namespace Evaneos\Events\Tests;
+namespace Aztech\Events\Tests;
 
 class CategoryMatchTruthTable
 {

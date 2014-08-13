@@ -1,8 +1,10 @@
 <?php
 
-namespace Evaneos\Events\Tests\Publishers\RabbitMQ;
+namespace Aztech\Events\Tests\Publishers\RabbitMQ;
 
-use Evaneos\Events\Publishers\RabbitMQ\RabbitMQEventPublisher;
+use Aztech\Events\Publishers\RabbitMQ\RabbitMQEventPublisher;
+use Aztech\Events\Plugins\Amqp\Transport;
+use Aztech\Events\Core\Publisher\TransportPublisher;
 class RabbitMQEventPublisherTest extends \PHPUnit_Framework_TestCase
 {
 
@@ -12,7 +14,7 @@ class RabbitMQEventPublisherTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->serializer = $this->getMockBuilder('\Evaneos\Events\EventSerializer')
+        $this->serializer = $this->getMockBuilder('\Aztech\Events\Serializer')
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -24,7 +26,7 @@ class RabbitMQEventPublisherTest extends \PHPUnit_Framework_TestCase
 
     public function testEventIsPublishedToQueue()
     {
-        $event = $this->getMock('\Evaneos\Events\Event');
+        $event = $this->getMock('\Aztech\Events\Event');
         $event->expects($this->atLeastOnce())
             ->method('getCategory')
             ->will($this->returnValue('event.category'));
@@ -37,7 +39,8 @@ class RabbitMQEventPublisherTest extends \PHPUnit_Framework_TestCase
             ->method('serialize')
             ->will($this->returnValue('serialized-data'));
 
-        $publisher = new RabbitMQEventPublisher($this->channel, 'exchange-name', $this->serializer);
+        $transport = new Transport($this->channel, 'exchange-name', 'event-queue');
+        $publisher = new TransportPublisher($transport, $this->serializer);
 
         $publisher->publish($event);
     }

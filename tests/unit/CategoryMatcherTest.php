@@ -1,9 +1,9 @@
 <?php
 
-namespace Evaneos\Events\Tests;
+namespace Aztech\Events\Tests;
 
-use Evaneos\Events\CategoryMatcher;
 
+use Aztech\Events\Core\CategoryMatcher;
 class CategoryMatcherTest extends \PHPUnit_Framework_TestCase
 {
 

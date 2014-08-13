@@ -1,6 +1,6 @@
 <?php
 
-namespace Evaneos\Events\Util\TrieMatcher;
+namespace Aztech\Events\Util\TrieMatcher;
 
 class Word implements TrieMatcher
 {

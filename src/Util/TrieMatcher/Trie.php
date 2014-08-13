@@ -1,7 +1,19 @@
 <?php
 
-namespace Evaneos\Events\Util\TrieMatcher;
+namespace Aztech\Events\Util\TrieMatcher;
 
+/**
+ * Pseudo Trie tree implementation. It differs from a Trie tree in that it only holds one possible pattern (thus one branch), and uses
+ * the DFA pattern used by RabbitMQ to evaluate wildcard filters.
+ * Matching a category to a pattern is performed by walking the category components (separated by dots) and evaluating
+ * each component against its counterpart in the pattern component chain. If a pattern component is *, the category counterpart
+ * evaluates to true. If a pattern component is #, it acts as though zero or more '*' components are present in the pattern
+ * at that point.
+ *
+ * More info here : http://www.rabbitmq.com/blog/2010/09/14/very-fast-and-scalable-topic-routing-part-1/
+ * @author thibaud
+ *
+ */
 class Trie implements TrieMatcher
 {
 
@@ -67,6 +79,7 @@ class Trie implements TrieMatcher
         }
 
         if ($this->pattern instanceof AnyOrZeroWords && $value) {
+            //echo 'Current pattern is {0,*} components, looking back at subvalue ' . $value . PHP_EOL;
             return $this->matches($value);
         }
 
