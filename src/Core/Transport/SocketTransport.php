@@ -25,5 +25,4 @@ class SocketTransport implements Transport
     {
         return $this->socket->readRaw();
     }
-
 }
