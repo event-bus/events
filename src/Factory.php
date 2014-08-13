@@ -8,5 +8,8 @@ interface Factory {
 
     function createProcessor(array $options = array());
 
+    /**
+     * @return Core\Consumer
+     */
     function createConsumer(array $options = array());
 }
