@@ -1,6 +1,6 @@
 {
-  "name" : "evaneos/events",
-  "description" : "Evaneos Event Library",
+  "name" : "aztech/events",
+  "description" : "Aztech Event Library",
   "type" : "library",
   "autoload" : {
     "psr-4" : {
