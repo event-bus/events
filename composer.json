@@ -21,7 +21,8 @@
     "react/stomp":"dev-master",
     "fusesource/stomp-php" : "~2",
     "centraldesktop/protobuf-php": "~0.5",
-    "mixpanel/mixpanel-php": "~2"
+    "mixpanel/mixpanel-php": "~2",
+    "mikey179/vfsStream": "~1"
   },
   "suggest" : {
     "centraldesktop/protobuf-php": "To use Protocol Buffers serialization",

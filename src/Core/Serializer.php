@@ -12,14 +12,29 @@ class Serializer implements \Aztech\Events\Serializer
 
     public function bindSerializer($eventFilter, \Aztech\Events\Serializer $serializer)
     {
-        if ($serializer === $this) {
-            throw new \InvalidArgumentException('Cannot bind to self, infinite recursion ahead.');
+        if ($serializer === $this || ($serializer instanceof Serializer && $serializer->hasInChildren($this))) {
+            throw new \InvalidArgumentException('Cannot bind to self or to serializer containing self, infinite recursion ahead.');
         }
 
         array_unshift($this->serializationMap, array(
             new Trie($eventFilter),
             $serializer
         ));
+    }
+
+    public function hasInChildren(Serializer $serializer)
+    {
+        foreach ($this->serializationMap as $serializationPair) {
+            if ($serializationPair[1] === $serializer) {
+                return true;
+            }
+            elseif ($serializationPair[1] instanceof Serializer && $serializationPair[1]->hasInChildren($serializer))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public function getSerializer($category)

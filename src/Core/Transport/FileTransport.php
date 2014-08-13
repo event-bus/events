@@ -13,6 +13,10 @@ class FileTransport implements Transport
     public function __construct($file)
     {
         $this->file = $file;
+
+        if (! file_exists($this->file)) {
+            file_put_contents($this->file, '');
+        }
     }
 
     public function read()

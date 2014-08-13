@@ -1,11 +1,10 @@
 <?php
 
-namespace Aztech\Events\Tests;
+namespace Aztech\Events\Tests\Core;
 
-use Aztech\Events\EventSerializer;
 use Aztech\Events\Core\Serializer;
 
-class EventSerializerTest extends \PHPUnit_Framework_TestCase
+class SerializerTest extends \PHPUnit_Framework_TestCase
 {
 
     private $event;
@@ -43,6 +42,43 @@ class EventSerializerTest extends \PHPUnit_Framework_TestCase
         $this->eventSerializer = new Serializer();
         $this->eventSerializer->bindSerializer('test', $this->serializer);
     }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testAddingToSelfThrowsExceptionToPreventRecursion()
+    {
+        $serializer = new Serializer();
+        $serializer->bindSerializer('#', $serializer);
+    }
+
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testAddingToSelfViaNestingThrowsExceptionToPreventRecursion()
+    {
+        $serializer = new Serializer();
+        $nested = new Serializer();
+
+        $nested->bindSerializer('#', $serializer);
+        $serializer->bindSerializer('#', $nested);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testAddingToSelfViaDeeperNestingThrowsExceptionToPreventRecursion()
+    {
+        $serializer = new Serializer();
+        $nested = new Serializer();
+        $deepest = new Serializer();
+
+        $deepest->bindSerializer('#', $serializer);
+        $nested->bindSerializer('#', $deepest);
+        $serializer->bindSerializer('#', $nested);
+    }
+
 
     /**
      * @expectedException \OutOfBoundsException
@@ -98,5 +134,13 @@ class EventSerializerTest extends \PHPUnit_Framework_TestCase
         $actual = $this->eventSerializer->deserialize($serializationCallback());
 
         $this->assertEquals($this->event, $actual);
+    }
+
+    public function testDeserializeReturnsNullOnIncorrectSerializedValues()
+    {
+        $serializedObject = 'randome invalid data';
+        $actual = $this->eventSerializer->deserialize($serializedObject);
+
+        $this->assertNull($actual);
     }
 }

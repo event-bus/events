@@ -2,8 +2,8 @@
 
 namespace Aztech\Events\Tests;
 
-
 use Aztech\Events\Core\CategoryMatcher;
+
 class CategoryMatcherTest extends \PHPUnit_Framework_TestCase
 {
 
