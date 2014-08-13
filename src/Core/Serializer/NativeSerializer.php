@@ -17,5 +17,4 @@ class NativeSerializer implements Serializer
     {
         return unserialize($object);
     }
-
 }

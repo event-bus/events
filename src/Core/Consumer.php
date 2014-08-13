@@ -13,7 +13,7 @@ class Consumer implements \Aztech\Events\Consumer
 
     private $dispatcher;
 
-    public function __construct(Processor $processor, \Aztech\Events\Dispatcher $dispatcher)
+    public function __construct(Processor $processor,\Aztech\Events\Dispatcher $dispatcher)
     {
         $this->processor = $processor;
         $this->dispatcher = $dispatcher;

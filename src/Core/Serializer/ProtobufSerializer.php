@@ -37,5 +37,4 @@ class ProtobufSerializer implements Serializer
 
         return $message;
     }
-
 }

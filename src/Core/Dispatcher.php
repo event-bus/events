@@ -35,14 +35,14 @@ class Dispatcher implements \Aztech\Events\Dispatcher, LoggerAwareInterface
 
     public function addListener($category, Subscriber $subscriber)
     {
-        //var_dump('addListener', $this);
+        // var_dump('addListener', $this);
         $this->subscriptions[] = new CategorySubscription($category, $subscriber);
-        $this->logger->debug('Registered new subcriber of class "' . get_class($subscriber) . '" using filter "' . $category .'".');
+        $this->logger->debug('Registered new subcriber of class "' . get_class($subscriber) . '" using filter "' . $category . '".');
     }
 
     public function dispatch(Event $event)
     {
-        //var_dump('dispatch', $this);
+        // var_dump('dispatch', $this);
         $this->logger->info('[ "' . $event->getId() . '" ] Starting event dispatch to ' . count($this->subscriptions) . ' potential subscribers.');
 
         $this->timer->reset();
@@ -53,7 +53,7 @@ class Dispatcher implements \Aztech\Events\Dispatcher, LoggerAwareInterface
 
         foreach ($this->subscriptions as $subscription) {
             $result = $this->tryDispatch($subscription, $event);
-            $dispatchCount += (int) $result;
+            $dispatchCount += (int)$result;
         }
 
         $this->timer->stop();

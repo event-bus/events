@@ -18,7 +18,7 @@ class TransportProcessor extends AbstractProcessor
     {
         parent::__construct();
 
-        $this->serializer =$serializer;
+        $this->serializer = $serializer;
         $this->transport = $transport;
     }
 
@@ -40,5 +40,4 @@ class TransportProcessor extends AbstractProcessor
             $this->logger->debug('Transport had no available events');
         }
     }
-
 }

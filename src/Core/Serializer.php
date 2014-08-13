@@ -16,7 +16,10 @@ class Serializer implements \Aztech\Events\Serializer
             throw new \InvalidArgumentException('Cannot bind to self, infinite recursion ahead.');
         }
 
-        array_unshift($this->serializationMap, array(new Trie($eventFilter), $serializer));
+        array_unshift($this->serializationMap, array(
+            new Trie($eventFilter),
+            $serializer
+        ));
     }
 
     public function getSerializer($category)
@@ -53,5 +56,4 @@ class Serializer implements \Aztech\Events\Serializer
 
         return $serializer->deserialize($serializedObject);
     }
-
 }
