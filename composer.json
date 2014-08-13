@@ -1,6 +1,7 @@
 {
   "name" : "aztech/events",
   "description" : "PHP Event Library with AMQP, WAMP, Stomp, Redis, PDO, ... support",
+  "keywords": [ "event", "events", "dispatch", "aztech" ]
   "type" : "library",
   "autoload" : {
     "psr-4" : {
