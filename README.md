@@ -27,7 +27,7 @@
       - [Consuming](#consuming-1)
     - [Event publishing to WebSockets using the WAMP protocol](#event-publishing-to-websockets-using-the-wamp-protocol)
       - [Publishing](#publishing-2)
-    - [Event matching rules](#event-matching-rules)
+- [Event matching rules](#event-matching-rules)
 
 ## Simple event lib 
 
@@ -177,9 +177,11 @@ $server = \Ratchet\Server\IoServer($httpServer, $socket, $loop);
 $server->run();
 ```
 
-#### Event matching rules
+### Event matching rules
 
-Event category matching actually follows the AMQP topic routing spec, which is quite flexible :
+Event category matching actually follows the [AMQP topic specification](https://svn.apache.org/repos/asf/qpid/trunk/qpid/specs/apache-filters.xml#section-legacy-amqp), which is quite flexible :
+
+> **tl;dr** Use '#' to match absolutely anything, '*' to match exactly one unknown word.
 
 > The legacy-amqp-topic-binding filter consists of a described string value. The value value described by the type is interpreted as a pattern to match against the subject field of the Properties section of the message being evaluated.
 >
@@ -196,8 +198,6 @@ topic
 topic.subtopic
 topic.subtopic.leaf
 ```
-**tl;dr** Use '#' to match absolutely anything.
-
 You can use '*' as a wildcard to match exactly one component in a topic :
 
 ```
