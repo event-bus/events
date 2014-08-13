@@ -5,7 +5,6 @@ namespace Aztech\Events\Core\Serializer;
 use Aztech\Events\Serializer;
 use Aztech\Events\Event;
 use DrSlump\Protobuf\CodecInterface;
-use DrSlump\Protobuf\MessageInterface;
 
 class ProtobufSerializer implements Serializer
 {

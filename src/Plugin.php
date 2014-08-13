@@ -7,11 +7,13 @@ interface Plugin
 
     /**
      * @boolean
+     * @return boolean
      */
     function canPublish();
 
     /**
      * @boolean
+     * @return boolean
      */
     function canProcess();
 

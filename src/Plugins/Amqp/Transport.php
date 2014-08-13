@@ -75,6 +75,9 @@ class Transport implements \Aztech\Events\Transport
         };
     }
 
+    /**
+     * @param AMQPMessage $message
+     */
     private function doMessageAck($correlationId, $message)
     {
         $message->delivery_info['channel']->basic_ack($message->delivery_info['delivery_tag']);

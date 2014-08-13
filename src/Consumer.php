@@ -10,10 +10,19 @@ namespace Aztech\Events;
 interface Consumer
 {
 
+    /**
+     * @return void
+     */
     function on($filter, $subscriber);
 
+    /**
+     * @return void
+     */
     function consumeAll();
 
+    /**
+     * @return void
+     */
     function consumeNext();
 
 }

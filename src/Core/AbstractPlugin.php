@@ -16,11 +16,17 @@ abstract class AbstractPlugin implements Plugin
 
     private $transport = null;
 
+    /**
+     * @param boolean $enabled
+     */
     protected function setProcessFlag($enabled)
     {
         $this->canProcess = $enabled;
     }
 
+    /**
+     * @param boolean $enabled
+     */
     protected function setPublishFlag($enabled)
     {
         $this->canPublish = $enabled;
