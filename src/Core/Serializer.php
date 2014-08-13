@@ -3,7 +3,6 @@
 namespace Aztech\Events\Core;
 
 use Aztech\Events\Util\TrieMatcher\Trie;
-use Aztech\Events\Event;
 
 class Serializer implements \Aztech\Events\Serializer
 {
@@ -51,7 +50,7 @@ class Serializer implements \Aztech\Events\Serializer
         throw new \OutOfBoundsException('No matching serializers : ' . $category);
     }
 
-    public function serialize(Event $object)
+    public function serialize(\Aztech\Events\Event $object)
     {
         $serializer = $this->getSerializer($object->getCategory());
 

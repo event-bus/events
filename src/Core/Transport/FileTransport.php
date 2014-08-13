@@ -25,21 +25,18 @@ class FileTransport implements Transport
             if ($handle = fopen($this->file, "c+")) { // open the file in reading and editing mode
                 if (flock($handle, LOCK_EX)) { // lock the file, so no one can read or edit this file
                     $lines = array();
+
                     while (($line = fgets($handle)) !== false) {
-                        if (isset($data)) { // move the line to previous position, except the first line
+                        if (isset($data)) {
                             $lines[] = trim($line);
                         }
-                        if (! isset($data) && trim($line) != '') {
-                            $data = trim($line); // First line with data is event we're fetching
+                        elseif (trim($line) != '') {
+                            $data = trim($line);
                         }
                     }
 
-
-                    fseek($handle, 0, SEEK_SET);
-                    fwrite($handle, join(PHP_EOL, $lines));
-                    fflush($handle); // write any pending change to file
-                    ftruncate($handle, strlen(join(PHP_EOL, $lines))); // drop the repeated last line
-                    flock($handle, LOCK_UN); // unlock the file
+                    file_put_contents($this->file, implode(PHP_EOL, $lines));
+                    flock($handle, LOCK_UN);
                 }
                 fclose($handle);
             }

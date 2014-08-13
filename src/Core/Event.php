@@ -5,9 +5,10 @@ namespace Aztech\Events\Core;
 class Event extends AbstractEvent
 {
 
-    private $properties = array();
+    protected $category = '';
 
-    private $category = '';
+    protected $properties = array();
+
 
     /**
      * @param string $category
@@ -34,13 +35,8 @@ class Event extends AbstractEvent
         return $this->properties[$name];
     }
 
-    public function getProperties()
+    public function __set($name, $value)
     {
-        return $this->properties;
-    }
-
-    public function setProperties(array $properties)
-    {
-        $this->properties = $properties;
+        $this->properties[$name] = $value;
     }
 }
