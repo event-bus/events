@@ -9,6 +9,9 @@ class Event extends AbstractEvent
 
     private $category = '';
 
+    /**
+     * @param string $category
+     */
     public function __construct($category, array $properties)
     {
         parent::__construct();

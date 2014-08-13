@@ -5,7 +5,6 @@ namespace Aztech\Events\Core\Publisher;
 use Aztech\Events\Dispatcher;
 use Aztech\Events\Event;
 use Aztech\Events\Publisher;
-use Aztech\Events\Processor;
 use Aztech\Events\Subscriber;
 use Aztech\Events\Consumer;
 

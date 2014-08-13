@@ -15,14 +15,15 @@ interface Processor
 
     /**
      * Processes the next available event and submits it to the given event dispatcher
-     * @param EventDispatcher $dispatcher
+     * @param Dispatcher $dispatcher
      */
     function processNext(Dispatcher $dispatcher);
 
     /**
      * Subscribe to processing events
      * @param string $categoryFilter
-     * @param EventSubscriber $subscriber
+     * @param Subscriber $subscriber
+     * @return void
      */
     function on($categoryFilter, Subscriber $subscriber);
 }

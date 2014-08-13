@@ -3,7 +3,6 @@
 namespace Aztech\Events\Plugins\Pdo;
 
 use Aztech\Events\Core\AbstractFactory;
-use PhpAmqpLib\Connection\AMQPStreamConnection;
 use Aztech\Events\Plugins\PDO\Transport;
 
 class Factory extends AbstractFactory

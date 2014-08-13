@@ -3,7 +3,6 @@
 namespace Aztech\Events\Plugins\Wamp;
 
 use Aztech\Events\Core\AbstractFactory;
-use FuseSource\Stomp\Stomp;
 
 class Factory extends AbstractFactory
 {

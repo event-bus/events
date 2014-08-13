@@ -42,6 +42,9 @@ class CategorySubscription
         return $this->categoryFilter;
     }
 
+    /**
+     * @param string $category
+     */
     public function matches($category)
     {
         return $this->matcher->matches($category);

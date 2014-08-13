@@ -3,7 +3,6 @@
 namespace Aztech\Events\Plugins\Wamp;
 
 use Aztech\Events\Event;
-use Aztech\Events\Core\AbstractEvent;
 use Ratchet\Wamp\Topic;
 
 class Subscriber implements \Aztech\Events\Subscriber
