@@ -29,7 +29,7 @@ class TransportFactory implements \Aztech\Events\Factory
     {
         $this->serializer = $serializer;
         $this->transport = $transport;
-        $this->logger = $logger ?: new NullLogger();
+        $this->logger = $logger ?  : new NullLogger();
     }
 
     public function disablePublish()
@@ -76,9 +76,6 @@ class TransportFactory implements \Aztech\Events\Factory
 
         $processor = $this->createProcessor($options);
 
-        $consumer = new Consumer($processor, $dispatcher);
-
-        return $consumer;
+        return new Consumer($processor, $dispatcher);
     }
-
 }

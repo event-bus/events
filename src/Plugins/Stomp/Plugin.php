@@ -17,5 +17,4 @@ class Plugin extends AbstractPlugin
         $this->setProcessFlag(true);
         $this->setPublishFlag(true);
     }
-
 }

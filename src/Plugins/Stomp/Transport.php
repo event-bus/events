@@ -36,5 +36,4 @@ class Transport implements \Aztech\Events\Transport
     {
         $this->stomp->send($this->queueName, $serializedRepresentation);
     }
-
 }

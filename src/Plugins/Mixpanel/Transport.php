@@ -7,6 +7,7 @@ use Aztech\Events\Core\AbstractEvent;
 
 class Transport implements \Aztech\Events\Transport
 {
+
     private $mixpanel;
 
     public function __construct(\Mixpanel $mixpanel)
@@ -29,5 +30,4 @@ class Transport implements \Aztech\Events\Transport
 
         $this->mixpanel->track($event->getCategory(), $properties);
     }
-
 }

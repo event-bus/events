@@ -31,7 +31,9 @@ class Transport implements \Aztech\Events\Transport
             return $this->client->brpoplpush($this->key, $this->processingKey, 0);
         }
         else {
-            return $this->client->brpop(array($this->key), 0);
+            return $this->client->brpop(array(
+                $this->key
+            ), 0);
         }
     }
 
@@ -39,5 +41,4 @@ class Transport implements \Aztech\Events\Transport
     {
         $this->client->rpush($this->key, $serializedRepresentation);
     }
-
 }

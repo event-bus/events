@@ -12,11 +12,10 @@ class Plugin extends AbstractPlugin
 
     public function __construct(Serializer $serializer = null)
     {
-        $factory = new Factory($serializer ?: new JsonSerializer());
+        $factory = new Factory($serializer ?  : new JsonSerializer());
 
         $this->setFactory($factory);
         $this->setProcessFlag(false);
         $this->setPublishFlag(true);
     }
-
 }

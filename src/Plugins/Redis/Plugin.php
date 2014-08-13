@@ -11,11 +11,10 @@ class Plugin extends AbstractPlugin
 
     public function __construct(Serializer $serializer = null)
     {
-        $factory = new Factory($serializer ?: new NativeSerializer());
+        $factory = new Factory($serializer ?  : new NativeSerializer());
 
         $this->setFactory($factory);
         $this->setProcessFlag(true);
         $this->setPublishFlag(true);
     }
-
 }

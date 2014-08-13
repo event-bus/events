@@ -4,6 +4,7 @@ namespace Aztech\Events\Core;
 
 use Aztech\Events\Util\TrieMatcher\Trie;
 use Aztech\Events\Subscriber;
+
 class CategorySubscription
 {
 
