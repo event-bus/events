@@ -1,11 +1,5 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
+**Table of Contents**
 
-- [evaneos/events](#evaneosevents)
-    - [Build status](#build-status)
-    - [Stability](#stability)
-  - [Simple event lib](#simple-event-lib)
     - [Installation](#installation)
       - [Via Composer](#via-composer)
     - [Autoloading](#autoloading)
@@ -21,7 +15,6 @@
         - [Publishing](#publishing-2)
       - [Event matching rules](#event-matching-rules)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 # evaneos/events
 
