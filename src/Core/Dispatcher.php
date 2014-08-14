@@ -2,6 +2,7 @@
 
 namespace Aztech\Events\Core;
 
+use Aztech\Events\Event as BaseEvent;
 use Aztech\Events\Subscriber;
 use Aztech\Util\Timer\Timer;
 use Psr\Log\LoggerAwareInterface;
@@ -42,7 +43,7 @@ class Dispatcher implements \Aztech\Events\Dispatcher, LoggerAwareInterface
         $this->logger->debug('Registered new subcriber of class "' . get_class($subscriber) . '" using filter "' . $category . '".');
     }
 
-    public function dispatch(Event $event)
+    public function dispatch(BaseEvent $event)
     {
         $this->logger->info('[ "' . $event->getId() . '" ] Starting event dispatch to ' . count($this->subscriptions) . ' potential subscribers.');
 
@@ -64,10 +65,10 @@ class Dispatcher implements \Aztech\Events\Dispatcher, LoggerAwareInterface
     /**
      *
      * @param CategorySubscription $subscription
-     * @param Event $event
+     * @param \Aztech\Events\Event $event
      * @return boolean True if dispatch was successful, false otherwise
      */
-    private function tryDispatch(CategorySubscription $subscription, Event $event)
+    private function tryDispatch(CategorySubscription $subscription, \Aztech\Events\Event $event)
     {
         $dispatched = false;
 

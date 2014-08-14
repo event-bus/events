@@ -29,7 +29,10 @@ class JsonSerializer implements \Aztech\Events\Serializer
         $dataObj->properties = $properties;
         $dataObj->category = $object->getCategory();
 
-        return json_encode($dataObj, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+        // PHP 5.3 compatibility
+        $unescapedSlashes = defined('JSON_UNESCAPED_SLASHES') ? JSON_UNESCAPED_SLASHES : 64;
+
+        return json_encode($dataObj, $unescapedSlashes | JSON_UNESCAPED_UNICODE);
     }
 
     private function reflectProperties($object)
