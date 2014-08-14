@@ -50,7 +50,7 @@ class Transport implements \Aztech\Events\Transport
         return $this->lastMessage->body;
     }
 
-    private function handleMessage(AMQPMessage $message)
+    public function handleMessage(AMQPMessage $message)
     {
         if ($message->has('correlation_id')) {
             $correlationId = $message->get('correlation_id');
