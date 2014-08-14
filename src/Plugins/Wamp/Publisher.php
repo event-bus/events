@@ -23,6 +23,10 @@ class Publisher implements \Aztech\Events\Publisher, WampServerInterface, Logger
 
     private $transport;
 
+    /**
+     *
+     * @param Serializer $serializer
+     */
     public function __construct(Serializer $serializer)
     {
         $this->serializer = $serializer;

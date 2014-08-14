@@ -35,11 +35,11 @@ class SynchronousPublisher implements Publisher, Consumer
 
     public function on($categoryFilter, $subscriber)
     {
-        if (! is_callable($subscriber) && ! ($subscriber instanceof Subscriber)) {
-            throw new \InvalidArgumentException('Subscriber must a be a callable or an instance of Subscriber.');
-        }
-        elseif (is_callable($subscriber)) {
+        if (is_callable($subscriber)) {
             $subscriber = new CallbackSubscriber($subscriber);
+        }
+        elseif (! ($subscriber instanceof Subscriber)) {
+            throw new \InvalidArgumentException('Subscriber must a be a callable or an instance of Subscriber.');
         }
 
         $this->dispatcher->addListener($categoryFilter, $subscriber);

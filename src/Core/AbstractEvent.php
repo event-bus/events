@@ -2,10 +2,9 @@
 
 namespace Aztech\Events\Core;
 
-use Aztech\Events\Event;
 use Rhumsaa\Uuid\Uuid;
 
-abstract class AbstractEvent implements Event
+abstract class AbstractEvent implements \Aztech\Events\Event
 {
 
     /**

@@ -7,7 +7,6 @@ use Aztech\Util\Timer\Timer;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
-use Aztech\Events\Event;
 
 class Dispatcher implements \Aztech\Events\Dispatcher, LoggerAwareInterface
 {
@@ -33,6 +32,10 @@ class Dispatcher implements \Aztech\Events\Dispatcher, LoggerAwareInterface
         $this->logger = $logger;
     }
 
+    /**
+     * (non-PHPdoc)
+     * @see \Aztech\Events\Dispatcher::addListener()
+     */
     public function addListener($category, Subscriber $subscriber)
     {
         $this->subscriptions[] = new CategorySubscription($category, $subscriber);

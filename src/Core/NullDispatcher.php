@@ -2,7 +2,6 @@
 
 namespace Aztech\Events\Core;
 
-use Aztech\Events\Event;
 use Aztech\Events\Subscriber;
 
 class NullDispatcher implements \Aztech\Events\Dispatcher
@@ -20,7 +19,7 @@ class NullDispatcher implements \Aztech\Events\Dispatcher
         // Do nothing
     }
 
-    public function dispatch(Event $event)
+    public function dispatch(\Aztech\Events\Event $event)
     {
         // Do nothing
     }

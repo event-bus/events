@@ -9,10 +9,14 @@ abstract class AbstractPublisherCollection
 
     /**
      *
-     * @var EventPublisher[]
+     * @var \SplObjectStorage
      */
     protected $publishers;
 
+    /**
+     *
+     * @param \Aztech\Events\Publisher[] $publishers
+     */
     public function __construct(array $publishers = array())
     {
         $this->publishers = new \SplObjectStorage();
@@ -22,6 +26,10 @@ abstract class AbstractPublisherCollection
         }
     }
 
+    /**
+     *
+     * @param Publisher $publisher
+     */
     public function addPublisher(Publisher $publisher)
     {
         if (! $this->publishers->contains($publisher)) {
@@ -29,6 +37,10 @@ abstract class AbstractPublisherCollection
         }
     }
 
+    /**
+     *
+     * @param Publisher $publisher
+     */
     public function removePublisher(Publisher $publisher)
     {
         if ($this->publishers->contains($publisher)) {

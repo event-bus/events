@@ -81,7 +81,7 @@ class JsonSerializer implements \Aztech\Events\Serializer
         return $obj;
     }
 
-    private function injectProperties($obj, $properties)
+    private function injectProperties($object, $properties)
     {
         $reflectionObject = new \ReflectionClass(get_class($object));
         $reflectionProperties = $reflectionObject->getProperties(ReflectionProperty::IS_PUBLIC |
@@ -91,7 +91,7 @@ class JsonSerializer implements \Aztech\Events\Serializer
 
         foreach ($reflectionProperties as $reflectionProperty) {
             /* @var $reflectionProperty \ReflectionProperty */
-            $reflectionProperty->setValue($properties[$reflectionProperty->getName()]);
+            $reflectionProperty->setValue($object, $properties[$reflectionProperty->getName()]);
         }
 
     }

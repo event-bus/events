@@ -3,7 +3,6 @@
 namespace Aztech\Events\Core;
 
 use Aztech\Events\Processor;
-use Aztech\Events\Event;
 use Aztech\Events\Subscriber;
 use Aztech\Events\Core\Dispatcher;
 use Psr\Log\LoggerAwareInterface;
@@ -46,28 +45,28 @@ abstract class AbstractProcessor implements Processor, LoggerAwareInterface
         $this->raise($status);*/
     }
 
-    protected function onError(Event $event,\Exception $ex)
+    protected function onError(\Aztech\Events\Event $event,\Exception $ex)
     {
         /*$status = new StatusEvent(self::EVENT_ERROR, $event);
 
         $this->raise($status);*/
     }
 
-    protected function onProcessing(Event $event)
+    protected function onProcessing(\Aztech\Events\Event $event)
     {
         /*$status = new StatusEvent(self::EVENT_PROCESSING, $event);
 
         $this->raise($status);*/
     }
 
-    protected function onProcessed(Event $event)
+    protected function onProcessed(\Aztech\Events\Event $event)
     {
         /*$status = new StatusEvent(self::EVENT_PROCESSED, $event);
 
         $this->raise($status);*/
     }
 
-    private function raise(Event $event)
+    private function raise(\Aztech\Events\Event $event)
     {
         /*if ($event instanceof StatusEvent && $event->getEvent()) {
             $this->logger->debug('[ "' . $event->getEvent()->getId() . '" ] Raising status event "' . $event->getId() . '"');
