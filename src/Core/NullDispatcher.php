@@ -2,11 +2,10 @@
 
 namespace Aztech\Events\Core;
 
-use Aztech\Events\Dispatcher;
 use Aztech\Events\Event;
 use Aztech\Events\Subscriber;
 
-class NullDispatcher implements Dispatcher
+class NullDispatcher implements \Aztech\Events\Dispatcher
 {
 
     private $verbose = false;

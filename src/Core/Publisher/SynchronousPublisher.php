@@ -7,21 +7,16 @@ use Aztech\Events\Event;
 use Aztech\Events\Publisher;
 use Aztech\Events\Subscriber;
 use Aztech\Events\Consumer;
+use Aztech\Events\Core\Subscriber\CallbackSubscriber;
 
 class SynchronousPublisher implements Publisher, Consumer
 {
 
     /**
      *
-     * @var \Aztech\Events\EventDispatcher
+     * @var \Aztech\Events\Dispatcher
      */
     private $dispatcher;
-
-    /**
-     *
-     * @var EventQueueManager
-     */
-    private $queueManager;
 
     public function __construct(Dispatcher $dispatcher = null)
     {
@@ -42,6 +37,9 @@ class SynchronousPublisher implements Publisher, Consumer
     {
         if (! is_callable($subscriber) && ! ($subscriber instanceof Subscriber)) {
             throw new \InvalidArgumentException('Subscriber must a be a callable or an instance of Subscriber.');
+        }
+        elseif (is_callable($subscriber)) {
+            $subscriber = new CallbackSubscriber($subscriber);
         }
 
         $this->dispatcher->addListener($categoryFilter, $subscriber);
