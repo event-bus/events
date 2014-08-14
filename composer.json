@@ -26,13 +26,14 @@
     "mikey179/vfsStream": "~1"
   },
   "suggest" : {
-    "centraldesktop/protobuf-php": "To use Protocol Buffers serialization",
-    "videlalvaro/php-amqplib" : "Allows usage of the RabbitMQ event publisher.",
-    "predis/predis" : "Allows usage of the Redis event publisher.",
-    "ext-mysql" : "Allows usage of the PDO event publisher with MySQL",
-    "ext-pgsql" : "Allows usage of the PDO event publisher with PostgreSQL",
-    "cboden/Ratchet":"Along with react/stomp to publish event statuses to websockets",
-    "react/stomp":"Along with cboden/Ratchet to publish event statuses to websockets"
+    "centraldesktop/protobuf-php": "To use the Google ProtoBuf transport plugin",
+    "videlalvaro/php-amqplib" : "To use the AMQP transport plugin.",
+    "predis/predis" : "To use the Redis transport plugin.",
+    "ext-mysql" : "To use the PDO transport plugin with MySQL",
+    "ext-pgsql" : "To use the PDO transport with PostGres",
+    "cboden/Ratchet":"To use the Wamp websocket publisher,
+    "fusesource/stomp-php" : "To use the Stomp transport plugin.",
+    "mixpanel/mixpanel-php": "To use the Mixpanel publisher"
   },
   "extra": {
      "branch-alias": {
