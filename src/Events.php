@@ -16,6 +16,11 @@ class Events
 
     private static $plugins = array();
 
+    public static function reset()
+    {
+        self::$plugins = array();
+    }
+
     /**
      * Register a new plugin to provide new publish/subscribe methods.
      * @param string $name A non-empty identifier for the plugin.
@@ -36,6 +41,13 @@ class Events
             throw new \InvalidArgumentException('Plugin is already registered.');
         }
 
+        self::validatePluginFeatures($plugin);
+
+        self::$plugins[$name] = $plugin;
+    }
+
+    private static function validatePluginFeatures($plugin)
+    {
         if (! $plugin->hasFactory() && ! $plugin->hasTransport()) {
             throw new \InvalidArgumentException('Plugin needs to provide at least a transport or a factory.');
         }
@@ -43,8 +55,6 @@ class Events
         if (! $plugin->canProcess() && ! $plugin->canPublish()) {
             throw new \InvalidArgumentException('Plugin provides no publish or process features (at least one is required).');
         }
-
-        self::$plugins[$name] = $plugin;
     }
 
     /**

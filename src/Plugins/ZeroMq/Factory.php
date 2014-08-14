@@ -13,29 +13,47 @@ class Factory extends AbstractFactory
 
         $context = new \ZMQContext();
 
-        $pushType = $options['multicast'] ? \ZMQ::SOCKET_ROUTER : \ZMQ::SOCKET_PUSH;
-        $pullType = $options['multicast'] ? \ZMQ::SOCKET_DEALER : \ZMQ::SOCKET_PULL;
-
-        $pushSocket = $context->getSocket($pushType);
-        $pullSocket = $context->getSocket($pullType);
-
-        $pushHost = $options['multicast'] ? $options['host'] : $options['host'];
-        $pullHost = $options['multicast'] ? $options['host'] : $options['host'];
-
-        if (! $options['multicast']) {
-            $pushDsn = sprintf('%s://%s:%s', $options['scheme'], $pushHost, $options['port']);
-            $pullDsn = sprintf('%s://%s:%s', $options['scheme'], $pullHost, $options['port']);
-        }
-        else {
-            $pullDsn = $pushDsn = ('ipc://routing.ipc');
-        }
-
-        $pushWrapper = new SocketWrapper($pushSocket, $pushDsn, $options['multicast']);
-        $pullWrapper = new SocketWrapper($pullSocket, $pullDsn, ! $options['multicast']);
+        $pushWrapper = $this->createPushSocketWrapper($context, $options);
+        $pullWrapper = $this->createPullSocketWrapper($context, $options);
 
         $transport = new Transport($pushWrapper, $pullWrapper, $options['multicast']);
 
         return $transport;
+    }
+
+    private function getDsn($options)
+    {
+        $dsn = sprintf('%s://%s:%s', $options['scheme'], $options['host'], $options['port']);
+
+        if ($options['multicast']) {
+            $dsn = ('ipc://routing.ipc');
+        }
+
+        return $dsn;
+    }
+
+    private function createPushSocketWrapper($context, $options)
+    {
+        return $this->createSocketWrapper($context, $options, \ZMQ::SOCKET_ROUTER, \ZMQ::SOCKET_PUSH);
+    }
+
+    private function createPullSocketWrapper($context, $options)
+    {
+        return $this->createSocketWrapper($context, $options, \ZMQ::SOCKET_DEALER, \ZMQ::SOCKET_PULL);
+    }
+
+    private function createSocketWrapper($context, $options, $multicastSocketType, $socketType)
+    {
+        $dsn = $this->getDsn($options);
+        $type = $options['multicast'] ? $multicastSocketType : $socketType;
+
+        $socket = new \ZMQSocket($context, $type);
+
+        if ($options['multicast']) {
+            $dsn = ('ipc://routing.ipc');
+        }
+
+        return new SocketWrapper($socket, $dsn, $options['multicast']);
     }
 
     protected function getOptionDefaults()
