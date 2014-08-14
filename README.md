@@ -83,30 +83,16 @@ Listed below are examples for some of the providers. The full documentation is a
 #### In process publish/subscribe
 
 ```php
-
-$factory = \Evaneos\Events\Events::createInProcessPublisher();
-$publisher = $factory->createPublisher();
-$event = \Evaneos\Events\Events::create('category', array('property' => 'value'));
-
-$publisher->publish($event);
-```
-
-##### Consuming
-
-```php
-$factory = \Evaneos\Events\Events::createSimpleFactory();
-$consumer = $factory->createConsumer($options);
+$dispatcher = \Evaneos\Events\Events::createInProcessDispatcher();
 
 // Subscribe to all events using a wildcard filter
-$consumer->on('#', function (Event $event) {
+$dispatcher->on('#', function (Event $event) {
     echo 'Received a new event : ' . $event->getCategory();
 });
 
-while (true) {
-    $consumer->consumeNext();
-}
+$event = \Evaneos\Events\Events::create('category', array('property' => 'value'));
+$dispatcher->publish($event);
 ```
-
 #### Event publish/subscriber via an AMQP broker
 
 ##### Publishing
@@ -121,6 +107,7 @@ $options = array(
     'exchange' => 'exchangeName'
 );
 
+\Evaneos\Events\Events::
 $factory = \Evaneos\Events\Events::createAmqpFactory();
 $publisher = $factory->createPublisher($options);
 $event = new \Evaneos\Events\Events::create('category', array('property' => 'value'));
