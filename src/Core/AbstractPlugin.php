@@ -67,6 +67,10 @@ abstract class AbstractPlugin implements Plugin
         return ($this->factory != null);
     }
 
+    /**
+     * (non-PHPdoc)
+     * @see \Aztech\Events\Plugin::getFactory()
+     */
     function getFactory()
     {
         return $this->factory;

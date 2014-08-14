@@ -44,7 +44,7 @@ class Events
             throw new \InvalidArgumentException('Plugin provides no publish or process features (at least one is required).');
         }
 
-        $this->plugins[$name] = $plugin;
+        self::$plugins[$name] = $plugin;
     }
 
     /**

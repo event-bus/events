@@ -15,12 +15,20 @@ class SocketWrapper
 
     private $socket;
 
-    public function __construct(\ZMQSocket $socket, $scheme = 'tcp', $host = 'localhost', $port = 5555)
+    private $forceBind = false;
+
+    public function __construct(\ZMQSocket $socket, $dsn, $forceBind = false)
     {
-        $this->host = $host;
-        $this->port = $port;
-        $this->scheme = $scheme;
+        $this->dsn = $dsn;
         $this->socket = $socket;
+        $this->forceBind = $forceBind;
+    }
+
+    public function __destruct()
+    {
+        if ($this->boundOrConnected) {
+            $this->socket->unbind($this->dsn);
+        }
     }
 
     public function __call($method, $args)
@@ -28,21 +36,36 @@ class SocketWrapper
         return call_user_func_array(array($this->socket, $method), $args);
     }
 
+    public function getSocket()
+    {
+        return $this->socket;
+    }
+
     public function connectIfNecessary()
     {
+        if ($this->forceBind) {
+            return $this->bindIfNecessary();
+        }
+
         if (! $this->boundOrConnected) {
-            $dsn = sprintf('%s://%s:%s', $this->scheme, $this->host, $this->port);
-            $this->socket->connect($dsn);
+            echo 'Connecting to DSN ' . $this->dsn . PHP_EOL;
+
+            $this->socket->connect($this->dsn);
+
+            echo 'Connected' . PHP_EOL;
 
             $this->boundOrConnected = true;
         }
     }
 
-    public function bindIfNecessart()
+    private function bindIfNecessary()
     {
         if (! $this->boundOrConnected) {
-            $dsn = sprintf('%s://%s:%s', $this->scheme, $this->host, $this->port);
-            $this->socket->connect($dsn);
+            echo 'Binding to DSN ' . $this->dsn . PHP_EOL;
+
+            $this->socket->bind($this->dsn);
+
+            echo 'Connected' . PHP_EOL;
 
             $this->boundOrConnected = true;
         }

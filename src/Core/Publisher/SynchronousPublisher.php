@@ -33,6 +33,10 @@ class SynchronousPublisher implements Publisher, Consumer
         // Raise warning ?
     }
 
+    /**
+     * (non-PHPdoc)
+     * @see \Aztech\Events\Consumer::on()
+     */
     public function on($categoryFilter, $subscriber)
     {
         if (is_callable($subscriber)) {

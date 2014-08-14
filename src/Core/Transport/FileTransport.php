@@ -21,30 +21,53 @@ class FileTransport implements Transport
 
     public function read()
     {
-        while (! isset($data)) {
-            if ($handle = fopen($this->file, "c+")) { // open the file in reading and editing mode
-                if (flock($handle, LOCK_EX)) { // lock the file, so no one can read or edit this file
-                    $lines = array();
+        $data = false;
 
-                    while (($line = fgets($handle)) !== false) {
-                        if (isset($data)) {
-                            $lines[] = trim($line);
-                        }
-                        elseif (trim($line) != '') {
-                            $data = trim($line);
-                        }
-                    }
+        while (! $data) {
+            $data = $this->readNextLine();
+            $this->checkDataBlock($data);
+        }
 
-                    file_put_contents($this->file, implode(PHP_EOL, $lines));
-                    flock($handle, LOCK_UN);
-                }
-                fclose($handle);
+        return $data;
+    }
+
+    private function readNextLine()
+    {
+        $data = false;
+
+        if ($handle = fopen($this->file, "c+")) {
+            if (flock($handle, LOCK_EX)) {
+                $data = $this->readFile($handle);
+                flock($handle, LOCK_UN);
             }
 
-            if (! isset($data)) {
-                usleep(250000);
+            fclose($handle);
+        }
+
+        return $data;
+    }
+
+    private function checkDataBlock($data)
+    {
+        if (! $data) {
+            usleep(250000);
+        }
+    }
+
+    private function readFile($handle)
+    {
+        $lines = array();
+
+        while (($line = fgets($handle)) !== false) {
+            if (isset($data)) {
+                $lines[] = trim($line);
+            }
+            elseif (trim($line) != '') {
+                $data = trim($line);
             }
         }
+
+        file_put_contents($this->file, implode(PHP_EOL, $lines));
 
         return isset($data) ? $data : false;
     }

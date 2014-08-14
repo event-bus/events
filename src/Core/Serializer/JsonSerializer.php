@@ -98,6 +98,10 @@ class JsonSerializer implements \Aztech\Events\Serializer
         $class = $dataObj['class'];
         $properties = $dataObj['properties'];
 
+        if (empty($class) || ! class_exists($class)) {
+            return null;
+        }
+
         $object = $this->instantiator->instantiate($class);
 
         $this->setProperties($object, $properties);

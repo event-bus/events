@@ -64,6 +64,20 @@ class Trie implements TrieMatcher
             return false;
         }
 
+        if ($this->nextMatches($value)) {
+            return true;
+        }
+
+        if ($this->pattern instanceof AnyOrZeroWords && $value) {
+            // echo 'Current pattern is {0,*} components, looking back at subvalue ' . $value . PHP_EOL;
+            return $this->matches($value);
+        }
+
+        return false;
+    }
+
+    private function nextMatches($value)
+    {
         if (! $this->next) {
             if (! $value) {
                 // echo 'No sub components and no next node, match.' . PHP_EOL;
@@ -72,11 +86,6 @@ class Trie implements TrieMatcher
         }
         elseif ($this->next->matches($value)) {
             return true;
-        }
-
-        if ($this->pattern instanceof AnyOrZeroWords && $value) {
-            // echo 'Current pattern is {0,*} components, looking back at subvalue ' . $value . PHP_EOL;
-            return $this->matches($value);
         }
 
         return false;

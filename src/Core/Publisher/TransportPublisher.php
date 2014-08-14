@@ -20,6 +20,12 @@ class TransportPublisher implements Publisher
         $this->serializer = $serializer;
     }
 
+    public function __destruct()
+    {
+        $this->transport = null;
+        $this->serializer = null;
+    }
+
     public function publish(Event $event)
     {
         $serializedRepresentation = $this->serializer->serialize($event);

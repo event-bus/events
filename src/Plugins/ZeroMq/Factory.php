@@ -13,10 +13,27 @@ class Factory extends AbstractFactory
 
         $context = new \ZMQContext();
 
-        $pushSocket = new SocketWrapper($context->getSocket(\ZMQ::SOCKET_PUSH), $options['scheme'], $options['host'], $options['port']);
-        $pullSocket = new SocketWrapper($context->getSocket(\ZMQ::SOCKET_PULL), $options['scheme'], $options['host'], $options['port']);
+        $pushType = $options['multicast'] ? \ZMQ::SOCKET_ROUTER : \ZMQ::SOCKET_PUSH;
+        $pullType = $options['multicast'] ? \ZMQ::SOCKET_DEALER : \ZMQ::SOCKET_PULL;
 
-        $transport = new Transport($pushSocket, $pullSocket);
+        $pushSocket = $context->getSocket($pushType);
+        $pullSocket = $context->getSocket($pullType);
+
+        $pushHost = $options['multicast'] ? $options['host'] : $options['host'];
+        $pullHost = $options['multicast'] ? $options['host'] : $options['host'];
+
+        if (! $options['multicast']) {
+            $pushDsn = sprintf('%s://%s:%s', $options['scheme'], $pushHost, $options['port']);
+            $pullDsn = sprintf('%s://%s:%s', $options['scheme'], $pullHost, $options['port']);
+        }
+        else {
+            $pullDsn = $pushDsn = ('ipc://routing.ipc');
+        }
+
+        $pushWrapper = new SocketWrapper($pushSocket, $pushDsn, $options['multicast']);
+        $pullWrapper = new SocketWrapper($pullSocket, $pullDsn, ! $options['multicast']);
+
+        $transport = new Transport($pushWrapper, $pullWrapper, $options['multicast']);
 
         return $transport;
     }
@@ -26,7 +43,8 @@ class Factory extends AbstractFactory
         return array(
             'scheme' => 'tcp',
             'host' => '127.0.0.1',
-            'port' => 5555
+            'port' => 5563,
+            'multicast' => false
         );
     }
 
@@ -35,7 +53,8 @@ class Factory extends AbstractFactory
         return array(
             'scheme',
             'host',
-            'port'
+            'port',
+            'multicast'
         );
     }
 }

@@ -3,17 +3,17 @@
 namespace Aztech\Events\Core;
 
 use Aztech\Events\Factory;
+use Aztech\Events\Core\Publisher\TransportPublisher;
+use Aztech\Events\Core\Processor\TransportProcessor;
 
 abstract class AbstractFactory implements Factory
 {
 
-    protected abstract function createTransport(array $options);
-
-    protected abstract function validateOptions(array $options);
-
     protected $serializer;
 
-    public function __construct(Serializer $serializer)
+    protected abstract function createTransport(array $options);
+
+    public function __construct(\Aztech\Events\Serializer$serializer)
     {
         $this->serializer = $serializer;
     }
