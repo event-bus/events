@@ -31,8 +31,9 @@ class JsonSerializer implements \Aztech\Events\Serializer
 
         // PHP 5.3 compatibility
         $unescapedSlashes = defined('JSON_UNESCAPED_SLASHES') ? JSON_UNESCAPED_SLASHES : 64;
+        $unescapedUnicode = defined('JSON_UNESCAPED_UNICODE') ? JSON_UNESCAPED_UNICODE : 256;
 
-        return json_encode($dataObj, $unescapedSlashes | JSON_UNESCAPED_UNICODE);
+        return json_encode($dataObj, $unescapedSlashes | $unescapedUnicode);
     }
 
     private function reflectProperties($object)
