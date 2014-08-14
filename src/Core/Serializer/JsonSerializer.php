@@ -4,6 +4,7 @@ namespace Aztech\Events\Core\Serializer;
 
 use Aztech\Events\Core\AbstractEvent;
 use Aztech\Events\Event;
+use Instantiator\Instantiator;
 
 class JsonSerializer implements \Aztech\Events\Serializer
 {
@@ -69,7 +70,8 @@ class JsonSerializer implements \Aztech\Events\Serializer
         $properties = $dataObj['properties'];
 
         $reflectionClass = new \ReflectionClass($class);
-        $obj = $reflectionClass->newInstanceWithoutConstructor();
+        $instantiator = new Instantiator();
+        $obj = $instantiator->instantiate($class);
 
         if ($obj instanceof AbstractEvent) {
             $obj->setProperties($properties);
