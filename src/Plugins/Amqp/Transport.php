@@ -5,6 +5,7 @@ namespace Aztech\Events\Plugins\Amqp;
 use Aztech\Events\Event;
 use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Message\AMQPMessage;
+use Rhumsaa\Uuid\Uuid;
 
 class Transport implements \Aztech\Events\Transport
 {
