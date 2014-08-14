@@ -28,7 +28,7 @@ class Event extends AbstractEvent
 
     public function __call($method, $args) {
         if (substr($method, 0, 3) == 'get') {
-            return $this->__get($method);
+            return $this->__get(lcfirst(substr($method, 3)));
         }
 
         return null;
