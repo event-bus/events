@@ -10,8 +10,9 @@ use Aztech\Events\Core\Processor\TransportProcessor;
 use Aztech\Events\Core\Consumer;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
+use Psr\Log\LoggerAwareInterface;
 
-class TransportFactory implements \Aztech\Events\Factory
+class TransportFactory implements \Aztech\Events\Factory, LoggerAwareInterface
 {
 
     private $canConsume = true;
@@ -29,6 +30,11 @@ class TransportFactory implements \Aztech\Events\Factory
         $this->serializer = $serializer;
         $this->transport = $transport;
         $this->logger = $logger ?  : new NullLogger();
+    }
+
+    public function setLogger(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
     }
 
     public function disablePublish()

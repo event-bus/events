@@ -14,6 +14,7 @@ class Factory extends AbstractFactory
         $channel = $connection->channel();
 
         $transport = new Transport($channel, $options['exchange'], $options['event-queue']);
+        $transport->setLogger($this->logger);
 
         return $transport;
     }

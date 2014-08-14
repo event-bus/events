@@ -7,8 +7,10 @@ use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Message\AMQPMessage;
 use Rhumsaa\Uuid\Uuid;
 use Psr\Log\NullLogger;
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerInterface;
 
-class Transport implements \Aztech\Events\Transport
+class Transport implements \Aztech\Events\Transport, LoggerAwareInterface
 {
 
     /**
@@ -47,6 +49,11 @@ class Transport implements \Aztech\Events\Transport
         $this->readQueue = $readQueue;
         $this->writeExchange = $writeExchange;
         $this->logger = new NullLogger();
+    }
+
+    public function setLogger(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
     }
 
     public function read()

@@ -5,17 +5,26 @@ namespace Aztech\Events\Core;
 use Aztech\Events\Factory;
 use Aztech\Events\Core\Publisher\TransportPublisher;
 use Aztech\Events\Core\Processor\TransportProcessor;
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerInterface;
 
-abstract class AbstractFactory implements Factory
+abstract class AbstractFactory implements Factory, LoggerAwareInterface
 {
 
     protected $serializer;
+
+    protected $logger;
 
     protected abstract function createTransport(array $options);
 
     public function __construct(\Aztech\Events\Serializer $serializer)
     {
         $this->serializer = $serializer;
+    }
+
+    public function setLogger(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
     }
 
     public function createConsumer(array $options = array())
