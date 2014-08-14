@@ -9,19 +9,16 @@ use Instantiator\Instantiator;
 class JsonSerializer implements \Aztech\Events\Serializer
 {
 
+    private $instantiator;
+
+    public function __construct()
+    {
+        $this->instantiator = new Instantiator();
+    }
+
     public function serialize(\Aztech\Events\Event $object)
     {
-        if (! ($object instanceof Event)) {
-            throw new \InvalidArgumentException();
-        }
-
-        if ($object instanceof AbstractEvent) {
-            $properties = $object->getProperties();
-        }
-        else {
-            $properties = $this->reflectProperties($object);
-        }
-
+        $properties=  $this->getProperties($object);
         $class = get_class($object);
 
         $dataObj = new \stdClass();
@@ -37,29 +34,61 @@ class JsonSerializer implements \Aztech\Events\Serializer
         return json_encode($dataObj, $unescapedSlashes | $unescapedUnicode);
     }
 
-    private function reflectProperties($object)
+    private function getProperties($object)
     {
-        $reflectionObject = new \ReflectionClass(get_class($object));
-        $properties = array();
-
-        if (method_exists($object, '__sleep')) {
-            $reflectionProperties = $object->__sleep();
+        if ($object instanceof AbstractEvent) {
+            $properties = $object->getProperties();
         }
         else {
-            $reflectionProperties = $reflectionObject->getProperties(ReflectionProperty::IS_PUBLIC |
-                ReflectionProperty::IS_PROTECTED |
-                ReflectionProperty::IS_PRIVATE);
-        }
-
-        foreach ($reflectionProperties as $reflectionProperty) {
-            if (! ($reflectionProperty instanceof \ReflectionProperty)) {
-                $reflectionProperty = $reflectionObject->getProperty($reflectionProperty);
-            }
-
-            $properties[$reflectionProperty->getName()] = $reflectionProperty->getValue($object);
+            $properties = $this->getPropertiesViaReflection($object);
         }
 
         return $properties;
+    }
+
+    private function getPropertiesViaReflection($object)
+    {
+        $reflectionObject = new \ReflectionClass(get_class($object));
+        $reflectionProperties = $this->getSerializableReflectionProperties($object, $reflectionObject);
+        $properties = array();
+
+        foreach ($reflectionProperties as $reflectionProperty) {
+            $this->ensurePropertyIsAccessible($reflectionProperty);
+            $properties[$reflectionProperty->getName()] = $reflectionProperty->getValue($object);
+            $this->restorePropertyAccessibility($reflectionProperty);
+        }
+
+        return $properties;
+    }
+
+    private function getSerializableReflectionProperties($object, $reflectionObject)
+    {
+        if (method_exists($object, '__sleep')) {
+            $reflectionProperties = array_map(function ($name) use ($reflectionObject) {
+                return $reflectionObject->getProperty($name);
+            }, $object->__sleep());
+        }
+        else {
+            $reflectionProperties = $reflectionObject->getProperties(\ReflectionProperty::IS_PUBLIC |
+                \ReflectionProperty::IS_PROTECTED |
+                \ReflectionProperty::IS_PRIVATE);
+        }
+
+        return $reflectionProperties;
+    }
+
+    private function ensurePropertyIsAccessible(\ReflectionProperty $property)
+    {
+        if ($property->isPrivate() || $property->isPrivate()) {
+            $property->setAccessible(true);
+        }
+    }
+
+    private function restorePropertyAccessibility(\ReflectionProperty $property)
+    {
+        if ($property->isPrivate() || $property->isProtected()) {
+            $property->setAccessible(false);
+        }
     }
 
     public function deserialize($serializedObject)
@@ -69,36 +98,40 @@ class JsonSerializer implements \Aztech\Events\Serializer
         $class = $dataObj['class'];
         $properties = $dataObj['properties'];
 
-        $reflectionClass = new \ReflectionClass($class);
-        $instantiator = new Instantiator();
-        $obj = $instantiator->instantiate($class);
+        $object = $this->instantiator->instantiate($class);
 
-        if ($obj instanceof AbstractEvent) {
-            $obj->setProperties($properties);
-        }
-        else {
-            $this->injectProperties($obj, $properties);
-        }
+        $this->setProperties($object, $properties);
+        $this->restoreState($object);
 
-        if (method_exists($obj, '__wakeup')) {
-            $obj->__wakeup();
-        }
-
-        return $obj;
+        return $object;
     }
 
-    private function injectProperties($object, $properties)
+    private function setProperties($object, $properties)
+    {
+        if ($object instanceof AbstractEvent) {
+            $object->setProperties($properties);
+        }
+        else {
+            $this->reflectionSetProperties($object, $properties);
+        }
+    }
+
+    private function reflectionSetProperties($object, $properties)
     {
         $reflectionObject = new \ReflectionClass(get_class($object));
-        $reflectionProperties = $reflectionObject->getProperties(ReflectionProperty::IS_PUBLIC |
-            ReflectionProperty::IS_PROTECTED |
-            ReflectionProperty::IS_PRIVATE);
-        $properties = array();
+        $reflectionProperties = $this->getSerializableReflectionProperties($object, $reflectionObject);
 
         foreach ($reflectionProperties as $reflectionProperty) {
-            /* @var $reflectionProperty \ReflectionProperty */
+            $this->ensurePropertyIsAccessible($reflectionProperty);
             $reflectionProperty->setValue($object, $properties[$reflectionProperty->getName()]);
+            $this->restorePropertyAccessibility($reflectionProperty);
         }
+    }
 
+    private function restoreState($object)
+    {
+        if (method_exists($object, '__wakeup')) {
+            $object->__wakeup();
+        }
     }
 }

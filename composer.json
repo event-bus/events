@@ -1,43 +1,51 @@
 {
-  "name" : "aztech/events",
-  "description" : "PHP Event Library with AMQP, WAMP, Stomp, Redis, PDO, ... support",
-  "keywords": [ "event", "events", "dispatch", "aztech" ],
-  "type" : "library",
-  "autoload" : {
-    "psr-4" : {
-      "Aztech\\Events\\" : "src"
-    }
-  },
-  "require" : {
-    "psr/log" : "~1.0",
-    "rhumsaa/uuid" : "~2",
-    "aztech/php-utils": "dev-master"
-  },
-  "require-dev" : {
-    "phpunit/phpunit":"~4.2",
-    "squizlabs/php_codesniffer" : "~1.5",
-    "videlalvaro/php-amqplib" : "~2",
-    "predis/predis" : "~1",
-    "cboden/Ratchet":"dev-master",
-    "react/stomp":"dev-master",
-    "fusesource/stomp-php" : "~2",
-    "centraldesktop/protobuf-php": "~0.5",
-    "mixpanel/mixpanel-php": "~2",
-    "mikey179/vfsStream": "~1"
-  },
-  "suggest" : {
-    "centraldesktop/protobuf-php": "To use the Google ProtoBuf transport plugin",
-    "videlalvaro/php-amqplib" : "To use the AMQP transport plugin",
-    "predis/predis" : "To use the Redis transport plugin.",
-    "ext-mysql" : "To use the PDO transport plugin with MySQL",
-    "ext-pgsql" : "To use the PDO transport with PostGres",
-    "cboden/Ratchet":"To use the Wamp websocket publisher",
-    "fusesource/stomp-php" : "To use the Stomp transport plugin",
-    "mixpanel/mixpanel-php": "To use the Mixpanel publisher"
-  },
-  "extra": {
-     "branch-alias": {
-          "dev-documentation": "1.0.x-dev"
+    "name": "aztech/events",
+    "description": "PHP Event Library with AMQP, WAMP, Stomp, Redis, PDO, ... support",
+    "keywords": [
+        "event",
+        "events",
+        "dispatch",
+        "aztech"
+    ],
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Aztech\\Events\\": "src"
+        }
+    },
+    "require": {
+        "psr/log": "~1.0",
+        "rhumsaa/uuid": "~2",
+        "aztech/php-utils": "dev-master",
+        "ocramius/instantiator": "~1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.2",
+        "squizlabs/php_codesniffer": "~1.5",
+        "videlalvaro/php-amqplib": "~2",
+        "predis/predis": "~1",
+        "cboden/Ratchet": "dev-master",
+        "react/stomp": "dev-master",
+        "fusesource/stomp-php": "~2",
+        "centraldesktop/protobuf-php": "~0.5",
+        "mixpanel/mixpanel-php": "~2",
+        "mikey179/vfsStream": "~1",
+        "moriony/php-zmq-stubs": "dev-master"
+    },
+    "suggest": {
+        "centraldesktop/protobuf-php": "To use the Google ProtoBuf transport plugin",
+        "videlalvaro/php-amqplib": "To use the AMQP transport plugin",
+        "predis/predis": "To use the Redis transport plugin.",
+        "ext-mysql": "To use the PDO transport plugin with MySQL",
+        "ext-pgsql": "To use the PDO transport with PostGres",
+        "cboden/Ratchet": "To use the Wamp websocket publisher",
+        "fusesource/stomp-php": "To use the Stomp transport plugin",
+        "mixpanel/mixpanel-php": "To use the Mixpanel publisher",
+        "ext/zmq": "To use the ZeroMQ transport plugin"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-documentation": "1.0.x-dev"
         }
     }
 }
