@@ -42,7 +42,7 @@ class Transport implements \Aztech\Events\Transport
 
     public function read()
     {
-        $callback = $this->buildHandleMessageCallback($dispatcher);
+        $callback = array($this, 'handleMessage');
 
         $this->channel->basic_consume($this->readQueue, '', false, false, false, false, $callback);
         $this->channel->wait();
@@ -50,7 +50,7 @@ class Transport implements \Aztech\Events\Transport
         return $this->lastMessage->body;
     }
 
-    public function handleMessage(AMQPMessage $message, $dispatcher)
+    private function handleMessage(AMQPMessage $message)
     {
         if ($message->has('correlation_id')) {
             $correlationId = $message->get('correlation_id');
@@ -63,16 +63,6 @@ class Transport implements \Aztech\Events\Transport
         $this->logger->debug('[ "' . $correlationId . '" ] Received payload : ' . $message->body);
         $this->lastMessage = $message;
         $this->doMessageAck($correlationId, $message);
-    }
-
-    private function buildHandleMessageCallback($dispatcher)
-    {
-        $self = $this;
-
-        return function ($message) use($self, $dispatcher)
-        {
-            $self->handleMessage($message, $dispatcher);
-        };
     }
 
     /**

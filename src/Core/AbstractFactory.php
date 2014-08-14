@@ -13,7 +13,7 @@ abstract class AbstractFactory implements Factory
 
     protected abstract function createTransport(array $options);
 
-    public function __construct(\Aztech\Events\Serializer$serializer)
+    public function __construct(\Aztech\Events\Serializer $serializer)
     {
         $this->serializer = $serializer;
     }
