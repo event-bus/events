@@ -26,6 +26,14 @@ class Event extends AbstractEvent
         return $this->category;
     }
 
+    public function __call($method, $args) {
+        if (substr($method, 0, 3) == 'get') {
+            return $this->__get($method);
+        }
+
+        return null;
+    }
+
     public function __get($name)
     {
         if (! array_key_exists($name, $this->properties)) {
