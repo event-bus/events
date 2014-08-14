@@ -34,18 +34,24 @@ class Factory extends AbstractFactory
 
     private function createPushSocketWrapper($context, $options)
     {
-        return $this->createSocketWrapper($context, $options, \ZMQ::SOCKET_ROUTER, \ZMQ::SOCKET_PUSH);
+        $options['host'] = $options['push-host'];
+        return $this->createSocketWrapper($context, $options, \ZMQ::SOCKET_PUB, true);
     }
 
     private function createPullSocketWrapper($context, $options)
     {
-        return $this->createSocketWrapper($context, $options, \ZMQ::SOCKET_DEALER, \ZMQ::SOCKET_PULL);
+        $options['host'] = $options['pull-host'];
+
+        $wrapper = $this->createSocketWrapper($context, $options, \ZMQ::SOCKET_SUB, false);
+        $wrapper->setSockOpt(\ZMQ::SOCKOPT_SUBSCRIBE, '');
+
+        return $wrapper;
     }
 
-    private function createSocketWrapper($context, $options, $multicastSocketType, $socketType)
+    private function createSocketWrapper($context, $options, $socketType, $forceBind)
     {
         $dsn = $this->getDsn($options);
-        $type = $options['multicast'] ? $multicastSocketType : $socketType;
+        $type =$socketType;
 
         $socket = new \ZMQSocket($context, $type);
 
@@ -53,14 +59,15 @@ class Factory extends AbstractFactory
             $dsn = ('ipc://routing.ipc');
         }
 
-        return new SocketWrapper($socket, $dsn, $options['multicast']);
+        return new SocketWrapper($socket, $dsn, $forceBind);
     }
 
     protected function getOptionDefaults()
     {
         return array(
             'scheme' => 'tcp',
-            'host' => '127.0.0.1',
+            'pull-host' => '127.0.0.1',
+            'push-host' => '127.0.0.1',
             'port' => 5563,
             'multicast' => false
         );
@@ -70,7 +77,8 @@ class Factory extends AbstractFactory
     {
         return array(
             'scheme',
-            'host',
+            'push-host',
+            'pull-host',
             'port',
             'multicast'
         );

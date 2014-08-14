@@ -58,7 +58,7 @@ class SocketWrapper
         }
     }
 
-    private function bindIfNecessary()
+    public function bindIfNecessary()
     {
         if (! $this->boundOrConnected) {
             echo 'Binding to DSN ' . $this->dsn . PHP_EOL;

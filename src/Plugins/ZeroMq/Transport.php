@@ -8,19 +8,23 @@ use Aztech\Events\Event;
 class Transport implements \Aztech\Events\Transport
 {
 
+
+    /**
+     *
+     * @var \ZMQSocket
+     */
     private $pushSocket;
 
+    /**
+     *
+     * @var \ZMQSocket
+     */
     private $pullSocket;
 
-    private $multicast = false;
-
-    private $multicastSet = false;
-
-    public function __construct(SocketWrapper $pushSocket, SocketWrapper $pullSocket, $multicast = false)
+    public function __construct(SocketWrapper $pushSocket, SocketWrapper $pullSocket)
     {
         $this->pullSocket = $pullSocket;
         $this->pushSocket = $pushSocket;
-        $this->multicast = $multicast;
     }
 
     public function __destruct()
@@ -31,42 +35,16 @@ class Transport implements \Aztech\Events\Transport
 
     public function read()
     {
-        if ($this->multicast && ! $this->multicastSet) {
-            echo 'Setting multicast option' . PHP_EOL;
-            $this->pullSocket->setSockOpt(\ZMQ::SOCKOPT_IDENTITY, 'A');
-            $this->multicastSet = true;
-        }
-
         $this->pullSocket->connectIfNecessary();
+
+        $this->pullSocket->setSockOpt(\ZMQ::SOCKOPT_SUBSCRIBE, '');
 
         echo 'Reading...' . PHP_EOL;
 
-        if ($this->multicast) {
-            $producerPoll = new \ZMQPoll();
-            $producerPoll->add($this->pullSocket->getSocket(), \ZMQ::POLL_IN);
-            $read = $write = array();
-
-            try {
-                $producerEvents = $producerPoll->poll($read, $write, 5000);
-            } catch (\ZMQPollException $e)
-            {
-                echo $e->getMessage();
-            }
-
-            if (! $producerEvents) {
-                echo 'No producer events' . PHP_EOL;
-                return;
-            }
-        }
-
+        $add = $this->pullSocket->recv();
         $data = $this->pullSocket->recv();
 
-        if (isset($envelope)) {
-            echo 'Read ' . $envelope . ' : ' . $data . PHP_EOL;
-        }
-        else {
-            echo microtime(true) . ' Read ' . $data . PHP_EOL;
-        }
+        echo microtime(true) . ' Read ' . $data . PHP_EOL;
 
         return $data;
     }
@@ -77,11 +55,7 @@ class Transport implements \Aztech\Events\Transport
 
         echo 'Sending ' . $serializedEvent . PHP_EOL;
 
-        if ($this->multicast) {
-            $this->pushSocket->send("A", \ZMQ::MODE_SNDMORE);
-        }
-
-        $this->pushSocket->send($serializedEvent);
+        $this->pushSocket->send("E" . $serializedEvent);
 
         echo 'Sent' . PHP_EOL;
     }

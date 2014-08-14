@@ -4,6 +4,7 @@ namespace Aztech\Events\Plugins\Logger;
 
 use Psr\Log\AbstractLogger;
 use Aztech\Events\Publisher;
+use Aztech\Events\Core\Event;
 
 class PublishingLogger extends AbstractLogger
 {
@@ -15,7 +16,7 @@ class PublishingLogger extends AbstractLogger
         $this->publisher = $publisher;
     }
 
-    public function log($level, $message, $context)
+    public function log($level, $message, array $context = array())
     {
         $event = new Event('log.' . $level, array('message' => $message, 'context' => $context));
 
