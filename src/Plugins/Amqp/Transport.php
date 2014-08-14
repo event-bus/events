@@ -6,6 +6,7 @@ use Aztech\Events\Event;
 use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Message\AMQPMessage;
 use Rhumsaa\Uuid\Uuid;
+use Psr\Log\NullLogger;
 
 class Transport implements \Aztech\Events\Transport
 {
@@ -34,11 +35,18 @@ class Transport implements \Aztech\Events\Transport
      */
     private $lastMessage = null;
 
+    /**
+     *
+     * @var \Psr\Log\LoggerInterface
+     */
+    private $logger;
+
     public function __construct(AMQPChannel $channel, $writeExchange, $readQueue)
     {
         $this->channel = $channel;
         $this->readQueue = $readQueue;
         $this->writeExchange = $writeExchange;
+        $this->logger = new NullLogger();
     }
 
     public function read()
