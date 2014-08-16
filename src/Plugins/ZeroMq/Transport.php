@@ -36,7 +36,6 @@ class Transport implements \Aztech\Events\Transport
     public function read()
     {
         $this->pullSocket->connectIfNecessary();
-
         $this->pullSocket->setSockOpt(\ZMQ::SOCKOPT_SUBSCRIBE, '');
 
         echo 'Reading...' . PHP_EOL;

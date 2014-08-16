@@ -2,14 +2,10 @@
 
 namespace Aztech\Events;
 
-interface Transport
+use Aztech\Events\Transport\Reader;
+use Aztech\Events\Transport\Writer;
+
+interface Transport extends Reader, Writer
 {
-
-    /**
-     *
-     * @return void
-     */
-    function write(Event $event, $serializedRepresentation);
-
-    function read();
+        
 }

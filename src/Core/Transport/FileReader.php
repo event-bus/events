@@ -3,28 +3,20 @@
 namespace Aztech\Events\Core\Transport;
 
 use Aztech\Events\Event;
-use Aztech\Events\Transport;
+use Aztech\Events\Transport\Reader;
 
-class FileTransport implements Transport
+class FileReader implements Reader
 {
-
-    private $writer;
     
     private $file;
 
     public function __construct($file)
     {
-        $this->writer = new FileWriter($file);
         $this->file = $file;
 
         if (! file_exists($this->file)) {
             file_put_contents($this->file, '');
         }
-    }
-    
-    public function write(Event $event, $serializedData)
-    {
-        return $this->writer->write($event, $serializedEvent);
     }
 
     public function read()
@@ -44,7 +36,10 @@ class FileTransport implements Transport
         $data = false;
 
         if ($handle = fopen($this->file, "c+")) {
-            $data = Files::invokeEx(array ($this, 'readFile'), $handle);
+            if (flock($handle, LOCK_EX)) {
+                $data = $this->readFile($handle);
+                flock($handle, LOCK_UN);
+            }
 
             fclose($handle);
         }
@@ -59,7 +54,7 @@ class FileTransport implements Transport
         }
     }
 
-    public function readFile($handle)
+    private function readFile($handle)
     {
         $lines = array();
 
