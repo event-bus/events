@@ -28,7 +28,7 @@ class FileWriter implements Writer
     private function callEx($handle, $data, $callback)
     {
         if (flock($handle, LOCK_EX)) {
-            $callback($handle, $data);
+            call_user_func($callback, $handle, $data);
             flock($handle, LOCK_UN);
             
             return true;
