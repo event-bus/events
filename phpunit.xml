@@ -6,21 +6,21 @@
          convertWarningsToExceptions="true"
          processIsolation="false"
          stopOnFailure="false">
-	<testsuites>
-		<testsuite name="All">
-			<directory suffix=".php">./tests/</directory>
-		</testsuite>
-	</testsuites>
-	<logging>
-		<log type="coverage-html" target="./tests/output/Coverage/"
-			charset="UTF-8" yui="true" highlight="true" />
-	</logging>
-	<filter>
-		<whitelist addUncoveredFilesFromWhitelist="true">
-			<directory suffix=".php">src/</directory>
-			<exclude>
-
-			</exclude>
-		</whitelist>
-	</filter>
+  <testsuites>
+    <testsuite name="All">
+      <directory suffix=".php">./tests/unit</directory>
+    </testsuite>
+  </testsuites>
+  <logging>
+    <log type="coverage-html" target="./tests/output/Coverage/"
+      charset="UTF-8" yui="true" highlight="true" />
+  </logging>
+  <filter>
+    <whitelist addUncoveredFilesFromWhitelist="true">
+      <directory suffix=".php">src/</directory>
+      <exclude>
+          <directory>vendor/</directory>
+      </exclude>
+    </whitelist>
+  </filter>
 </phpunit>

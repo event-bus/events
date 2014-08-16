@@ -1,11 +1,15 @@
 <?php
 
-namespace Evaneos\Events;
+namespace Aztech\Events;
 
 interface Serializer
 {
 
-    public function serialize($object);
+    public function serialize(Event $object);
 
+    /**
+     *
+     * @return Event
+     */
     public function deserialize($serializedObject);
 }
