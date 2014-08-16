@@ -18,9 +18,8 @@ class PublishingLogger extends AbstractLogger
 
     public function log($level, $message, array $context = array())
     {
-        $event = new Event('log.' . $level, array('message' => $message, 'context' => $context));
-
+        $event = new Event('log.' . $level, array('message' => $message,'context' => $context));
+        
         $this->publisher->publish($event);
     }
-
 }

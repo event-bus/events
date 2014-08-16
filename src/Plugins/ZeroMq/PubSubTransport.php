@@ -10,7 +10,6 @@ use Psr\Log\NullLogger;
 class PubSubTransport implements \Aztech\Events\Transport, LoggerAwareInterface
 {
 
-
     /**
      *
      * @var \ZMQSocket
@@ -22,16 +21,16 @@ class PubSubTransport implements \Aztech\Events\Transport, LoggerAwareInterface
      * @var \ZMQSocket
      */
     private $pullSocket;
-    
+
     /**
-     * 
+     *
      * @var \Psr\Log\LoggerInterface
      */
     private $logger;
 
     public function __construct(SocketWrapper $pushSocket, SocketWrapper $pullSocket, LoggerInterface $logger)
     {
-        $this->logger = $logger ?: new NullLogger();
+        $this->logger = $logger ?  : new NullLogger();
         
         $this->pullSocket = $pullSocket;
         // Disable prefix filtering
@@ -39,13 +38,13 @@ class PubSubTransport implements \Aztech\Events\Transport, LoggerAwareInterface
         
         $this->pushSocket = $pushSocket;
     }
-    
+
     public function __destruct()
     {
         $this->pushSocket = null;
         $this->pullSocket = null;
     }
-    
+
     public function setLogger(LoggerInterface $logger)
     {
         $this->logger = $logger;
@@ -56,17 +55,16 @@ class PubSubTransport implements \Aztech\Events\Transport, LoggerAwareInterface
         $this->pullSocket->bindIfNecessary();
         $data = $this->pullSocket->recv();
         
-        $this->logger->debug(sprintf('Read %d characters, returning.', strlen($data), [ 'data'  => $data ]));
-
+        $this->logger->debug(sprintf('Read %d characters, returning.', strlen($data), ['data' => $data]));
+        
         return $data;
     }
 
     public function write(Event $event, $serializedEvent)
     {
-        $this->pushSocket->connectIfNecessary();        
+        $this->pushSocket->connectIfNecessary();
         $this->pushSocket->send($serializedEvent);
         
-        $this->logger->debug(sprintf('Wrote %d characters to socket.', strlen($serializedEvent)), [ 'data' => $serializedEvent]);
+        $this->logger->debug(sprintf('Wrote %d characters to socket.', strlen($serializedEvent)), ['data' => $serializedEvent]);
     }
-
 }

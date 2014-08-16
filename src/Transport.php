@@ -7,5 +7,4 @@ use Aztech\Events\Transport\Writer;
 
 interface Transport extends Reader, Writer
 {
-        
 }
