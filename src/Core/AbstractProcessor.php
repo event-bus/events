@@ -4,7 +4,7 @@ namespace Aztech\Events\Core;
 
 use Aztech\Events\Processor;
 use Aztech\Events\Subscriber;
-use Aztech\Events\Core\Dispatcher;
+use Aztech\Events\EventDispatcher as Dispatcher;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;

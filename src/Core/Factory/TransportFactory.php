@@ -4,7 +4,7 @@ namespace Aztech\Events\Core\Factory;
 
 use Aztech\Events\Transport;
 use Aztech\Events\Serializer;
-use Aztech\Events\Core\Dispatcher;
+use Aztech\Events\EventDispatcher as Dispatcher;
 use Aztech\Events\Core\Publisher\TransportPublisher;
 use Aztech\Events\Core\Processor\TransportProcessor;
 use Aztech\Events\Core\Consumer;

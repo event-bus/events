@@ -2,6 +2,7 @@
 
 namespace Aztech\Events\Core\Transport;
 
+use Aztech\Events\Event;
 use Aztech\Events\Transport\Writer;
 
 class FileWriter implements Writer
@@ -16,7 +17,7 @@ class FileWriter implements Writer
     public function write(Event $event, $serializedEvent)
     {
         if ($handle = fopen($this->file, "c+")) {
-            if ($this->callEx($handle, array($this, 'append'))) {
+            if ($this->callEx($handle, $serializedEvent, array($this, 'append'))) {
                 fflush($handle);
             }
             

@@ -13,10 +13,12 @@
             "Aztech\\Events\\": "src"
         }
     },
+    "minimum-stability": "stable",
     "require": {
+        "aztech/event-dispatcher": "~1",
+        "aztech/php-utils": "~0",
         "psr/log": "~1.0",
         "rhumsaa/uuid": "~2",
-        "aztech/php-utils": "dev-master",
         "ocramius/instantiator": "~1"
     },
     "require-dev": {

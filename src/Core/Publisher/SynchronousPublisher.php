@@ -20,7 +20,7 @@ class SynchronousPublisher implements Publisher, Consumer
 
     public function __construct(Dispatcher $dispatcher = null)
     {
-        $this->dispatcher = $dispatcher ?: new \Aztech\Events\Core\Dispatcher();
+        $this->dispatcher = $dispatcher ?: new \Aztech\Events\EventDispatcher();
     }
 
     public function publish(Event $event)

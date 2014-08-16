@@ -4,6 +4,7 @@ namespace Aztech\Events\Core\Transport;
 
 use Aztech\Events\Event;
 use Aztech\Events\Transport;
+use Aztech\Util\File\Files;
 
 class FileTransport implements Transport
 {
@@ -24,7 +25,7 @@ class FileTransport implements Transport
     
     public function write(Event $event, $serializedData)
     {
-        return $this->writer->write($event, $serializedEvent);
+        return $this->writer->write($event, $serializedData);
     }
 
     public function read()

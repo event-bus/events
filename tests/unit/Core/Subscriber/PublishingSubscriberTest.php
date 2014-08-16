@@ -2,7 +2,6 @@
 
 namespace Aztech\Events\Tests\Core\Subscriber;
 
-use Aztech\Events\Tests\CategoryMatchTruthTable;
 use Aztech\Events\Core\Subscriber\PublishingSubscriber;
 use Aztech\Events\Core\Event;
 
@@ -18,7 +17,7 @@ class PublishingSubscriberTest extends \PHPUnit_Framework_TestCase
 
     public function getConstraintTruthTable()
     {
-        return CategoryMatchTruthTable::get();
+        return \Aztech\Events\Tests\Category\MatchTruthTable::get();
     }
 
     /**
