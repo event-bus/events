@@ -11,6 +11,7 @@ use Aztech\Events\Bus\Consumer;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Psr\Log\LoggerAwareInterface;
+use Aztech\Events\EventDispatcher;
 
 class TransportFactory implements \Aztech\Events\Factory, LoggerAwareInterface
 {
@@ -76,7 +77,7 @@ class TransportFactory implements \Aztech\Events\Factory, LoggerAwareInterface
             throw new \BadMethodCallException('Consume is not supported by this factory.');
         }
 
-        $dispatcher = new Dispatcher();
+        $dispatcher = new EventDispatcher();
         $dispatcher->setLogger($this->logger);
 
         $processor = $this->createProcessor($options);

@@ -47,4 +47,9 @@ class Event extends AbstractEvent
     {
         $this->properties[$name] = $value;
     }
+
+    public function __sleep()
+    {
+
+    }
 }

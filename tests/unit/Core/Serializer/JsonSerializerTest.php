@@ -52,7 +52,8 @@ class JsonSerializerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($object->other, $unserializedObject->other);
         $this->assertEquals($object->restorable, $unserializedObject->restorable);
-        $this->assertFalse($object->wakeupInvoked);
+        // Ensure that object is still usable after serialization
+        $this->assertTrue($object->wakeupInvoked);
         $this->assertTrue($unserializedObject->wakeupInvoked);
         $this->assertEquals(null, $unserializedObject->notRestorable);
     }
@@ -81,7 +82,6 @@ class JsonSleepable implements \Aztech\Events\Event
 
     public function __sleep()
     {
-        $this->wakeupInvoked = false;
         return array('restorable', 'other');
     }
 

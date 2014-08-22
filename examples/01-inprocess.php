@@ -7,10 +7,11 @@ use Aztech\Events\Bus\Subscriber\CallbackSubscriber;
 use Aztech\Events\Event;
 use Aztech\Events\Events;
 use Aztech\Events\Bus\AbstractEvent;
+use Aztech\Events\EventDispatcher;
 
 include_once __DIR__ . '/../vendor/autoload.php';
 
-$dispatcher = new Dispatcher();
+$dispatcher = new EventDispatcher();
 $publisher = new SynchronousPublisher($dispatcher);
 
 // Notice that you have to bind your listeners before any events are published

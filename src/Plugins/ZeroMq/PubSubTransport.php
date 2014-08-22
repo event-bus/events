@@ -30,12 +30,12 @@ class PubSubTransport implements \Aztech\Events\Transport, LoggerAwareInterface
 
     public function __construct(SocketWrapper $pushSocket, SocketWrapper $pullSocket, LoggerInterface $logger)
     {
-        $this->logger = $logger ?  : new NullLogger();
-        
+        $this->logger = $logger ?: new NullLogger();
+
         $this->pullSocket = $pullSocket;
         // Disable prefix filtering
         $this->pullSocket->setSockOpt(\ZMQ::SOCKOPT_SUBSCRIBE, '');
-        
+
         $this->pushSocket = $pushSocket;
     }
 
@@ -54,9 +54,9 @@ class PubSubTransport implements \Aztech\Events\Transport, LoggerAwareInterface
     {
         $this->pullSocket->bindIfNecessary();
         $data = $this->pullSocket->recv();
-        
+
         $this->logger->debug(sprintf('Read %d characters, returning.', strlen($data), ['data' => $data]));
-        
+
         return $data;
     }
 
@@ -64,7 +64,7 @@ class PubSubTransport implements \Aztech\Events\Transport, LoggerAwareInterface
     {
         $this->pushSocket->connectIfNecessary();
         $this->pushSocket->send($serializedEvent);
-        
+
         $this->logger->debug(sprintf('Wrote %d characters to socket.', strlen($serializedEvent)), ['data' => $serializedEvent]);
     }
 }

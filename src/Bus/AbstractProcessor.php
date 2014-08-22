@@ -8,6 +8,7 @@ use Aztech\Events\EventDispatcher as Dispatcher;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
+use Aztech\Events\EventDispatcher;
 
 abstract class AbstractProcessor implements Processor, LoggerAwareInterface
 {
@@ -22,7 +23,7 @@ abstract class AbstractProcessor implements Processor, LoggerAwareInterface
 
     public function __construct()
     {
-        $this->dispatcher = new Dispatcher();
+        $this->dispatcher = new EventDispatcher();
         $this->setLogger(new NullLogger());
     }
 

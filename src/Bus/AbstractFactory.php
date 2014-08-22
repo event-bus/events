@@ -2,6 +2,7 @@
 
 namespace Aztech\Events\Bus;
 
+use Aztech\Events\EventDispatcher;
 use Aztech\Events\Factory;
 use Aztech\Events\Bus\Publisher\TransportPublisher;
 use Aztech\Events\Bus\Processor\TransportProcessor;
@@ -29,7 +30,7 @@ abstract class AbstractFactory implements Factory, LoggerAwareInterface
 
     public function createConsumer(array $options = array())
     {
-        return new Consumer($this->createProcessor($options), new Dispatcher());
+        return new Consumer($this->createProcessor($options), new EventDispatcher());
     }
 
     public function createProcessor(array $options = array())

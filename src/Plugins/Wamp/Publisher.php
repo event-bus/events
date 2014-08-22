@@ -11,6 +11,7 @@ use Ratchet\ConnectionInterface;
 use Ratchet\Wamp\WampServerInterface;
 use Aztech\Events\Bus\Subscriber\CallbackSubscriber;
 use Aztech\Events\Bus\Dispatcher;
+use Aztech\Events\EventDispatcher;
 
 class Publisher implements \Aztech\Events\Publisher, WampServerInterface, LoggerAwareInterface
 {
@@ -32,7 +33,7 @@ class Publisher implements \Aztech\Events\Publisher, WampServerInterface, Logger
         $this->serializer = $serializer;
         $this->logger = new NullLogger();
         $this->transport = new Transport();
-        $this->internalDispatcher = new Dispatcher();
+        $this->internalDispatcher = new EventDispatcher();
     }
 
     public function setLogger(LoggerInterface $logger)
