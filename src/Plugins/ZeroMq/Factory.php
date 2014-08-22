@@ -51,7 +51,7 @@ class Factory extends AbstractFactory
     private function createSocketWrapper($context, $options, $socketType, $forceBind)
     {
         $dsn = $this->getDsn($options);
-        $type =$socketType;
+        $type = $socketType;
 
         $socket = new \ZMQSocket($context, $type);
 
@@ -59,7 +59,7 @@ class Factory extends AbstractFactory
             $dsn = ('ipc://routing.ipc');
         }
 
-        return new SocketWrapper($socket, $dsn, $forceBind);
+        return new SocketWrapper($socket, $dsn, $this->logger);
     }
 
     protected function getOptionDefaults()
