@@ -16,7 +16,7 @@ class Factory extends AbstractFactory
         $pushWrapper = $this->createPushSocketWrapper($context, $options);
         $pullWrapper = $this->createPullSocketWrapper($context, $options);
 
-        $transport = new PubSubTransport($pushWrapper, $pullWrapper, $options['multicast']);
+        $transport = new PubSubTransport($pushWrapper, $pullWrapper, $this->logger);
 
         return $transport;
     }
