@@ -2,7 +2,7 @@
 
 namespace Aztech\Events\Plugins\Redis;
 
-use Aztech\Events\Core\AbstractFactory;
+use Aztech\Events\Bus\AbstractFactory;
 use Predis\Client;
 
 class Factory extends AbstractFactory

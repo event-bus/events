@@ -3,8 +3,8 @@
 namespace Aztech\Events;
 
 use Aztech\Events\Factory\StandardFactory;
-use Aztech\Events\Core\MemoryTransport;
-use Aztech\Events\Core\Serializer\NativeSerializer;
+use Aztech\Events\Bus\MemoryTransport;
+use Aztech\Events\Bus\Serializer\NativeSerializer;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -61,11 +61,11 @@ class Events
      * Creates a new standard event.
      * @param string $name Category of the event.
      * @param array $properties An indexed array where keys are property names and values are matching property values.
-     * @return \Aztech\Events\Core\Event
+     * @return \Aztech\Events\Bus\Event
      */
     public static function create($name, array $properties = array())
     {
-        return new Core\Event($name, $properties);
+        return new Bus\Event($name, $properties);
     }
 
     /**

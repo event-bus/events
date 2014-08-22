@@ -1,6 +1,6 @@
 <?php
 
-namespace Aztech\Events\Core\Transport\Socket;
+namespace Aztech\Events\Bus\Transport\Socket;
 
 use Psr\Log\NullLogger;
 use Psr\Log\LoggerInterface;

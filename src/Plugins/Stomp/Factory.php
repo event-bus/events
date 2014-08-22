@@ -2,7 +2,7 @@
 
 namespace Aztech\Events\Plugins\Stomp;
 
-use Aztech\Events\Core\AbstractFactory;
+use Aztech\Events\Bus\AbstractFactory;
 use FuseSource\Stomp\Stomp;
 
 class Factory extends AbstractFactory

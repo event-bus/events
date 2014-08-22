@@ -1,8 +1,8 @@
 <?php
 
-namespace Aztech\Events\Tests\Core\Publisher;
+namespace Aztech\Events\Tests\Bus\Publisher;
 
-use Aztech\Events\Core\Publisher\TransportPublisher;
+use Aztech\Events\Bus\Publisher\TransportPublisher;
 
 class TransportPublisherTest extends \PHPUnit_Framework_TestCase
 {

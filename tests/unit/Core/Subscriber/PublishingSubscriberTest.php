@@ -1,9 +1,9 @@
 <?php
 
-namespace Aztech\Events\Tests\Core\Subscriber;
+namespace Aztech\Events\Tests\Bus\Subscriber;
 
-use Aztech\Events\Core\Subscriber\PublishingSubscriber;
-use Aztech\Events\Core\Event;
+use Aztech\Events\Bus\Subscriber\PublishingSubscriber;
+use Aztech\Events\Bus\Event;
 
 class PublishingSubscriberTest extends \PHPUnit_Framework_TestCase
 {

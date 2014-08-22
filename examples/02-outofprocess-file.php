@@ -1,8 +1,8 @@
 <?php
 
 use Aztech\Events\Events;
-use Aztech\Events\Core\Transport\FileTransport;
-use Aztech\Events\Core\AbstractEvent;
+use Aztech\Events\Bus\Transport\FileTransport;
+use Aztech\Events\Bus\AbstractEvent;
 use Symfony\Component\Console\Logger\ConsoleLogger;
 use Symfony\Component\Console\Output\ConsoleOutput;
 

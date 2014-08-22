@@ -1,8 +1,8 @@
 <?php
 
-namespace Aztech\Events\Tests\Core;
+namespace Aztech\Events\Tests\Bus;
 
-use Aztech\Events\Core\Serializer;
+use Aztech\Events\Bus\Serializer;
 
 class SerializerTest extends \PHPUnit_Framework_TestCase
 {

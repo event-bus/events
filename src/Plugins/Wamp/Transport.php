@@ -2,7 +2,7 @@
 
 namespace Aztech\Events\Plugins\Wamp;
 
-use Aztech\Events\Core\Event;
+use Aztech\Events\Bus\Event;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;

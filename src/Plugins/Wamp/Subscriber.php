@@ -24,6 +24,6 @@ class Subscriber implements \Aztech\Events\Subscriber
 
     public function supports(Event $event)
     {
-        return $event instanceof \Aztech\Events\Core\Event && $event->getCategory() == 'publish';
+        return $event instanceof \Aztech\Events\Bus\Event && $event->getCategory() == 'publish';
     }
 }

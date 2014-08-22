@@ -1,6 +1,6 @@
 <?php
 
-namespace Aztech\Events\Core;
+namespace Aztech\Events\Bus;
 
 use Aztech\Events\Processor;
 use Aztech\Events\Subscriber;

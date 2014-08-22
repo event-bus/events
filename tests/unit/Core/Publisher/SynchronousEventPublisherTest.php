@@ -1,11 +1,11 @@
 <?php
 
-namespace Aztech\Events\Tests\Core\Publisher;
+namespace Aztech\Events\Tests\Bus\Publisher;
 
 use Aztech\Events\Publishers\SynchronousEventPublisher;
-use Aztech\Events\Core\Publisher\SynchronousPublisher;
-use Aztech\Events\Core\Event;
-use Aztech\Events\Core\Dispatcher;
+use Aztech\Events\Bus\Publisher\SynchronousPublisher;
+use Aztech\Events\Bus\Event;
+use Aztech\Events\Bus\Dispatcher;
 use Symfony\Component\Console\Logger\ConsoleLogger;
 use Symfony\Component\Console\Output\ConsoleOutput;
 

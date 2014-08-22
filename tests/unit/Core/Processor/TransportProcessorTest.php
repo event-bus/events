@@ -1,8 +1,8 @@
 <?php
 
-namespace Aztech\Events\Tests\Core\Processor;
+namespace Aztech\Events\Tests\Bus\Processor;
 
-use Aztech\Events\Core\Processor\TransportProcessor;
+use Aztech\Events\Bus\Processor\TransportProcessor;
 
 class TransportProcessorTest extends \PHPUnit_Framework_TestCase
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Aztech\Events\Core;
+namespace Aztech\Events\Bus;
 
 use Aztech\Events\Processor;
-use Aztech\Events\Core\Subscriber\CallbackSubscriber;
+use Aztech\Events\Bus\Subscriber\CallbackSubscriber;
 use Aztech\Events\Subscriber;
 
 class Consumer implements \Aztech\Events\Consumer

@@ -3,7 +3,7 @@
 namespace Aztech\Events\Plugins\Mixpanel;
 
 use Aztech\Events\Event;
-use Aztech\Events\Core\AbstractEvent;
+use Aztech\Events\Bus\AbstractEvent;
 
 class Transport implements \Aztech\Events\Transport
 {

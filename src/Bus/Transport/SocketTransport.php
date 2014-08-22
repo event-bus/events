@@ -1,10 +1,10 @@
 <?php
 
-namespace Aztech\Events\Core\Transport;
+namespace Aztech\Events\Bus\Transport;
 
 use Aztech\Events\Transport;
 use Aztech\Events\Event;
-use Aztech\Events\Core\Transport\Socket\Wrapper;
+use Aztech\Events\Bus\Transport\Socket\Wrapper;
 
 class SocketTransport implements Transport
 {

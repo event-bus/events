@@ -2,7 +2,7 @@
 
 namespace Aztech\Events\Plugins\ZeroMq;
 
-use Aztech\Events\Core\AbstractFactory;
+use Aztech\Events\Bus\AbstractFactory;
 
 class Factory extends AbstractFactory
 {

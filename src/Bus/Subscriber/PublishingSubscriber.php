@@ -1,6 +1,6 @@
 <?php
 
-namespace Aztech\Events\Core\Subscriber;
+namespace Aztech\Events\Bus\Subscriber;
 
 use Aztech\Events\Event;
 use Aztech\Events\Publisher;

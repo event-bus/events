@@ -2,7 +2,7 @@
 
 namespace Aztech\Events\Plugins\Amqp;
 
-use Aztech\Events\Core\AbstractFactory;
+use Aztech\Events\Bus\AbstractFactory;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 
 class Factory extends AbstractFactory

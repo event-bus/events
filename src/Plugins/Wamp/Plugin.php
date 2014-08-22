@@ -3,8 +3,8 @@
 namespace Aztech\Events\Plugins\Wamp;
 
 use Aztech\Events\Serializer;
-use Aztech\Events\Core\AbstractPlugin;
-use Aztech\Events\Core\Serializer\JsonSerializer;
+use Aztech\Events\Bus\AbstractPlugin;
+use Aztech\Events\Bus\Serializer\JsonSerializer;
 
 class Plugin extends AbstractPlugin
 {

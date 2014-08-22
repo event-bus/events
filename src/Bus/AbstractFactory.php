@@ -1,10 +1,10 @@
 <?php
 
-namespace Aztech\Events\Core;
+namespace Aztech\Events\Bus;
 
 use Aztech\Events\Factory;
-use Aztech\Events\Core\Publisher\TransportPublisher;
-use Aztech\Events\Core\Processor\TransportProcessor;
+use Aztech\Events\Bus\Publisher\TransportPublisher;
+use Aztech\Events\Bus\Processor\TransportProcessor;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 

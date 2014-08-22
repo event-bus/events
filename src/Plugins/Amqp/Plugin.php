@@ -3,8 +3,8 @@
 namespace Aztech\Events\Plugins\Amqp;
 
 use Aztech\Events\Serializer;
-use Aztech\Events\Core\AbstractPlugin;
-use Aztech\Events\Core\Serializer\NativeSerializer;
+use Aztech\Events\Bus\AbstractPlugin;
+use Aztech\Events\Bus\Serializer\NativeSerializer;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;

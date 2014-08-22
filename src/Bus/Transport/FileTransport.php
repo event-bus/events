@@ -1,6 +1,6 @@
 <?php
 
-namespace Aztech\Events\Core\Transport;
+namespace Aztech\Events\Bus\Transport;
 
 use Aztech\Events\Event;
 use Aztech\Events\Transport;

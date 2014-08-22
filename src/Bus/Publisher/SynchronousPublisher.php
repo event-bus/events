@@ -1,13 +1,13 @@
 <?php
 
-namespace Aztech\Events\Core\Publisher;
+namespace Aztech\Events\Bus\Publisher;
 
 use Aztech\Events\Dispatcher;
 use Aztech\Events\Event;
 use Aztech\Events\Publisher;
 use Aztech\Events\Subscriber;
 use Aztech\Events\Consumer;
-use Aztech\Events\Core\Subscriber\CallbackSubscriber;
+use Aztech\Events\Bus\Subscriber\CallbackSubscriber;
 
 class SynchronousPublisher implements Publisher, Consumer
 {

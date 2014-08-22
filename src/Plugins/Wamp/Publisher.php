@@ -2,15 +2,15 @@
 
 namespace Aztech\Events\Plugins\Wamp;
 
-use Aztech\Events\Core\Event;
+use Aztech\Events\Bus\Event;
 use Aztech\Events\Serializer;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Ratchet\ConnectionInterface;
 use Ratchet\Wamp\WampServerInterface;
-use Aztech\Events\Core\Subscriber\CallbackSubscriber;
-use Aztech\Events\Core\Dispatcher;
+use Aztech\Events\Bus\Subscriber\CallbackSubscriber;
+use Aztech\Events\Bus\Dispatcher;
 
 class Publisher implements \Aztech\Events\Publisher, WampServerInterface, LoggerAwareInterface
 {

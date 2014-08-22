@@ -1,9 +1,9 @@
 <?php
 
-namespace Aztech\Events\Tests\Core\Serializer;
+namespace Aztech\Events\Tests\Bus\Serializer;
 
-use Aztech\Events\Core\Serializer\NativeSerializer;
-use Aztech\Events\Core\Event;
+use Aztech\Events\Bus\Serializer\NativeSerializer;
+use Aztech\Events\Bus\Event;
 
 class NativeSerializerTest extends \PHPUnit_Framework_TestCase
 {

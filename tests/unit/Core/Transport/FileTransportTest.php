@@ -1,8 +1,8 @@
 <?php
 
-namespace Aztech\Events\Tests\Core\Transport;
+namespace Aztech\Events\Tests\Bus\Transport;
 
-use Aztech\Events\Core\Transport\FileTransport;
+use Aztech\Events\Bus\Transport\FileTransport;
 use org\bovigo\vfs\vfsStream;
 
 class FileTransportTest extends \PHPUnit_Framework_TestCase

@@ -4,7 +4,7 @@ namespace Aztech\Events\Plugins\Logger;
 
 use Psr\Log\AbstractLogger;
 use Aztech\Events\Publisher;
-use Aztech\Events\Core\Event;
+use Aztech\Events\Bus\Event;
 
 class PublishingLogger extends AbstractLogger
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Aztech\Events\Core\Serializer;
+namespace Aztech\Events\Bus\Serializer;
 
-use Aztech\Events\Core\AbstractEvent;
+use Aztech\Events\Bus\AbstractEvent;
 use Aztech\Events\Event;
 use Instantiator\Instantiator;
 

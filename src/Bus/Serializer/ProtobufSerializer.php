@@ -1,6 +1,6 @@
 <?php
 
-namespace Aztech\Events\Core\Serializer;
+namespace Aztech\Events\Bus\Serializer;
 
 use Aztech\Events\Serializer;
 use Aztech\Events\Event;

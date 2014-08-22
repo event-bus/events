@@ -2,8 +2,8 @@
 
 use Aztech\Events\Events;
 use Aztech\Events\Plugins\ZeroMq\Plugin;
-use Aztech\Events\Core\Event;
-use Aztech\Events\Core\Serializer\JsonSerializer;
+use Aztech\Events\Bus\Event;
+use Aztech\Events\Bus\Serializer\JsonSerializer;
 
 include_once __DIR__ . '/../vendor/autoload.php';
 

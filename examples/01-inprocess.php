@@ -1,12 +1,12 @@
 <?php
 
-use Aztech\Events\Core\Dispatcher;
-use Aztech\Events\Core\Consumer;
-use Aztech\Events\Core\Publisher\SynchronousPublisher;
-use Aztech\Events\Core\Subscriber\CallbackSubscriber;
+use Aztech\Events\Bus\Dispatcher;
+use Aztech\Events\Bus\Consumer;
+use Aztech\Events\Bus\Publisher\SynchronousPublisher;
+use Aztech\Events\Bus\Subscriber\CallbackSubscriber;
 use Aztech\Events\Event;
 use Aztech\Events\Events;
-use Aztech\Events\Core\AbstractEvent;
+use Aztech\Events\Bus\AbstractEvent;
 
 include_once __DIR__ . '/../vendor/autoload.php';
 

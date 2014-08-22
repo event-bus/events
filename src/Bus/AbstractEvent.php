@@ -1,6 +1,6 @@
 <?php
 
-namespace Aztech\Events\Core;
+namespace Aztech\Events\Bus;
 
 use Rhumsaa\Uuid\Uuid;
 

@@ -2,7 +2,7 @@
 
 namespace Aztech\Events\Tests\Transport;
 
-use Aztech\Events\Core\Transport\SocketTransport;
+use Aztech\Events\Bus\Transport\SocketTransport;
 class SocketTransportTest extends \PHPUnit_Framework_TestCase
 {
 
@@ -10,7 +10,7 @@ class SocketTransportTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->wrapper = $this->getMockBuilder('\Aztech\Events\Core\Transport\Socket\Wrapper')
+        $this->wrapper = $this->getMockBuilder('\Aztech\Events\Bus\Transport\Socket\Wrapper')
             ->disableOriginalConstructor()
             ->getMock();
     }

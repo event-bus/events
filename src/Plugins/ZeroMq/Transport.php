@@ -2,7 +2,7 @@
 
 namespace Aztech\Events\Plugins\ZeroMq;
 
-use Aztech\Events\Tests\Core\Transport\Socket\SocketWrapperTest;
+use Aztech\Events\Tests\Bus\Transport\Socket\SocketWrapperTest;
 use Aztech\Events\Event;
 
 class Transport implements \Aztech\Events\Transport

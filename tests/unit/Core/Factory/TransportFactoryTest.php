@@ -1,8 +1,8 @@
 <?php
 
-namespace Aztech\Events\Tests\Core\Factory;
+namespace Aztech\Events\Tests\Bus\Factory;
 
-use Aztech\Events\Core\Factory\TransportFactory;
+use Aztech\Events\Bus\Factory\TransportFactory;
 
 class TransportFactoryTest extends \PHPUnit_Framework_TestCase
 {

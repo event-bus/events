@@ -3,8 +3,8 @@
 namespace Aztech\Events\Plugins\Stomp;
 
 use Aztech\Events\Serializer;
-use Aztech\Events\Core\AbstractPlugin;
-use Aztech\Events\Core\Serializer\NativeSerializer;
+use Aztech\Events\Bus\AbstractPlugin;
+use Aztech\Events\Bus\Serializer\NativeSerializer;
 
 class Plugin extends AbstractPlugin
 {

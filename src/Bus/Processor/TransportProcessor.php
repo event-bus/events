@@ -1,8 +1,8 @@
 <?php
 
-namespace Aztech\Events\Core\Processor;
+namespace Aztech\Events\Bus\Processor;
 
-use Aztech\Events\Core\AbstractProcessor;
+use Aztech\Events\Bus\AbstractProcessor;
 use Aztech\Events\Transport;
 use Aztech\Events\Serializer;
 use Aztech\Events\Dispatcher;

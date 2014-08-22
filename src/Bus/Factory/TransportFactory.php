@@ -1,13 +1,13 @@
 <?php
 
-namespace Aztech\Events\Core\Factory;
+namespace Aztech\Events\Bus\Factory;
 
 use Aztech\Events\Transport;
 use Aztech\Events\Serializer;
 use Aztech\Events\EventDispatcher as Dispatcher;
-use Aztech\Events\Core\Publisher\TransportPublisher;
-use Aztech\Events\Core\Processor\TransportProcessor;
-use Aztech\Events\Core\Consumer;
+use Aztech\Events\Bus\Publisher\TransportPublisher;
+use Aztech\Events\Bus\Processor\TransportProcessor;
+use Aztech\Events\Bus\Consumer;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Psr\Log\LoggerAwareInterface;
