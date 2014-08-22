@@ -9,7 +9,6 @@ class Event extends AbstractEvent
 
     protected $properties = array();
 
-
     /**
      * @param string $category
      */
@@ -48,8 +47,4 @@ class Event extends AbstractEvent
         $this->properties[$name] = $value;
     }
 
-    public function __sleep()
-    {
-
-    }
 }
