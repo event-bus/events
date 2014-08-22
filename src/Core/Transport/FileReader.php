@@ -19,6 +19,7 @@ class FileReader implements Reader
         }
     }
 
+
     public function read()
     {
         $data = false;
@@ -36,10 +37,7 @@ class FileReader implements Reader
         $data = false;
 
         if ($handle = fopen($this->file, "c+")) {
-            if (flock($handle, LOCK_EX)) {
-                $data = $this->readFile($handle);
-                flock($handle, LOCK_UN);
-            }
+            $data = Files::invokeEx(array ($this, 'readFile'), $handle);
 
             fclose($handle);
         }
@@ -54,7 +52,7 @@ class FileReader implements Reader
         }
     }
 
-    private function readFile($handle)
+    public function readFile($handle)
     {
         $lines = array();
 
@@ -72,3 +70,4 @@ class FileReader implements Reader
         return isset($data) ? $data : false;
     }
 }
+    
