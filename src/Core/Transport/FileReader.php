@@ -4,10 +4,11 @@ namespace Aztech\Events\Core\Transport;
 
 use Aztech\Events\Event;
 use Aztech\Events\Transport\Reader;
+use Aztech\Util\File\Files;
 
 class FileReader implements Reader
 {
-    
+
     private $file;
 
     public function __construct($file)
@@ -70,4 +71,3 @@ class FileReader implements Reader
         return isset($data) ? $data : false;
     }
 }
-    
