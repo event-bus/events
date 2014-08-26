@@ -87,7 +87,7 @@ class SocketWrapper implements LoggerAwareInterface
      * Connects the wrapped socket to the construction time supplied DSN.
      * @return void
      */
-    public function connectIfNecessary($clientDelay = 100000)
+    public function connectIfNecessary($clientDelay = 1000000)
     {
         if (! $this->boundOrConnected) {
             $this->logger->debug('Connecting to "' . $this->dsn . '"...');
@@ -108,7 +108,7 @@ class SocketWrapper implements LoggerAwareInterface
      * Binds the wrapped socket to the construction time supplied DSN.
      * @return void
      */
-    public function bindIfNecessary($clientDelay = 100000)
+    public function bindIfNecessary($clientDelay = 1000000)
     {
         if (! $this->boundOrConnected) {
             $this->logger->debug('Binding to "' . $this->dsn . '"...');
@@ -118,7 +118,7 @@ class SocketWrapper implements LoggerAwareInterface
 
             // Give clients some time to connect, lazy shmucks.
             if ($clientDelay > 0) {
-                usleep(250000);
+                usleep($clientDelay);
             }
 
             $this->logger->debug('Succesfully bound to "' . $this->dsn . '".');

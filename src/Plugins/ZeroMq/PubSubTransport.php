@@ -14,13 +14,13 @@ class PubSubTransport implements \Aztech\Events\Transport, LoggerAwareInterface
      *
      * @var \ZMQSocket
      */
-    private $pushSocket;
+    private $subscriber;
 
     /**
      *
      * @var \ZMQSocket
      */
-    private $pullSocket;
+    private $publisher;
 
     /**
      *
@@ -30,19 +30,17 @@ class PubSubTransport implements \Aztech\Events\Transport, LoggerAwareInterface
 
     public function __construct(SocketWrapper $publisher, SocketWrapper $subscriber, LoggerInterface $logger)
     {
-        $this->logger = $logger ?: new NullLogger();
+        $this->logger = $logger ?  : new NullLogger();
 
-        $this->pullSocket = $pullSocket;
-        // Disable prefix filtering
-        $this->pullSocket->setSockOpt(\ZMQ::SOCKOPT_SUBSCRIBE, '');
-
-        $this->pushSocket = $pushSocket;
+        $this->publisher = $publisher;
+        $this->subscriber = $subscriber;
+        $this->subscriber->setSockOpt(\ZMQ::SOCKOPT_SUBSCRIBE, 'E');
     }
 
     public function __destruct()
     {
-        $this->pushSocket = null;
-        $this->pullSocket = null;
+        $this->publisher = null;
+        $this->subscriber = null;
     }
 
     public function setLogger(LoggerInterface $logger)
@@ -52,18 +50,18 @@ class PubSubTransport implements \Aztech\Events\Transport, LoggerAwareInterface
 
     public function read()
     {
-        $this->pullSocket->bindIfNecessary();
-        $data = $this->pullSocket->recv();
+        $this->subscriber->bindIfNecessary();
+        $data = $this->subscriber->recv();
 
         $this->logger->debug(sprintf('Read %d characters, returning.', strlen($data), ['data' => $data]));
 
-        return $data;
+        return substr($data, 1);
     }
 
     public function write(Event $event, $serializedEvent)
     {
-        $this->pushSocket->connectIfNecessary();
-        $this->pushSocket->send($serializedEvent);
+        $this->publisher->connectIfNecessary();
+        $this->publisher->send('E' . $serializedEvent);
 
         $this->logger->debug(sprintf('Wrote %d characters to socket.', strlen($serializedEvent)), ['data' => $serializedEvent]);
     }
