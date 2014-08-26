@@ -2,7 +2,7 @@
 
 namespace Aztech\Events\Bus;
 
-use Aztech\Events\Util\TrieMatcher\Trie;
+use Aztech\Events\Util\Pattern\PatternMatcher;
 
 class Serializer implements \Aztech\Events\Serializer
 {
@@ -16,7 +16,7 @@ class Serializer implements \Aztech\Events\Serializer
         }
 
         array_unshift($this->serializationMap, array(
-            new Trie($eventFilter),
+            new PatternMatcher($eventFilter),
             $serializer
         ));
     }

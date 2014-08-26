@@ -5,7 +5,7 @@ namespace Aztech\Events\Bus\Subscriber;
 use Aztech\Events\Event;
 use Aztech\Events\Publisher;
 use Aztech\Events\Subscriber;
-use Aztech\Events\Util\TrieMatcher\Trie;
+use Aztech\Events\Util\Pattern\PatternMatcher;
 
 class PublishingSubscriber implements Subscriber
 {
@@ -22,7 +22,7 @@ class PublishingSubscriber implements Subscriber
         $this->constraint = $constraint;
 
         // Use a trie instead of a CategoryMatcher to cache the lookup tree.
-        $this->matcher = new Trie($constraint);
+        $this->matcher = new PatternMatcher($constraint);
     }
 
     public function supports(Event $event)
