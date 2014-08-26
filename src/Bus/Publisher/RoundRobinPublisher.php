@@ -7,24 +7,36 @@ use Aztech\Events\Publisher;
 
 class RoundRobinPublisher extends AbstractPublisherCollection implements Publisher
 {
+    private $queue;
+
     public function __construct(array $publishers = array())
     {
         parent::__construct($publishers);
 
-        reset($this->publishers);
+        $this->queue = new \SplStack();
+    }
+
+    public function addPublisher(Publisher $publisher)
+    {
+        $this->queue->push($publisher);
+
+        parent::addPublisher($publisher);
     }
 
     public function publish(Event $event)
     {
-        if (! ($publisher = next($this->publishers))) {
-            $publisher = reset($this->publishers);
-        }
-
-        if (! $publisher) {
-            // No registered publishers
+        if (! $this->publishers->count()) {
             return;
         }
 
+        $publisher = $this->queue->shift();
+
+        while (! $this->publishers->contains($publisher)) {
+            $publisher = $this->queue->shift();
+        }
+
         $publisher->publish($event);
+
+        $this->queue->push($publisher);
     }
 }

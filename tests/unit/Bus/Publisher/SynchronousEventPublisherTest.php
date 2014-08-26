@@ -124,4 +124,14 @@ class SynchronousEventPublisherTest extends \PHPUnit_Framework_TestCase
 
         $publisher->publish($event);
     }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testSubscribingWithNonCallableAndNonSubscriberArgThrowsException()
+    {
+        $publisher = new SynchronousPublisher();
+
+        $publisher->on('*', array());
+    }
 }

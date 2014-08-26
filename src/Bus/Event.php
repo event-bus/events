@@ -46,5 +46,4 @@ class Event extends AbstractEvent
     {
         $this->properties[$name] = $value;
     }
-
 }
