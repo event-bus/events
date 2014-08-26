@@ -10,32 +10,32 @@ class SocketWrapper implements LoggerAwareInterface
 {
 
     /**
-     * 
+     *
      * @var bool true when a connection/binding has been set.
      */
     private $boundOrConnected = false;
 
     /**
-     * 
+     *
      * @var string
      */
     private $dsn;
-    
+
     /**
-     * 
+     *
      * @var \Psr\Log\LoggerInterface
      */
     private $logger;
-    
+
     /**
-     * 
+     *
      * @var \ZMQSocket
      */
     private $socket;
 
     /**
      * Initialize a new wrapper using an unconnected socket.
-     *  
+     *
      * @param \ZMQSocket $socket
      * @param string $dsn
      */
@@ -52,7 +52,7 @@ class SocketWrapper implements LoggerAwareInterface
             $this->socket->unbind($this->dsn);
         }
     }
-    
+
     public function setLogger(LoggerInterface $logger)
     {
         $this->logger = $logger;
@@ -68,7 +68,7 @@ class SocketWrapper implements LoggerAwareInterface
         if (! in_array(substr($method, 0, 4), [ 'recv', 'send' ])) {
             $this->logger->debug('__call forwarding to \ZMQSocket::' . $method . '().', [ 'args' => $args]);
         }
-        
+
         // Poor man's proxy, but pointless to do more.
         return call_user_func_array(array($this->socket, $method), $args);
     }
@@ -82,7 +82,7 @@ class SocketWrapper implements LoggerAwareInterface
         return $this->socket;
     }
 
-    
+
     /**
      * Connects the wrapped socket to the construction time supplied DSN.
      * @return void
@@ -91,15 +91,15 @@ class SocketWrapper implements LoggerAwareInterface
     {
         if (! $this->boundOrConnected) {
             $this->logger->debug('Connecting to "' . $this->dsn . '"...');
-            
+
             $this->socket->connect($this->dsn);
             $this->boundOrConnected = true;
-            
+
             // Give clients some time to start consuming, lazy shmucks.
             if ($clientDelay > 0) {
                 usleep($clientDelay);
             }
-            
+
             $this->logger->debug('Succesfully connected to "' . $this->dsn . '".');
         }
     }
@@ -112,16 +112,16 @@ class SocketWrapper implements LoggerAwareInterface
     {
         if (! $this->boundOrConnected) {
             $this->logger->debug('Binding to "' . $this->dsn . '"...');
-            
+
             $this->socket->bind($this->dsn);
             $this->boundOrConnected = true;
-            
+
             // Give clients some time to connect, lazy shmucks.
             if ($clientDelay > 0) {
                 usleep(250000);
             }
-            
-            $this->logger->debug('Succesfully connected to "' . $this->dsn . '".');
+
+            $this->logger->debug('Succesfully bound to "' . $this->dsn . '".');
         }
     }
 }

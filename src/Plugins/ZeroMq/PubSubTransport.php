@@ -28,7 +28,7 @@ class PubSubTransport implements \Aztech\Events\Transport, LoggerAwareInterface
      */
     private $logger;
 
-    public function __construct(SocketWrapper $pushSocket, SocketWrapper $pullSocket, LoggerInterface $logger)
+    public function __construct(SocketWrapper $publisher, SocketWrapper $subscriber, LoggerInterface $logger)
     {
         $this->logger = $logger ?: new NullLogger();
 

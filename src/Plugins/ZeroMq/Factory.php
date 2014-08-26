@@ -13,8 +13,8 @@ class Factory extends AbstractFactory
 
         $context = new \ZMQContext();
 
-        $pushWrapper = $this->createPushSocketWrapper($context, $options);
-        $pullWrapper = $this->createPullSocketWrapper($context, $options);
+        $publisher = $this->createPushSocketWrapper($context, $options);
+        $subscriber = $this->createPullSocketWrapper($context, $options);
 
         $transport = new PubSubTransport($pushWrapper, $pullWrapper, $this->logger);
 
@@ -35,6 +35,7 @@ class Factory extends AbstractFactory
     private function createPushSocketWrapper($context, $options)
     {
         $options['host'] = $options['push-host'];
+
         return $this->createSocketWrapper($context, $options, \ZMQ::SOCKET_PUB, true);
     }
 
