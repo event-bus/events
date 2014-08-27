@@ -10,6 +10,7 @@ php:
 before_script:
   - composer selfupdate
   - composer install --dev
+  - echo 'extension = "zmq.so"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
   - wget https://scrutinizer-ci.com/ocular.phar
 
 script: 
