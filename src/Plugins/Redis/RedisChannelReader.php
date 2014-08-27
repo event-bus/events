@@ -5,7 +5,7 @@ namespace Aztech\Events\Bus\Plugins\Redis;
 use Aztech\Events\Event;
 use Predis\Client;
 
-class Channel implements \Aztech\Events\Bus\Channel
+class RedisChannelReader implements \Aztech\Events\Bus\Channel\ChannelReader
 {
 
     private $redis;
@@ -35,10 +35,5 @@ class Channel implements \Aztech\Events\Bus\Channel
                 $this->key
             ), 0);
         }
-    }
-
-    public function write(Event $event, $serializedRepresentation)
-    {
-        $this->client->rpush($this->key, $serializedRepresentation);
     }
 }

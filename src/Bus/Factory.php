@@ -19,9 +19,4 @@ interface Factory
      */
     function createProcessor(array $options = array());
 
-    /**
-     *
-     * @return \Aztech\Events\Bus\Consumer
-     */
-    function createConsumer(array $options = array());
 }

@@ -18,6 +18,6 @@ class MemoryChannelReaderWriter implements ChannelReader, ChannelWriter
 
     public function read()
     {
-        return array_pop($this->events);
+        return array_shift($this->events);
     }
 }

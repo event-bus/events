@@ -19,8 +19,6 @@ class GenericFactory implements Factory
 
     protected $serializer;
 
-    protected $logger;
-
     protected $channelProvider;
 
     public function __construct(Serializer $serializer, ChannelProvider $channelProvider, OptionsDescriptor $descriptor = null)
@@ -29,12 +27,6 @@ class GenericFactory implements Factory
         $this->channelProvider = $channelProvider;
         $this->optionsDescriptor = $descriptor ?: new NullOptionsDescriptor();
         $this->optionsValidator = new OptionsValidator();
-        $this->logger = new NullLogger();
-    }
-
-    public function setLogger(LoggerInterface $logger)
-    {
-        $this->logger = $logger;
     }
 
     public function createProcessor(array $options = array())

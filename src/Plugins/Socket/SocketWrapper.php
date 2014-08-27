@@ -5,7 +5,7 @@ namespace Aztech\Events\Bus\Plugins\Socket;
 use Psr\Log\NullLogger;
 use Psr\Log\LoggerInterface;
 
-class Wrapper
+class SocketWrapper
 {
 
     protected $logger;

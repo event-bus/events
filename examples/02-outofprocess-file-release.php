@@ -1,7 +1,7 @@
 <?php
 
 use Aztech\Events\Events;
-use Aztech\Events\Bus\Transport\FileTransport;
+use Aztech\Events\Bus\Channel\FileChannel;
 use Aztech\Events\Bus\AbstractEvent;
 use Symfony\Component\Console\Logger\ConsoleLogger;
 use Symfony\Component\Console\Output\ConsoleOutput;
@@ -12,7 +12,7 @@ $logger = new ConsoleLogger(new ConsoleOutput(ConsoleOutput::VERBOSITY_DEBUG));
 $logger->info('Starting example 2');
 
 // Events will be queued in a file
-$transport = new FileTransport('/tmp/events.queue');
+$transport = new FileChannel('/tmp/events.queue');
 
 // Create a factory to get access to publishers and consumers
 $factory = Events::createFactory($transport, null, $logger);

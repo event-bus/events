@@ -2,7 +2,7 @@
 
 namespace Aztech\Events\Bus\Plugins\Pdo;
 
-class Helper
+class PdoHelper
 {
 
     private $eventTable = 'events';

@@ -1,8 +1,8 @@
 <?php
 
-namespace Aztech\Events\Tests\Bus\Publisher;
+namespace Aztech\Events\Tests\Bus\Channel;
 
-use Aztech\Events\Bus\Publisher\ChannelPublisher;
+use Aztech\Events\Bus\Channel\ChannelPublisher;
 
 class ChannelPublisherTest extends \PHPUnit_Framework_TestCase
 {
@@ -11,14 +11,14 @@ class ChannelPublisherTest extends \PHPUnit_Framework_TestCase
 
     private $serializer;
 
-    private $transport;
+    private $writer;
 
     protected function setUp()
     {
-        $this->transport = $this->getMock('\Aztech\Events\Bus\Channel');
+        $this->writer = $this->getMock('\Aztech\Events\Bus\Channel\ChannelWriter');
         $this->serializer = $this->getMock('Aztech\Events\Bus\Serializer');
 
-        $this->publisher = new ChannelPublisher($this->transport, $this->serializer);
+        $this->publisher = new ChannelPublisher($this->writer, $this->serializer);
     }
 
     public function testPublishCallsChannelWithSerializedRepresentationAndEvent()
@@ -30,7 +30,7 @@ class ChannelPublisherTest extends \PHPUnit_Framework_TestCase
             ->with($event)
             ->willReturn('data');
 
-        $this->transport->expects($this->once())
+        $this->writer->expects($this->once())
             ->method('write')
             ->with($this->equalTo($event), $this->equalTo('data'));
 

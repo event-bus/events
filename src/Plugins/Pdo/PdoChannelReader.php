@@ -1,25 +1,20 @@
 <?php
 
-namespace Aztech\Events\Bus\Plugins\PDO;
+namespace Aztech\Events\Bus\Plugins\Pdo;
 
 use Aztech\Events\Event;
 
-class Channel implements \Aztech\Events\Bus\Channel
+class PdoChannelReader implements \Aztech\Events\Bus\Channel\ChannelReader
 {
 
     private $pdo;
 
     private $helper;
 
-    public function __construct(\PDO $connection)
+    public function __construct(\PDO $connection, PdoHelper $helper)
     {
         $this->pdo = $connection;
-        $this->helper = new Helper();
-    }
-
-    public function setPdoMetadata($tableName, $idColumn, $dataColumn)
-    {
-        return $this->helper->setPdoMetadata($tableName, $idColumn, $dataColumn);
+        $this->helper = $pdoHelper;
     }
 
     public function read()
@@ -58,16 +53,5 @@ class Channel implements \Aztech\Events\Bus\Channel
         $this->pdo->commit();
 
         return $data;
-    }
-
-    public function write(Event $event, $serializedEvent)
-    {
-        $query = $this->helper->getWriteQuery();
-
-        $statement = $this->pdo->prepare($query);
-        $statement->execute(array(
-            ':id' => $event->getId(),
-            ':data' => $serializedEvent
-        ));
     }
 }

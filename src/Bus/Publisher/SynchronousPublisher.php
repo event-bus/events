@@ -53,14 +53,4 @@ class SynchronousPublisher implements Publisher
 
         $this->dispatcher->addListener($categoryFilter, $subscriber);
     }
-
-    public function consumeAll()
-    {
-        // Raise warning ?
-    }
-
-    public function consumeNext()
-    {
-        // Raise warning ?
-    }
 }

@@ -42,4 +42,10 @@ class Plugins
             return new MixpanelChannelProvider();
         }, new MixpanelOptionsDescriptor()));
     }
+
+    static function loadSocketPlugin($name = 'socket') {
+        Events::addPlugin($name, new GenericPluginFactory(function() {
+            return new SocketChannelProvider();
+        }, new MixpanelOptionsDescriptor()));
+    }
 }

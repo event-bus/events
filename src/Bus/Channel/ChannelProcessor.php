@@ -4,6 +4,7 @@ namespace Aztech\Events\Bus\Channel;
 
 use Aztech\Events\Dispatcher;
 use Aztech\Events\Bus\Serializer;
+use Aztech\Events\Bus\Processor;
 
 class ChannelProcessor implements Processor
 {

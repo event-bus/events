@@ -1,6 +1,6 @@
 <?php
 
-namespace Aztech\Events\Bus\Channel\Socket
+namespace Aztech\Events\Bus\Plugins\Socket
 {
     class SocketBehavior
     {
@@ -166,10 +166,11 @@ namespace Aztech\Events\Bus\Channel\Socket
 namespace Aztech\Events\Tests\Bus\Channel\Socket
 {
 
-    use Aztech\Events\Bus\Channel\Socket\Wrapper;
-use Symfony\Component\Console\Logger\ConsoleLogger;
-use Symfony\Component\Console\Output\ConsoleOutput;
-use Aztech\Events\Bus\Channel\Socket\SocketBehavior;
+    use Symfony\Component\Console\Logger\ConsoleLogger;
+    use Symfony\Component\Console\Output\ConsoleOutput;
+    use Psr\Log\NullLogger;
+    use Aztech\Events\Bus\Plugins\Socket\SocketBehavior;
+    use Aztech\Events\Bus\Plugins\Socket\SocketWrapper as Wrapper;
 
     class SocketWrapperTest extends \PHPUnit_Framework_TestCase
     {
@@ -186,21 +187,21 @@ use Aztech\Events\Bus\Channel\Socket\SocketBehavior;
         {
             SocketBehavior::reset();
 
-            $sock = \Aztech\Events\Bus\Channel\Socket\socket_create(AF_INET, SOCK_STREAM);
+            $sock = \Aztech\Events\Bus\Plugins\Socket\socket_create(AF_INET, SOCK_STREAM);
 
             // Bind the socket to an address/port
-            if (! \Aztech\Events\Bus\Channel\Socket\socket_bind($sock, 'localhost', 0)) {
+            if (! \Aztech\Events\Bus\Plugins\Socket\socket_bind($sock, 'localhost', 0)) {
                 throw new \RuntimeException('Could not bind to address');
             }
 
             // Start listening for connections
-            \Aztech\Events\Bus\Channel\Socket\socket_listen($sock);
+            \Aztech\Events\Bus\Plugins\Socket\socket_listen($sock);
 
             // Accept incoming requests and handle them as child processes.
-            $this->client = \Aztech\Events\Bus\Channel\Socket\socket_accept($sock);
+            $this->client = \Aztech\Events\Bus\Plugins\Socket\socket_accept($sock);
             $this->server = $sock;
 
-            $logger = new ConsoleLogger(new ConsoleOutput(ConsoleOutput::VERBOSITY_QUIET));
+            $logger = new NullLogger();
 
             $this->writer = new Wrapper($this->server, $logger);
             $this->reader = new Wrapper($this->client, $logger);

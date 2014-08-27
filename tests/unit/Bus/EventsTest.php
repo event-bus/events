@@ -14,22 +14,7 @@ class EventsTest extends \PHPUnit_Framework_TestCase
 
     protected function generatePlugin()
     {
-        $plugin = $this->getMock('\Aztech\Events\Bus\Plugin');
-        $plugin->expects($this->any())
-            ->method('hasChannel')
-            ->willReturn(true);
-
-        $plugin->expects($this->any())
-            ->method('hasFactory')
-            ->willReturn(true);
-
-        $plugin->expects($this->any())
-            ->method('canPublish')
-            ->willReturn(true);
-
-        $plugin->expects($this->any())
-            ->method('canProcess')
-            ->willReturn(true);
+        $plugin = $this->getMock('\Aztech\Events\Bus\PluginFactory');
 
         return $plugin;
     }
@@ -69,34 +54,5 @@ class EventsTest extends \PHPUnit_Framework_TestCase
 
         Events::addPlugin($name, $plugin);
         Events::addPlugin($nextName, $plugin);
-    }
-
-    /**
-     * @expectedException \InvalidArgumentException
-     */
-    public function testCannotAddPluginWithNoChannelOrFactory()
-    {
-        $name = 'key';
-        $plugin = $this->getMock('\Aztech\Events\Bus\Plugin');
-
-        Events::addPlugin($name, $plugin);
-    }
-
-    /**
-     * @expectedException \InvalidArgumentException
-     */
-    public function testCannotAddPluginWithNeitherPublishNorProcessFeature()
-    {
-        $name = 'key';
-        $plugin = $this->getMock('\Aztech\Events\Bus\Plugin');
-        $plugin->expects($this->any())
-            ->method('hasChannel')
-            ->willReturn(true);
-
-        $plugin->expects($this->any())
-            ->method('hasFactory')
-            ->willReturn(true);
-
-        Events::addPlugin($name, $plugin);
     }
 }

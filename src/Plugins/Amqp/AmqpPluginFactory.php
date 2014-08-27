@@ -7,7 +7,6 @@ use Aztech\Events\Bus\Serializer\NativeSerializer;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
-use Aztech\Events\Bus\GenericFactory;
 use Aztech\Events\Bus\PluginFactory;
 
 class AmqpPluginFactory implements PluginFactory

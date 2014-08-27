@@ -74,7 +74,7 @@ class Events
      * @param PluginFactory $plugin The plugin factory to register.
      * @throws \InvalidArgumentException when plugin or plugin name is already registered, or when name is invalid (empty).
      */
-    public static function addPlugin(PluginFactory $name, $plugin)
+    public static function addPlugin($name, PluginFactory $plugin)
     {
         if (empty($name)) {
             throw new \InvalidArgumentException(self::FMT_ERR_NAME_REQUIRED, self::NUM_ERR_NAME_REQUIRED);
