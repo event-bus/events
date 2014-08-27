@@ -9,9 +9,9 @@ use Psr\Log\NullLogger;
 /**
  * ZMQSocket wrapper class (poor man's proxy)
  * @author thibaud
- * @method send
- * @method recv
- * @method setSockOpt
+ * @method void send(string $data)
+ * @method string recv()
+ * @method void setSockOpt(mixed $option, mixed $value)
  */
 class ZeroMqSocketWrapper implements LoggerAwareInterface
 {
