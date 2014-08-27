@@ -28,7 +28,7 @@ class ProtobufSerializer implements Serializer
         return $this->codec->encode($event);
     }
 
-    public function unserialize($value)
+    public function deserialize($value)
     {
         $reflectionClass = new \ReflectionClass($this->hydratedClassName);
         $message = $reflectionClass->newInstanceWithoutConstructor();

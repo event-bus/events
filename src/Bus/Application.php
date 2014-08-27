@@ -32,18 +32,6 @@ class Application implements Processor
         $this->dispatcher->addListener($filter, $subscriber);
     }
 
-    public function onProcessorEvent($filter, $subscriber)
-    {
-        if (is_callable($subscriber) && ! ($subscriber instanceof Subscriber)) {
-            $subscriber = new Callback($subscriber);
-        }
-        elseif (! ($subscriber instanceof Subscriber)) {
-            throw new \InvalidArgumentException('Subscriber must be a callable or a Subscriber instance.');
-        }
-
-        $this->processor->on($filter, $subscriber);
-    }
-
     public function run()
     {
         while (true) {

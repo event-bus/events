@@ -1,5 +1,5 @@
 language: php
- 
+
 php:
   - 5.4
   - 5.5
@@ -10,10 +10,10 @@ php:
 before_script:
   - composer selfupdate
   - composer install --dev
-  - echo 'extension = "zmq.so"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+  - echo 'extension = "zmq.so"' > zmq.conf && php-env config-add zmq.conf
   - wget https://scrutinizer-ci.com/ocular.phar
 
-script: 
+script:
   - phpunit --coverage-text --coverage-clover=coverage.clover
   - vendor/bin/phpcs --standard=./phpcs.xml -n --report=gitblame ./src
   - vendor/bin/bugfree lint src/
