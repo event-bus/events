@@ -13,19 +13,30 @@ class OptionsValidator
         $actual = array();
 
         foreach ($keys as $key) {
-            if (! array_key_exists($key, $options) && ! array_key_exists($key, $defaults)) {
-                throw new \InvalidArgumentException('Options key ' . $key . ' is required in config.');
-            }
-            elseif (! array_key_exists($key, $options)) {
-                $value = $defaults[$key];
-            }
-            else {
-                $value = $options[$key];
-            }
+            $this->validateKey($options, $defaults, $key);
 
-            $actual[$key] = $value;
+            $actual[$key] = $this->getKeyValueOrDefault($options, $defaults, $key);
         }
 
         return $actual;
+    }
+
+    private function validateKey(array $options, array $defaults, $key)
+    {
+        if (! array_key_exists($key, $options) && ! array_key_exists($key, $defaults)) {
+            throw new \InvalidArgumentException('Options key ' . $key . ' is required in config.');
+        }
+    }
+
+    private function getKeyValueOrDefault(array $options, array $defaults, $key)
+    {
+        if (! array_key_exists($key, $options)) {
+            $value = $defaults[$key];
+        }
+        else {
+            $value = $options[$key];
+        }
+
+        return $value;
     }
 }

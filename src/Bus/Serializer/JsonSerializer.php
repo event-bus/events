@@ -19,7 +19,7 @@ class JsonSerializer implements Serializer
 
     public function serialize(Event $object)
     {
-        $properties=  $this->getProperties($object);
+        $properties = $this->getProperties($object);
         $class = get_class($object);
 
         $dataObj = new \stdClass();
@@ -64,23 +64,29 @@ class JsonSerializer implements Serializer
 
     private function getSerializableProperties($object, $reflectionObject)
     {
+        $reflectionProperties = $this->tryGetSleepProperties($object, $reflectionObject);
+
+        if (empty($reflectionProperties)) {
+            $reflectionProperties = $reflectionObject->getProperties(\ReflectionProperty::IS_PUBLIC | \ReflectionProperty::IS_PROTECTED | \ReflectionProperty::IS_PRIVATE);
+        }
+
+        return $reflectionProperties;
+    }
+
+    private function tryGetSleepProperties($object, $reflectionObject)
+    {
         $reflectionProperties = null;
 
         if (method_exists($object, '__sleep')) {
             $properties = $object->__sleep();
-            $reflectionProperties = array_map(function ($name) use ($reflectionObject) {
+            $reflectionProperties = array_map(function ($name) use($reflectionObject)
+            {
                 return $reflectionObject->getProperty($name);
             }, $properties);
 
             if (method_exists($object, '__wakeup')) {
                 $object->__wakeup();
             }
-        }
-
-        if (empty($reflectionProperties)) {
-            $reflectionProperties = $reflectionObject->getProperties(\ReflectionProperty::IS_PUBLIC |
-                \ReflectionProperty::IS_PROTECTED |
-                \ReflectionProperty::IS_PRIVATE);
         }
 
         return $reflectionProperties;
@@ -131,9 +137,7 @@ class JsonSerializer implements Serializer
 
     private function reflectionGetProperties($reflectionObject)
     {
-        return $reflectionObject->getProperties(\ReflectionProperty::IS_PUBLIC |
-            \ReflectionProperty::IS_PROTECTED |
-            \ReflectionProperty::IS_PRIVATE);
+        return $reflectionObject->getProperties(\ReflectionProperty::IS_PUBLIC | \ReflectionProperty::IS_PROTECTED | \ReflectionProperty::IS_PRIVATE);
     }
 
     private function reflectionSetProperties($object, $properties)
