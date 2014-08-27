@@ -10,7 +10,8 @@
     "type": "library",
     "autoload": {
         "psr-4": {
-            "Aztech\\Events\\": "src"
+            "Aztech\\Events\\Bus\\Plugins\\": "src/Plugins",
+            "Aztech\\Events\\Bus\\": "src/Bus"
         }
     },
     "minimum-stability": "stable",

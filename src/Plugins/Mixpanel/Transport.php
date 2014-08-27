@@ -1,11 +1,11 @@
 <?php
 
-namespace Aztech\Events\Plugins\Mixpanel;
+namespace Aztech\Events\Bus\Plugins\Mixpanel;
 
 use Aztech\Events\Event;
 use Aztech\Events\Bus\AbstractEvent;
 
-class Transport implements \Aztech\Events\Transport
+class Transport implements \Aztech\Events\Bus\Transport
 {
 
     private $mixpanel;

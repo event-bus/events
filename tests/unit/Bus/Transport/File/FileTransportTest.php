@@ -2,7 +2,7 @@
 
 namespace Aztech\Events\Tests\Bus\Transport;
 
-use Aztech\Events\Bus\Transport\FileTransport;
+use Aztech\Events\Bus\Transport\File\FileTransport;
 use org\bovigo\vfs\vfsStream;
 
 class FileTransportTest extends \PHPUnit_Framework_TestCase

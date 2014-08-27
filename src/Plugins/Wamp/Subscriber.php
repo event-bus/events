@@ -1,6 +1,6 @@
 <?php
 
-namespace Aztech\Events\Plugins\Wamp;
+namespace Aztech\Events\Bus\Plugins\Wamp;
 
 use Aztech\Events\Event;
 use Ratchet\Wamp\Topic;

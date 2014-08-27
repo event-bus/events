@@ -1,9 +1,9 @@
 <?php
 
-namespace Aztech\Events\Plugins\Logger;
+namespace Aztech\Events\Bus\Plugins\Logger;
 
 use Psr\Log\AbstractLogger;
-use Aztech\Events\Publisher;
+use Aztech\Events\Bus\Publisher;
 use Aztech\Events\Bus\Event;
 
 class PublishingLogger extends AbstractLogger

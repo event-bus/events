@@ -1,9 +1,9 @@
 <?php
 
-namespace Aztech\Events\Plugins\Pdo;
+namespace Aztech\Events\Bus\Plugins\Pdo;
 
 use Aztech\Events\Bus\AbstractFactory;
-use Aztech\Events\Plugins\PDO\Transport;
+use Aztech\Events\Bus\Plugins\PDO\Transport;
 
 class Factory extends AbstractFactory
 {

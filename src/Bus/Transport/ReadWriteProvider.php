@@ -1,8 +1,8 @@
 <?php
 
-namespace Aztech\Events\Transport;
+namespace Aztech\Events\Bus\Transport;
 
-use Aztech\Events\Transport;
+use Aztech\Events\Bus\Transport;
 
 class ReadWriteProvider implements TransportProvider
 {

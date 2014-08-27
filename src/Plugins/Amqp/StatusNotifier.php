@@ -1,9 +1,9 @@
 <?php
 
-namespace Aztech\Events\Plugins\Amqp;
+namespace Aztech\Events\Bus\Plugins\Amqp;
 
 use Aztech\Events\Subscriber;
-use Aztech\Events\Publisher;
+use Aztech\Events\Bus\Publisher;
 use Aztech\Events\Event;
 use Aztech\Events\Providers\Simple\StatusEvent;
 

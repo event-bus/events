@@ -1,6 +1,6 @@
 <?php
 
-namespace Aztech\Events\Plugins\Wamp;
+namespace Aztech\Events\Bus\Plugins\Wamp;
 
 use Aztech\Events\Bus\Event;
 use Aztech\Events\Serializer;
@@ -9,11 +9,11 @@ use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Ratchet\ConnectionInterface;
 use Ratchet\Wamp\WampServerInterface;
-use Aztech\Events\Bus\Subscriber\CallbackSubscriber;
+use Aztech\Events\Callback;
 use Aztech\Events\Bus\Dispatcher;
 use Aztech\Events\EventDispatcher;
 
-class Publisher implements \Aztech\Events\Publisher, WampServerInterface, LoggerAwareInterface
+class Publisher implements \Aztech\Events\Bus\Publisher, WampServerInterface, LoggerAwareInterface
 {
 
     private $logger;

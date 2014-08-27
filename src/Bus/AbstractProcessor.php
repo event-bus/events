@@ -2,13 +2,14 @@
 
 namespace Aztech\Events\Bus;
 
-use Aztech\Events\Processor;
-use Aztech\Events\Subscriber;
-use Aztech\Events\EventDispatcher as Dispatcher;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
+use Aztech\Events\Bus\Processor;
+use Aztech\Events\Dispatcher;
+use Aztech\Events\Event;
 use Aztech\Events\EventDispatcher;
+use Aztech\Events\Subscriber;
 
 abstract class AbstractProcessor implements Processor, LoggerAwareInterface
 {
@@ -27,6 +28,8 @@ abstract class AbstractProcessor implements Processor, LoggerAwareInterface
         $this->setLogger(new NullLogger());
     }
 
+    abstract public function processNext(Dispatcher $dispatcher);
+
     public function setLogger(LoggerInterface $logger)
     {
         $this->logger = $logger;
@@ -41,12 +44,12 @@ abstract class AbstractProcessor implements Processor, LoggerAwareInterface
 
     protected function onShutdown()
     {
-        /*$status = new StatusEvent(self::EVENT_NODE_STOP, null);
+        /*$status = new Event(self::EVENT_NODE_STOP, null);
 
         $this->raise($status);*/
     }
 
-    protected function onError(\Aztech\Events\Event $event,\Exception $ex)
+    protected function onError(Event $event,\Exception $ex)
     {
         /*$status = new StatusEvent(self::EVENT_ERROR, $event);
 
@@ -69,9 +72,9 @@ abstract class AbstractProcessor implements Processor, LoggerAwareInterface
 
     private function raise(\Aztech\Events\Event $event)
     {
-        /*if ($event instanceof StatusEvent && $event->getEvent()) {
+        if ($event instanceof StatusEvent && $event->getEvent()) {
             $this->logger->debug('[ "' . $event->getEvent()->getId() . '" ] Raising status event "' . $event->getId() . '"');
-        }*/
+        }
 
         $this->dispatcher->dispatch($event);
     }

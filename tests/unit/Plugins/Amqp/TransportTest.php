@@ -2,8 +2,7 @@
 
 namespace Aztech\Events\Tests\Publishers\RabbitMQ;
 
-use Aztech\Events\Plugins\Amqp\Transport;
-
+use Aztech\Events\Bus\Plugins\Amqp\Transport;
 class RabbitMQEventPublisherTest extends \PHPUnit_Framework_TestCase
 {
 

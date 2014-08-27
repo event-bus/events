@@ -3,10 +3,11 @@
 namespace Aztech\Events\Bus\Serializer;
 
 use Aztech\Events\Bus\AbstractEvent;
+use Aztech\Events\Bus\Serializer;
 use Aztech\Events\Event;
 use Instantiator\Instantiator;
 
-class JsonSerializer implements \Aztech\Events\Serializer
+class JsonSerializer implements Serializer
 {
 
     private $instantiator;

@@ -1,11 +1,11 @@
 <?php
 
-namespace Aztech\Events\Plugins\ZeroMq;
+namespace Aztech\Events\Bus\Plugins\ZeroMq;
 
 use Aztech\Events\Tests\Bus\Transport\Socket\SocketWrapperTest;
 use Aztech\Events\Event;
 
-class Transport implements \Aztech\Events\Transport
+class Transport implements \Aztech\Events\Bus\Transport
 {
 
     /**

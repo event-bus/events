@@ -1,6 +1,6 @@
 <?php
 
-namespace Aztech\Events;
+namespace Aztech\Events\Bus;
 
 interface Factory
 {
@@ -8,20 +8,20 @@ interface Factory
     /**
      *
      * @param array $options
-     * @return \Aztech\Events\Publisher
+     * @return \Aztech\Events\Bus\Publisher
      */
     function createPublisher(array $options = array());
 
     /**
      *
      * @param array $options
-     * @return \Aztech\Events\Processor
+     * @return \Aztech\Events\Bus\Processor
      */
     function createProcessor(array $options = array());
 
     /**
      *
-     * @return \Aztech\Events\Consumer
+     * @return \Aztech\Events\Bus\Consumer
      */
     function createConsumer(array $options = array());
 }

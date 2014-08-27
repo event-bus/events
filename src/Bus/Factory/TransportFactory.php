@@ -2,9 +2,8 @@
 
 namespace Aztech\Events\Bus\Factory;
 
-use Aztech\Events\Transport;
-use Aztech\Events\Serializer;
-use Aztech\Events\EventDispatcher as Dispatcher;
+use Aztech\Events\Bus\Transport;
+use Aztech\Events\Bus\Serializer;
 use Aztech\Events\Bus\Publisher\TransportPublisher;
 use Aztech\Events\Bus\Processor\TransportProcessor;
 use Aztech\Events\Bus\Consumer;
@@ -12,8 +11,10 @@ use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Psr\Log\LoggerAwareInterface;
 use Aztech\Events\EventDispatcher;
+use Aztech\Events\Bus\Factory;
+use Aztech\Events\Bus\GenericConsumer;
 
-class TransportFactory implements \Aztech\Events\Factory, LoggerAwareInterface
+class TransportFactory implements Factory, LoggerAwareInterface
 {
 
     private $canConsume = true;
@@ -82,6 +83,6 @@ class TransportFactory implements \Aztech\Events\Factory, LoggerAwareInterface
 
         $processor = $this->createProcessor($options);
 
-        return new Consumer($processor, $dispatcher);
+        return new GenericConsumer($processor, $dispatcher);
     }
 }

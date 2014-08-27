@@ -1,9 +1,9 @@
 <?php
 
-namespace Aztech\Events\Plugins\ZeroMq\Reader;
+namespace Aztech\Events\Bus\Plugins\ZeroMq\Reader;
 
-use Aztech\Events\Transport\Reader;
-use Aztech\Events\Plugins\ZeroMq\SocketWrapper;
+use Aztech\Events\Bus\Transport\Reader;
+use Aztech\Events\Bus\Plugins\ZeroMq\SocketWrapper;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 

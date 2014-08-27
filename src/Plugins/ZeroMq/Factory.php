@@ -1,6 +1,6 @@
 <?php
 
-namespace Aztech\Events\Plugins\ZeroMq;
+namespace Aztech\Events\Bus\Plugins\ZeroMq;
 
 use Aztech\Events\Bus\AbstractFactory;
 
@@ -16,7 +16,7 @@ class Factory extends AbstractFactory
         $publisher = $this->createPushSocketWrapper($context, $options);
         $subscriber = $this->createPullSocketWrapper($context, $options);
 
-        $transport = new PubSubTransport($pushWrapper, $pullWrapper, $this->logger);
+        $transport = new PubSubTransport($publisher, $subscriber, $this->logger);
 
         return $transport;
     }

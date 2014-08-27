@@ -1,6 +1,6 @@
 <?php
 
-namespace Aztech\Events;
+namespace Aztech\Events\Bus;
 
 use Aztech\Events\Factory\StandardFactory;
 use Aztech\Events\Bus\MemoryTransport;
@@ -86,7 +86,7 @@ class Events
      * Creates a new event consumer.
      * @param string $name Name of the plugin to use to create the consumer
      * @param array $options Options to pass to the factory.
-     * @return \Aztech\Events\Consumer
+     * @return \Aztech\Events\Bus\Consumer
      * @throws \BadMethodCallException when the selected plugin does not support consumers.
      * @throws \OutOfBoundsException when the plugin name is not registered.
      */
@@ -106,7 +106,7 @@ class Events
      * Creates a new event publisher.
      * @param string $name Name of the plugin to ues to create the publisher.
      * @param array $options Options to pass to the factory.
-     * @return \Aztech\Events\Publisher
+     * @return \Aztech\Events\Bus\Publisher
      * @throws \BadMethodCallException when the selected plugin does not support publishers.
      * @throws \OutOfBoundsException when the plugin name is not registered.
      */
@@ -125,7 +125,7 @@ class Events
     /**
      * Fetches a plugin by its name.
      * @param string $name Name of the plugin to get.
-     * @return \Aztech\Events\Plugin
+     * @return \Aztech\Events\Bus\Plugin
      * @throws \OutOfBoundsException when the plugin name is not registered.
      */
     public static function getPlugin($name)

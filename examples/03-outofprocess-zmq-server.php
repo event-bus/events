@@ -1,7 +1,7 @@
 <?php
 
 use Aztech\Events\Events;
-use Aztech\Events\Plugins\ZeroMq\Plugin;
+use Aztech\Events\Bus\Plugins\ZeroMq\Plugin;
 use Aztech\Events\Bus\Event;
 use Aztech\Events\Bus\Serializer\JsonSerializer;
 

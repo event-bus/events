@@ -1,13 +1,13 @@
 <?php
 
-namespace Aztech\Events\Transport;
+namespace Aztech\Events\Bus\Transport;
 
-use Aztech\Events\Transport;
+use Aztech\Events\Bus\Transport;
 
 class LegacyTransportAdapter implements TransportProvider
 {
 
-    private $transport;
+    private $transport = null;
 
     private $canRead = true;
 
@@ -15,7 +15,7 @@ class LegacyTransportAdapter implements TransportProvider
 
     public function __construct(Transport $transport, $disableRead = false, $disableWrite = false)
     {
-        $this->transport;
+        $this->transport = $transport;
         $this->canRead = ! $disableRead;
         $this->canWrite = ! $disableWrite;
     }
@@ -37,6 +37,6 @@ class LegacyTransportAdapter implements TransportProvider
 
     public function getWriter()
     {
-        return $this->writer;
+        return $this->transport;
     }
 }

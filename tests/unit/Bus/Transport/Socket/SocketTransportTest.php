@@ -2,7 +2,7 @@
 
 namespace Aztech\Events\Tests\Transport;
 
-use Aztech\Events\Bus\Transport\SocketTransport;
+use Aztech\Events\Bus\Transport\Socket\SocketTransport;
 class SocketTransportTest extends \PHPUnit_Framework_TestCase
 {
 

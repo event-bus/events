@@ -1,6 +1,6 @@
 <?php
 
-namespace Aztech\Events\Plugins\Amqp;
+namespace Aztech\Events\Bus\Plugins\Amqp;
 
 use Aztech\Events\Event;
 use PhpAmqpLib\Channel\AMQPChannel;
@@ -10,7 +10,7 @@ use Psr\Log\NullLogger;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 
-class Transport implements \Aztech\Events\Transport, LoggerAwareInterface
+class Transport implements \Aztech\Events\Bus\Transport, LoggerAwareInterface
 {
 
     /**

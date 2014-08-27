@@ -10,7 +10,7 @@ class BroadcastPublisherTest extends \PHPUnit_Framework_TestCase
 
     private function getPublisherMock()
     {
-        return $this->getMock('\Aztech\Events\Publisher');
+        return $this->getMock('\Aztech\Events\Bus\Publisher');
     }
 
     public function testPublisherDefersPublishToAllPublisher()

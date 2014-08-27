@@ -2,7 +2,7 @@
 
 namespace Aztech\Events\Tests\Bus\Publisher;
 
-use Aztech\Events\Publishers\SynchronousEventPublisher;
+use Aztech\Events\Bus\Publishers\SynchronousEventPublisher;
 use Aztech\Events\Bus\Publisher\SynchronousPublisher;
 use Aztech\Events\Bus\Event;
 use Aztech\Events\Bus\Dispatcher;
@@ -133,5 +133,21 @@ class SynchronousEventPublisherTest extends \PHPUnit_Framework_TestCase
         $publisher = new SynchronousPublisher();
 
         $publisher->on('*', array());
+    }
+
+    public function testCallbacksAreCorrectlyHandled()
+    {
+        $publisher = new SynchronousPublisher();
+        $invoked = false;
+
+        $callback = function() use (& $invoked) {
+            $invoked = true;
+        };
+
+        $publisher->on('*', $callback);
+
+        $publisher->publish(new Event('test'));
+
+        $this->assertTrue($invoked);
     }
 }

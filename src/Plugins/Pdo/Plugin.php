@@ -1,12 +1,12 @@
 <?php
 
-namespace Aztech\Events\Plugins\Pdo;
+namespace Aztech\Events\Bus\Plugins\Pdo;
 
 use Aztech\Events\Serializer;
-use Aztech\Events\Bus\AbstractPlugin;
+use Aztech\Events\Bus\GenericPlugin;
 use Aztech\Events\Bus\Serializer\NativeSerializer;
 
-class Plugin extends AbstractPlugin
+class Plugin extends GenericPlugin
 {
 
     public function __construct(Serializer $serializer = null)

@@ -1,6 +1,6 @@
 <?php
 
-namespace Aztech\Events\Plugins\Redis;
+namespace Aztech\Events\Bus\Plugins\Redis;
 
 use Aztech\Events\Bus\AbstractFactory;
 use Predis\Client;

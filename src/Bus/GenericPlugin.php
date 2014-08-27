@@ -2,10 +2,10 @@
 
 namespace Aztech\Events\Bus;
 
-use Aztech\Events\Plugin;
-use Aztech\Events\Transport;
+use Aztech\Events\Bus\Plugin;
+use Aztech\Events\Bus\Transport;
 
-abstract class AbstractPlugin implements Plugin
+class GenericPlugin implements Plugin
 {
 
     private $canProcess = true;
@@ -19,7 +19,7 @@ abstract class AbstractPlugin implements Plugin
     /**
      * @param boolean $enabled
      */
-    protected function setProcessFlag($enabled)
+    public function setProcessFlag($enabled)
     {
         $this->canProcess = $enabled;
     }
@@ -27,17 +27,17 @@ abstract class AbstractPlugin implements Plugin
     /**
      * @param boolean $enabled
      */
-    protected function setPublishFlag($enabled)
+    public function setPublishFlag($enabled)
     {
         $this->canPublish = $enabled;
     }
 
-    protected function setTransport(Transport $transport)
+    public function setTransport(Transport $transport)
     {
         $this->transport = $transport;
     }
 
-    protected function setFactory(AbstractFactory $factory)
+    public function setFactory(AbstractFactory $factory)
     {
         $this->factory = $factory;
     }
@@ -69,7 +69,7 @@ abstract class AbstractPlugin implements Plugin
 
     /**
      * (non-PHPdoc)
-     * @see \Aztech\Events\Plugin::getFactory()
+     * @see \Aztech\Events\Bus\Plugin::getFactory()
      */
     function getFactory()
     {

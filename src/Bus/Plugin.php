@@ -1,18 +1,16 @@
 <?php
 
-namespace Aztech\Events;
+namespace Aztech\Events\Bus;
 
 interface Plugin
 {
 
     /**
-     * @boolean
      * @return boolean
      */
     function canPublish();
 
     /**
-     * @boolean
      * @return boolean
      */
     function canProcess();
@@ -25,7 +23,7 @@ interface Plugin
 
     /**
      *
-     * @return \Aztech\Events\Transport
+     * @return \Aztech\Events\Bus\Transport
      */
     function getTransport();
 

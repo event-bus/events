@@ -2,7 +2,7 @@
 
 namespace Aztech\Events\Tests;
 
-use Aztech\Events\Events;
+use Aztech\Events\Bus\Events;
 
 class EventsTest extends \PHPUnit_Framework_TestCase
 {
@@ -14,7 +14,7 @@ class EventsTest extends \PHPUnit_Framework_TestCase
 
     protected function generatePlugin()
     {
-        $plugin = $this->getMock('\Aztech\Events\Plugin');
+        $plugin = $this->getMock('\Aztech\Events\Bus\Plugin');
         $plugin->expects($this->any())
             ->method('hasTransport')
             ->willReturn(true);
@@ -77,7 +77,7 @@ class EventsTest extends \PHPUnit_Framework_TestCase
     public function testCannotAddPluginWithNoTransportOrFactory()
     {
         $name = 'key';
-        $plugin = $this->getMock('\Aztech\Events\Plugin');
+        $plugin = $this->getMock('\Aztech\Events\Bus\Plugin');
 
         Events::addPlugin($name, $plugin);
     }
@@ -88,7 +88,7 @@ class EventsTest extends \PHPUnit_Framework_TestCase
     public function testCannotAddPluginWithNeitherPublishNorProcessFeature()
     {
         $name = 'key';
-        $plugin = $this->getMock('\Aztech\Events\Plugin');
+        $plugin = $this->getMock('\Aztech\Events\Bus\Plugin');
         $plugin->expects($this->any())
             ->method('hasTransport')
             ->willReturn(true);

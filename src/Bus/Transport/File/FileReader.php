@@ -1,9 +1,9 @@
 <?php
 
-namespace Aztech\Events\Bus\Transport;
+namespace Aztech\Events\Bus\Transport\File;
 
 use Aztech\Events\Event;
-use Aztech\Events\Transport\Reader;
+use Aztech\Events\Bus\Transport\Reader;
 use Aztech\Util\File\Files;
 
 class FileReader implements Reader

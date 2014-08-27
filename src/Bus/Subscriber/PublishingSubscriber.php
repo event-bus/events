@@ -3,8 +3,8 @@
 namespace Aztech\Events\Bus\Subscriber;
 
 use Aztech\Events\Event;
-use Aztech\Events\Publisher;
 use Aztech\Events\Subscriber;
+use Aztech\Events\Bus\Publisher;
 use Aztech\Events\Util\Pattern\PatternMatcher;
 
 class PublishingSubscriber implements Subscriber

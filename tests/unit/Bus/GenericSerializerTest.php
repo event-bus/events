@@ -3,8 +3,9 @@
 namespace Aztech\Events\Tests\Bus;
 
 use Aztech\Events\Bus\Serializer;
+use Aztech\Events\Bus\GenericSerializer;
 
-class SerializerTest extends \PHPUnit_Framework_TestCase
+class GenericSerializerTest extends \PHPUnit_Framework_TestCase
 {
 
     private $event;
@@ -29,7 +30,7 @@ class SerializerTest extends \PHPUnit_Framework_TestCase
             ->method('getCategory')
             ->will($this->returnValue('test'));
 
-        $this->serializer = $this->getMock('\Aztech\Events\Serializer');
+        $this->serializer = $this->getMock('Aztech\Events\Bus\Serializer');
 
         $this->serializer->expects($this->any())
             ->method('serialize')
@@ -39,7 +40,7 @@ class SerializerTest extends \PHPUnit_Framework_TestCase
             ->method('deserialize')
             ->will($this->returnValue($this->event));
 
-        $this->eventSerializer = new Serializer();
+        $this->eventSerializer = new GenericSerializer();
         $this->eventSerializer->bindSerializer('test', $this->serializer);
     }
 
@@ -48,7 +49,7 @@ class SerializerTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddingToSelfThrowsExceptionToPreventRecursion()
     {
-        $serializer = new Serializer();
+        $serializer = new GenericSerializer();
         $serializer->bindSerializer('#', $serializer);
     }
 
@@ -58,8 +59,8 @@ class SerializerTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddingToSelfViaNestingThrowsExceptionToPreventRecursion()
     {
-        $serializer = new Serializer();
-        $nested = new Serializer();
+        $serializer = new GenericSerializer();
+        $nested = new GenericSerializer();
 
         $nested->bindSerializer('#', $serializer);
         $serializer->bindSerializer('#', $nested);
@@ -70,9 +71,9 @@ class SerializerTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddingToSelfViaDeeperNestingThrowsExceptionToPreventRecursion()
     {
-        $serializer = new Serializer();
-        $nested = new Serializer();
-        $deepest = new Serializer();
+        $serializer = new GenericSerializer();
+        $nested = new GenericSerializer();
+        $deepest = new GenericSerializer();
 
         $deepest->bindSerializer('#', $serializer);
         $nested->bindSerializer('#', $deepest);
@@ -85,14 +86,14 @@ class SerializerTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetUnboundCategorySerializerThrowsException()
     {
-        $serializer = new Serializer();
+        $serializer = new GenericSerializer();
 
         $serializer->getSerializer('test');
     }
 
     public function testGetBoundCategorySerializerReturnsCorrectSerializer()
     {
-        $serializer = new Serializer();
+        $serializer = new GenericSerializer();
         $serializer->bindSerializer('test', $this->serializer);
 
         $this->assertSame($this->serializer, $serializer->getSerializer('test'));
@@ -103,7 +104,7 @@ class SerializerTest extends \PHPUnit_Framework_TestCase
      */
     public function testSerializingUnboundCategoryThrowsException()
     {
-        $serializer = new Serializer();
+        $serializer = new GenericSerializer();
 
         $serializer->serialize($this->event);
     }
@@ -114,7 +115,7 @@ class SerializerTest extends \PHPUnit_Framework_TestCase
      */
     public function testDeserializingUnboundCategoryThrowsException()
     {
-        $serializer = new Serializer();
+        $serializer = new GenericSerializer();
 
         $serializer->deserialize($this->serializer->serialize($this->event));
     }

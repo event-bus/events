@@ -2,7 +2,7 @@
 
 namespace Aztech\Events\Bus\Publisher;
 
-use Aztech\Events\Publisher;
+use Aztech\Events\Bus\Publisher;
 
 abstract class AbstractPublisherCollection
 {
@@ -15,7 +15,7 @@ abstract class AbstractPublisherCollection
 
     /**
      *
-     * @param \Aztech\Events\Publisher[] $publishers
+     * @param \Aztech\Events\Bus\Publisher[] $publishers
      */
     public function __construct(array $publishers = array())
     {

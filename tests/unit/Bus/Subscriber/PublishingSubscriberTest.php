@@ -12,7 +12,7 @@ class PublishingSubscriberTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->publisher = $this->getMock('\Aztech\Events\Publisher');
+        $this->publisher = $this->getMock('\Aztech\Events\Bus\Publisher');
     }
 
     public function getConstraintTruthTable()

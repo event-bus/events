@@ -1,11 +1,11 @@
 <?php
 
-namespace Aztech\Events\Plugins\Stomp;
+namespace Aztech\Events\Bus\Plugins\Stomp;
 
 use FuseSource\Stomp\Stomp;
 use Aztech\Events\Event;
 
-class Transport implements \Aztech\Events\Transport
+class Transport implements \Aztech\Events\Bus\Transport
 {
 
     private $queueName;

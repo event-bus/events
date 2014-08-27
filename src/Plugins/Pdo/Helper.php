@@ -1,6 +1,6 @@
 <?php
 
-namespace Aztech\Events\Plugins\Pdo;
+namespace Aztech\Events\Bus\Plugins\Pdo;
 
 class Helper
 {

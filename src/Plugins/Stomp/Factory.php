@@ -1,6 +1,6 @@
 <?php
 
-namespace Aztech\Events\Plugins\Stomp;
+namespace Aztech\Events\Bus\Plugins\Stomp;
 
 use Aztech\Events\Bus\AbstractFactory;
 use FuseSource\Stomp\Stomp;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Aztech\Events\Plugins\Wamp;
+namespace Aztech\Events\Bus\Plugins\Wamp;
 
 use Aztech\Events\Bus\Event;
 use Psr\Log\LoggerAwareInterface;
@@ -9,7 +9,7 @@ use Psr\Log\NullLogger;
 use Ratchet\ConnectionInterface;
 use Ratchet\Wamp\WampServerInterface;
 
-class Transport implements \Aztech\Events\Transport, WampServerInterface, LoggerAwareInterface
+class Transport implements \Aztech\Events\Bus\Transport, WampServerInterface, LoggerAwareInterface
 {
 
     private $logger;

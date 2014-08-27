@@ -1,11 +1,11 @@
 <?php
 
-namespace Aztech\Events\Plugins\Redis;
+namespace Aztech\Events\Bus\Plugins\Redis;
 
 use Aztech\Events\Event;
 use Predis\Client;
 
-class Transport implements \Aztech\Events\Transport
+class Transport implements \Aztech\Events\Bus\Transport
 {
 
     private $redis;

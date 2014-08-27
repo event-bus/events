@@ -1,15 +1,15 @@
 <?php
 
-namespace Aztech\Events\Plugins\Amqp;
+namespace Aztech\Events\Bus\Plugins\Amqp;
 
 use Aztech\Events\Serializer;
-use Aztech\Events\Bus\AbstractPlugin;
+use Aztech\Events\Bus\GenericPlugin;
 use Aztech\Events\Bus\Serializer\NativeSerializer;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
-class Plugin extends AbstractPlugin
+class Plugin extends GenericPlugin
 {
 
     public function __construct(Serializer $serializer = null, LoggerInterface $logger = null)

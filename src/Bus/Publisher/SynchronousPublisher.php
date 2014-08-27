@@ -2,12 +2,12 @@
 
 namespace Aztech\Events\Bus\Publisher;
 
+use Aztech\Events\Bus\Consumer;
+use Aztech\Events\Bus\Publisher;
+use Aztech\Events\Callback;
 use Aztech\Events\Dispatcher;
 use Aztech\Events\Event;
-use Aztech\Events\Publisher;
 use Aztech\Events\Subscriber;
-use Aztech\Events\Consumer;
-use Aztech\Events\Bus\Subscriber\CallbackSubscriber;
 
 class SynchronousPublisher implements Publisher, Consumer
 {
@@ -35,12 +35,12 @@ class SynchronousPublisher implements Publisher, Consumer
 
     /**
      * (non-PHPdoc)
-     * @see \Aztech\Events\Consumer::on()
+     * @see \Aztech\Events\Bus\Consumer::on()
      */
     public function on($categoryFilter, $subscriber)
     {
         if (is_callable($subscriber)) {
-            $subscriber = new CallbackSubscriber($subscriber);
+            $subscriber = new Callback($subscriber);
         }
         elseif (! ($subscriber instanceof Subscriber)) {
             throw new \InvalidArgumentException('Subscriber must a be a callable or an instance of Subscriber.');

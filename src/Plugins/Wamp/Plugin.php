@@ -1,12 +1,12 @@
 <?php
 
-namespace Aztech\Events\Plugins\Wamp;
+namespace Aztech\Events\Bus\Plugins\Wamp;
 
 use Aztech\Events\Serializer;
-use Aztech\Events\Bus\AbstractPlugin;
+use Aztech\Events\Bus\GenericPlugin;
 use Aztech\Events\Bus\Serializer\JsonSerializer;
 
-class Plugin extends AbstractPlugin
+class Plugin extends GenericPlugin
 {
 
     public function __construct(Serializer $serializer = null)

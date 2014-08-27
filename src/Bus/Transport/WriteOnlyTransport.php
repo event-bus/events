@@ -1,6 +1,6 @@
 <?php
 
-namespace Aztech\Events\Transport;
+namespace Aztech\Events\Bus\Transport;
 
 class WriteOnlyTransport implements TransportProvider
 {

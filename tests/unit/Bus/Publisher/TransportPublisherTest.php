@@ -15,8 +15,8 @@ class TransportPublisherTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->transport = $this->getMock('\Aztech\Events\Transport');
-        $this->serializer = $this->getMock('\Aztech\Events\Serializer');
+        $this->transport = $this->getMock('\Aztech\Events\Bus\Transport');
+        $this->serializer = $this->getMock('Aztech\Events\Bus\Serializer');
 
         $this->publisher = new TransportPublisher($this->transport, $this->serializer);
     }

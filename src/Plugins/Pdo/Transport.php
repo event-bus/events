@@ -1,10 +1,10 @@
 <?php
 
-namespace Aztech\Events\Plugins\PDO;
+namespace Aztech\Events\Bus\Plugins\PDO;
 
 use Aztech\Events\Event;
 
-class Transport implements \Aztech\Events\Transport
+class Transport implements \Aztech\Events\Bus\Transport
 {
 
     private $pdo;

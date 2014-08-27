@@ -1,24 +1,24 @@
 <?php
 
-namespace Aztech\Events\Plugins\ZeroMq;
+namespace Aztech\Events\Bus\Plugins\ZeroMq;
 
 use Aztech\Events\Event;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
-class PubSubTransport implements \Aztech\Events\Transport, LoggerAwareInterface
+class PubSubTransport implements \Aztech\Events\Bus\Transport, LoggerAwareInterface
 {
 
     /**
      *
-     * @var \ZMQSocket
+     * @var SocketWrapper
      */
     private $subscriber;
 
     /**
      *
-     * @var \ZMQSocket
+     * @var SocketWrapper
      */
     private $publisher;
 

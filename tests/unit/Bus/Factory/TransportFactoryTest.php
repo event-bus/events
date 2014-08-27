@@ -11,8 +11,8 @@ class TransportFactoryTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $transport = $this->getMock('\Aztech\Events\Transport');
-        $serializer = $this->getMock('\Aztech\Events\Serializer');
+        $transport = $this->getMock('\Aztech\Events\Bus\Transport');
+        $serializer = $this->getMock('Aztech\Events\Bus\Serializer');
 
         $this->factory = new TransportFactory($transport, $serializer);
     }
@@ -21,21 +21,21 @@ class TransportFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $publisher = $this->factory->createPublisher();
 
-        $this->assertInstanceOf('\Aztech\Events\Publisher', $publisher);
+        $this->assertInstanceOf('\Aztech\Events\Bus\Publisher', $publisher);
     }
 
     public function testCreateConsumerReturnsConsumer()
     {
         $consumer = $this->factory->createConsumer();
 
-        $this->assertInstanceOf('\Aztech\Events\Consumer', $consumer);
+        $this->assertInstanceOf('\Aztech\Events\Bus\Consumer', $consumer);
     }
 
     public function testCreateProcessorReturnsProcessor()
     {
         $processor = $this->factory->createProcessor();
 
-        $this->assertInstanceOf('\Aztech\Events\Processor', $processor);
+        $this->assertInstanceOf('\Aztech\Events\Bus\Processor', $processor);
     }
 
     /**

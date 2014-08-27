@@ -3,7 +3,6 @@
 namespace Aztech\Events\Bus;
 
 use Aztech\Events\EventDispatcher;
-use Aztech\Events\Factory;
 use Aztech\Events\Bus\Publisher\TransportPublisher;
 use Aztech\Events\Bus\Processor\TransportProcessor;
 use Psr\Log\LoggerAwareInterface;
@@ -18,7 +17,7 @@ abstract class AbstractFactory implements Factory, LoggerAwareInterface
 
     protected abstract function createTransport(array $options);
 
-    public function __construct(\Aztech\Events\Serializer $serializer)
+    public function __construct(Aztech\Events\Bus\Serializer $serializer)
     {
         $this->serializer = $serializer;
     }

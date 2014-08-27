@@ -1,12 +1,12 @@
 <?php
 
-namespace Aztech\Events\Plugins\ZeroMq;
+namespace Aztech\Events\Bus\Plugins\ZeroMq;
 
 use Aztech\Events\Serializer;
-use Aztech\Events\Bus\AbstractPlugin;
+use Aztech\Events\Bus\GenericPlugin;
 use Aztech\Events\Bus\Serializer\NativeSerializer;
 
-class Plugin extends AbstractPlugin
+class Plugin extends GenericPlugin
 {
 
     public function __construct(Serializer $serializer = null)

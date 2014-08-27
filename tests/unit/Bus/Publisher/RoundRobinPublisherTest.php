@@ -9,7 +9,7 @@ class RoundRobinPublisherTest extends \PHPUnit_Framework_TestCase
 
     private function getMockPublisher()
     {
-        return $this->getMock('\Aztech\Events\Publisher');
+        return $this->getMock('\Aztech\Events\Bus\Publisher');
     }
 
     public function testDispatcherDispatchesToOnePublisherAtATime()

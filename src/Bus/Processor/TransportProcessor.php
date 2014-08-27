@@ -3,8 +3,8 @@
 namespace Aztech\Events\Bus\Processor;
 
 use Aztech\Events\Bus\AbstractProcessor;
-use Aztech\Events\Transport;
-use Aztech\Events\Serializer;
+use Aztech\Events\Bus\Transport;
+use Aztech\Events\Bus\Serializer;
 use Aztech\Events\Dispatcher;
 
 class TransportProcessor extends AbstractProcessor

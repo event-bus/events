@@ -3,7 +3,7 @@
 namespace Aztech\Events\Bus\Publisher;
 
 use Aztech\Events\Event;
-use Aztech\Events\Publisher;
+use Aztech\Events\Bus\Publisher;
 
 class BroadcastPublisher extends AbstractPublisherCollection implements Publisher
 {

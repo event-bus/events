@@ -1,6 +1,6 @@
 <?php
 
-namespace Aztech\Events\Plugins\Amqp;
+namespace Aztech\Events\Bus\Plugins\Amqp;
 
 use Aztech\Events\Bus\AbstractFactory;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
