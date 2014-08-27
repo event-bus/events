@@ -3,19 +3,19 @@
 namespace Aztech\Events\Bus\Plugins\Pdo;
 
 use Aztech\Events\Bus\AbstractFactory;
-use Aztech\Events\Bus\Plugins\PDO\Transport;
+use Aztech\Events\Bus\Plugins\PDO\Channel;
 
 class Factory extends AbstractFactory
 {
 
-    protected function createTransport(array $options)
+    protected function createChannel(array $options)
     {
         $this->validateOptions($options);
 
         $dsn = sprintf('%s:host=%s;port=%s;dbname=%s', $options['driver'], $options['host'], $options['port'], $options['database']);
         $connection = new \PDO($dsn, $options['user'], $options['pass'], $options);
 
-        $transport = new Transport($connection);
+        $transport = new Channel($connection);
         $transport->setPdoMetadata($options['table'], $options['id-column'], $options['data-column']);
 
         return $transport;

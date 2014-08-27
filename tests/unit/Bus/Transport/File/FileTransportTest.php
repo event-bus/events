@@ -1,11 +1,11 @@
 <?php
 
-namespace Aztech\Events\Tests\Bus\Transport;
+namespace Aztech\Events\Tests\Bus\Channel;
 
-use Aztech\Events\Bus\Transport\File\FileTransport;
+use Aztech\Events\Bus\Channel\File\FileChannel;
 use org\bovigo\vfs\vfsStream;
 
-class FileTransportTest extends \PHPUnit_Framework_TestCase
+class FileChannelTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
@@ -19,7 +19,7 @@ class FileTransportTest extends \PHPUnit_Framework_TestCase
         $event = $this->getMock('Aztech\Events\Event');
         $serialized = 'some data';
 
-        $transport = new FileTransport($root->url() . '/test.queue');
+        $transport = new FileChannel($root->url() . '/test.queue');
 
         $transport->write($event, $serialized);
         $data = $transport->read();
@@ -36,7 +36,7 @@ class FileTransportTest extends \PHPUnit_Framework_TestCase
         $serialized = 'some data';
         $secondSerialized = 'other data';
 
-        $transport = new FileTransport($root->url() . '/test.queue');
+        $transport = new FileChannel($root->url() . '/test.queue');
 
         $transport->write($event, $serialized);
         $transport->write($second, $secondSerialized);

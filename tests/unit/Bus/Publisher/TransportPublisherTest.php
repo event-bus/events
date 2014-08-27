@@ -2,9 +2,9 @@
 
 namespace Aztech\Events\Tests\Bus\Publisher;
 
-use Aztech\Events\Bus\Publisher\TransportPublisher;
+use Aztech\Events\Bus\Publisher\ChannelPublisher;
 
-class TransportPublisherTest extends \PHPUnit_Framework_TestCase
+class ChannelPublisherTest extends \PHPUnit_Framework_TestCase
 {
 
     private $publisher;
@@ -15,13 +15,13 @@ class TransportPublisherTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->transport = $this->getMock('\Aztech\Events\Bus\Transport');
+        $this->transport = $this->getMock('\Aztech\Events\Bus\Channel');
         $this->serializer = $this->getMock('Aztech\Events\Bus\Serializer');
 
-        $this->publisher = new TransportPublisher($this->transport, $this->serializer);
+        $this->publisher = new ChannelPublisher($this->transport, $this->serializer);
     }
 
-    public function testPublishCallsTransportWithSerializedRepresentationAndEvent()
+    public function testPublishCallsChannelWithSerializedRepresentationAndEvent()
     {
         $event = $this->getMock('\Aztech\Events\Event');
 

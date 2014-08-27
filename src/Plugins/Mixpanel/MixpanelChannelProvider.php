@@ -1,0 +1,20 @@
+<?php
+
+namespace Aztech\Events\Bus\Plugins\Mixpanel;
+
+use Aztech\Events\Event;
+use Aztech\Events\Bus\AbstractEvent;
+use Aztech\Events\Bus\Channel\ChannelProvider;
+use Aztech\Events\Bus\Channel\WriteOnlyChannel;
+
+class MixpanelChannelProvider implements ChannelProvider
+{
+
+    public function createChannel(array $options = array())
+    {
+        $mixpanel = \Mixpanel::getInstance($options['project-token']);
+        $writer = new MixpanelChannelWriter($mixpanel);
+
+        return new WriteOnlyChannel($writer, $options['always-flush']);
+    }
+}

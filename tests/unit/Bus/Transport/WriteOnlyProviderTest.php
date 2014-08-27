@@ -1,29 +1,29 @@
 <?php
 
-namespace Aztech\Events\Tests\Bus\Transport;
+namespace Aztech\Events\Tests\Bus\Channel;
 
-use Aztech\Events\Bus\Transport\WriteOnlyProvider;
+use Aztech\Events\Bus\Channel\WriteOnlyChannel;
 
-class WriteOnlyProviderTest extends \PHPUnit_Framework_TestCase
+class WriteOnlyChannelTest extends \PHPUnit_Framework_TestCase
 {
 
     private $writer;
 
     protected function setUp()
     {
-        $this->writer = $this->getMock('\Aztech\Events\Bus\Transport\Writer');
+        $this->writer = $this->getMock('\Aztech\Events\Bus\Channel\ChannelWriter');
     }
 
     public function testCanReadReturnsFalse()
     {
-        $provider = new WriteOnlyProvider($this->writer);
+        $provider = new WriteOnlyChannel($this->writer);
 
         $this->assertFalse($provider->canRead());
     }
 
     public function testCanWriteReturnsTrue()
     {
-        $provider = new WriteOnlyProvider($this->writer);
+        $provider = new WriteOnlyChannel($this->writer);
 
         $this->assertTrue($provider->canWrite());
     }
@@ -31,16 +31,16 @@ class WriteOnlyProviderTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException \BadMethodCallException
      */
-    public function testGetReaderThrowsException()
+    public function testGetChannelReaderThrowsException()
     {
-        $provider = new WriteOnlyProvider($this->writer);
+        $provider = new WriteOnlyChannel($this->writer);
 
         $provider->getReader();
     }
 
-    public function testGetWriterReturnsCorrectInstance()
+    public function testGetChannelWriterReturnsCorrectInstance()
     {
-        $provider = new WriteOnlyProvider($this->writer);
+        $provider = new WriteOnlyChannel($this->writer);
 
         $this->assertSame($this->writer, $provider->getWriter());
 

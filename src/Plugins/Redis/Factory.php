@@ -8,7 +8,7 @@ use Predis\Client;
 class Factory extends AbstractFactory
 {
 
-    protected function createTransport(array $options)
+    protected function createChannel(array $options)
     {
         $options = $this->validateOptions($options);
         $redis = new Client($options);
@@ -18,7 +18,7 @@ class Factory extends AbstractFactory
             $redis->auth($options['password']);
         }
 
-        $transport = new Transport($redis, $options['event-key']);
+        $transport = new Channel($redis, $options['event-key']);
 
         return $transport;
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Aztech\Events\Bus\Transport\Socket
+namespace Aztech\Events\Bus\Channel\Socket
 {
     class SocketBehavior
     {
@@ -163,13 +163,13 @@ namespace Aztech\Events\Bus\Transport\Socket
     }
 }
 
-namespace Aztech\Events\Tests\Bus\Transport\Socket
+namespace Aztech\Events\Tests\Bus\Channel\Socket
 {
 
-    use Aztech\Events\Bus\Transport\Socket\Wrapper;
+    use Aztech\Events\Bus\Channel\Socket\Wrapper;
 use Symfony\Component\Console\Logger\ConsoleLogger;
 use Symfony\Component\Console\Output\ConsoleOutput;
-use Aztech\Events\Bus\Transport\Socket\SocketBehavior;
+use Aztech\Events\Bus\Channel\Socket\SocketBehavior;
 
     class SocketWrapperTest extends \PHPUnit_Framework_TestCase
     {
@@ -186,18 +186,18 @@ use Aztech\Events\Bus\Transport\Socket\SocketBehavior;
         {
             SocketBehavior::reset();
 
-            $sock = \Aztech\Events\Bus\Transport\Socket\socket_create(AF_INET, SOCK_STREAM);
+            $sock = \Aztech\Events\Bus\Channel\Socket\socket_create(AF_INET, SOCK_STREAM);
 
             // Bind the socket to an address/port
-            if (! \Aztech\Events\Bus\Transport\Socket\socket_bind($sock, 'localhost', 0)) {
+            if (! \Aztech\Events\Bus\Channel\Socket\socket_bind($sock, 'localhost', 0)) {
                 throw new \RuntimeException('Could not bind to address');
             }
 
             // Start listening for connections
-            \Aztech\Events\Bus\Transport\Socket\socket_listen($sock);
+            \Aztech\Events\Bus\Channel\Socket\socket_listen($sock);
 
             // Accept incoming requests and handle them as child processes.
-            $this->client = \Aztech\Events\Bus\Transport\Socket\socket_accept($sock);
+            $this->client = \Aztech\Events\Bus\Channel\Socket\socket_accept($sock);
             $this->server = $sock;
 
             $logger = new ConsoleLogger(new ConsoleOutput(ConsoleOutput::VERBOSITY_QUIET));

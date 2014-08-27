@@ -9,7 +9,12 @@ use Aztech\Events\Dispatcher;
 use Aztech\Events\Event;
 use Aztech\Events\Subscriber;
 
-class SynchronousPublisher implements Publisher, Consumer
+/**
+ * Publisher/consumer that simply wraps a Dispatcher.
+ * @author thibaud
+ *
+ */
+class SynchronousPublisher implements Publisher
 {
 
     /**

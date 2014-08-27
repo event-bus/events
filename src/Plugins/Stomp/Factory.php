@@ -8,14 +8,14 @@ use FuseSource\Stomp\Stomp;
 class Factory extends AbstractFactory
 {
 
-    protected function createTransport(array $options)
+    protected function createChannel(array $options)
     {
         $options = $this->validateOptions($options);
 
         $brokerUri = sprintf('%s://%s:%s', $options['scheme'], $options['host'], $options['port']);
         $client = new Stomp($brokerUri);
 
-        $transport = new Transport($client, $options['queue']);
+        $transport = new Channel($client, $options['queue']);
 
         return $transport;
     }

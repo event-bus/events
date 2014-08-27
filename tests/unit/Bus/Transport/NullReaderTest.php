@@ -1,15 +1,15 @@
 <?php
 
-namespace Aztech\Events\Tests\Bus\Transport;
+namespace Aztech\Events\Tests\Bus\Channel;
 
-use Aztech\Events\Bus\Transport\NullReader;
+use Aztech\Events\Bus\Channel\NullChannelReader;
 
-class NullReaderTest extends \PHPUnit_Framework_TestCase
+class NullChannelReaderTest extends \PHPUnit_Framework_TestCase
 {
 
     public function testReadReturnsNull()
     {
-        $reader = new NullReader();
+        $reader = new NullChannelReader();
 
         for ($i = 0; $i < rand(10, 20); $i++) {
             // Ensure it returns null many times (ie always)

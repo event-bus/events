@@ -1,13 +1,13 @@
 <?php
 
-namespace Aztech\Events\Bus\Plugins\ZeroMq\Reader;
+namespace Aztech\Events\Bus\Plugins\ZeroMq\ChannelReader;
 
-use Aztech\Events\Bus\Transport\Reader;
+use Aztech\Events\Bus\Channel\ChannelReader;
 use Aztech\Events\Bus\Plugins\ZeroMq\SocketWrapper;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 
-class Subscribe implements Reader, LoggerAwareInterface
+class Subscribe implements ChannelReader, LoggerAwareInterface
 {
 
     /**

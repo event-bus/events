@@ -1,16 +1,16 @@
 <?php
 
-namespace Aztech\Events\Tests\Bus\Transport;
+namespace Aztech\Events\Tests\Bus\Channel;
 
-use Aztech\Events\Bus\Transport\NullWriter;
+use Aztech\Events\Bus\Channel\NullChannelWriter;
 use Aztech\Events\Bus\Event;
 
-class NullWriterTest extends \PHPUnit_Framework_TestCase
+class NullChannelWriterTest extends \PHPUnit_Framework_TestCase
 {
 
     public function testReadDoesNothing()
     {
-        $writer = new NullWriter();
+        $writer = new NullChannelWriter();
         $event = new Event('test');
         $serializedData = '';
 

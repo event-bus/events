@@ -29,18 +29,18 @@ class GenericPluginTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($plugin->canPublish());
     }
 
-    public function testSetTransportCorrectlyChangesPluginFeatureDescription()
+    public function testSetChannelCorrectlyChangesPluginFeatureDescription()
     {
         $plugin = new GenericPlugin();
 
-        $transport = $this->getMock('\Aztech\Events\Bus\Transport');
+        $transport = $this->getMock('\Aztech\Events\Bus\Channel');
 
-        $this->assertFalse($plugin->hasTransport());
+        $this->assertFalse($plugin->hasChannel());
 
-        $plugin->setTransport($transport);
+        $plugin->setChannel($transport);
 
-        $this->assertTrue($plugin->hasTransport());
-        $this->assertSame($transport, $plugin->getTransport());
+        $this->assertTrue($plugin->hasChannel());
+        $this->assertSame($transport, $plugin->getChannel());
     }
 
 

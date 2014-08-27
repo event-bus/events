@@ -1,11 +1,11 @@
 <?php
 
-namespace Aztech\Events\Tests\Bus\Transport;
+namespace Aztech\Events\Tests\Bus\Channel;
 
-use Aztech\Events\Bus\Transport\WriteOnlyProvider;
-use Aztech\Events\Bus\Transport\ReadWriteProvider;
+use Aztech\Events\Bus\Channel\WriteOnlyChannel;
+use Aztech\Events\Bus\Channel\ReadWriteChannel;
 
-class ReadWriteProviderTest extends \PHPUnit_Framework_TestCase
+class ReadWriteChannelTest extends \PHPUnit_Framework_TestCase
 {
 
     private $reader;
@@ -14,35 +14,35 @@ class ReadWriteProviderTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->reader = $this->getMock('\Aztech\Events\Bus\Transport\Reader');
-        $this->writer = $this->getMock('\Aztech\Events\Bus\Transport\Writer');
+        $this->reader = $this->getMock('\Aztech\Events\Bus\Channel\ChannelReader');
+        $this->writer = $this->getMock('\Aztech\Events\Bus\Channel\ChannelWriter');
     }
 
     public function testCanReadReturnsTrue()
     {
-        $provider = new ReadWriteProvider($this->reader, $this->writer);
+        $provider = new ReadWriteChannel($this->reader, $this->writer);
 
         $this->assertTrue($provider->canRead());
     }
 
     public function testCanWriteReturnsTrue()
     {
-        $provider = new ReadWriteProvider($this->reader, $this->writer);
+        $provider = new ReadWriteChannel($this->reader, $this->writer);
 
         $this->assertTrue($provider->canWrite());
     }
 
-    public function testGetReaderReturnsCorrectInstance()
+    public function testGetChannelReaderReturnsCorrectInstance()
     {
-        $provider = new ReadWriteProvider($this->reader, $this->writer);
+        $provider = new ReadWriteChannel($this->reader, $this->writer);
 
         $this->assertSame($this->reader, $provider->getReader());
 
     }
 
-    public function testGetWriterReturnsCorrectInstance()
+    public function testGetChannelWriterReturnsCorrectInstance()
     {
-        $provider = new ReadWriteProvider($this->reader, $this->writer);
+        $provider = new ReadWriteChannel($this->reader, $this->writer);
 
         $this->assertSame($this->writer, $provider->getWriter());
 

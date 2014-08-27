@@ -7,7 +7,7 @@ use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
-class PubSubTransport implements \Aztech\Events\Bus\Transport, LoggerAwareInterface
+class PubSubChannel implements \Aztech\Events\Bus\Channel, LoggerAwareInterface
 {
 
     /**

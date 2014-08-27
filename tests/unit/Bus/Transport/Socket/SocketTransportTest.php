@@ -1,16 +1,16 @@
 <?php
 
-namespace Aztech\Events\Tests\Transport;
+namespace Aztech\Events\Tests\Channel;
 
-use Aztech\Events\Bus\Transport\Socket\SocketTransport;
-class SocketTransportTest extends \PHPUnit_Framework_TestCase
+use Aztech\Events\Bus\Channel\Socket\SocketChannel;
+class SocketChannelTest extends \PHPUnit_Framework_TestCase
 {
 
     private $wrapper;
 
     protected function setUp()
     {
-        $this->wrapper = $this->getMockBuilder('\Aztech\Events\Bus\Transport\Socket\Wrapper')
+        $this->wrapper = $this->getMockBuilder('\Aztech\Events\Bus\Channel\Socket\Wrapper')
             ->disableOriginalConstructor()
             ->getMock();
     }
@@ -21,7 +21,7 @@ class SocketTransportTest extends \PHPUnit_Framework_TestCase
             ->method('readRaw')
             ->willReturn('data');
 
-        $transport = new SocketTransport($this->wrapper);
+        $transport = new SocketChannel($this->wrapper);
 
         $this->assertEquals('data', $transport->read());
     }
@@ -35,7 +35,7 @@ class SocketTransportTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo($data))
             ->willReturn(strlen($data));
 
-        $transport = new SocketTransport($this->wrapper);
+        $transport = new SocketChannel($this->wrapper);
 
         $transport->write($this->getMock('\Aztech\Events\Event'), $data);
     }

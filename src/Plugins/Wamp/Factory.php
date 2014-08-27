@@ -7,9 +7,9 @@ use Aztech\Events\Bus\AbstractFactory;
 class Factory extends AbstractFactory
 {
 
-    protected function createTransport(array $options)
+    protected function createChannel(array $options)
     {
-        $transport = new Transport();
+        $transport = new Channel();
 
         return $transport;
     }

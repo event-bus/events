@@ -7,7 +7,7 @@ use Aztech\Events\Bus\AbstractFactory;
 class Factory extends AbstractFactory
 {
 
-    protected function createTransport(array $options)
+    protected function createChannel(array $options)
     {
         $options = $this->validateOptions($options);
 
@@ -16,7 +16,7 @@ class Factory extends AbstractFactory
         $publisher = $this->createPushSocketWrapper($context, $options);
         $subscriber = $this->createPullSocketWrapper($context, $options);
 
-        $transport = new PubSubTransport($publisher, $subscriber, $this->logger);
+        $transport = new PubSubChannel($publisher, $subscriber, $this->logger);
 
         return $transport;
     }

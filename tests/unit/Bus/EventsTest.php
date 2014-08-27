@@ -16,7 +16,7 @@ class EventsTest extends \PHPUnit_Framework_TestCase
     {
         $plugin = $this->getMock('\Aztech\Events\Bus\Plugin');
         $plugin->expects($this->any())
-            ->method('hasTransport')
+            ->method('hasChannel')
             ->willReturn(true);
 
         $plugin->expects($this->any())
@@ -74,7 +74,7 @@ class EventsTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testCannotAddPluginWithNoTransportOrFactory()
+    public function testCannotAddPluginWithNoChannelOrFactory()
     {
         $name = 'key';
         $plugin = $this->getMock('\Aztech\Events\Bus\Plugin');
@@ -90,7 +90,7 @@ class EventsTest extends \PHPUnit_Framework_TestCase
         $name = 'key';
         $plugin = $this->getMock('\Aztech\Events\Bus\Plugin');
         $plugin->expects($this->any())
-            ->method('hasTransport')
+            ->method('hasChannel')
             ->willReturn(true);
 
         $plugin->expects($this->any())

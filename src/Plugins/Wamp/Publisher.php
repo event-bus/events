@@ -32,7 +32,7 @@ class Publisher implements \Aztech\Events\Bus\Publisher, WampServerInterface, Lo
     {
         $this->serializer = $serializer;
         $this->logger = new NullLogger();
-        $this->transport = new Transport();
+        $this->transport = new Channel();
         $this->internalDispatcher = new EventDispatcher();
     }
 

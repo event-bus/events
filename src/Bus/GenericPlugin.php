@@ -3,7 +3,7 @@
 namespace Aztech\Events\Bus;
 
 use Aztech\Events\Bus\Plugin;
-use Aztech\Events\Bus\Transport;
+use Aztech\Events\Bus\Channel;
 
 class GenericPlugin implements Plugin
 {
@@ -32,7 +32,7 @@ class GenericPlugin implements Plugin
         $this->canPublish = $enabled;
     }
 
-    public function setTransport(Transport $transport)
+    public function setChannel(Channel $transport)
     {
         $this->transport = $transport;
     }
@@ -52,12 +52,12 @@ class GenericPlugin implements Plugin
         return $this->canPublish;
     }
 
-    function hasTransport()
+    function hasChannel()
     {
         return ($this->transport != null);
     }
 
-    function getTransport()
+    function getChannel()
     {
         return $this->transport;
     }

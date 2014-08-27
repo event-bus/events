@@ -2,32 +2,34 @@
 
 namespace Aztech\Events\Bus;
 
-use Aztech\Events\Bus\Transport\TransportProvider;
-use Aztech\Events\Bus\Publisher\TransportPublisher;
+use Aztech\Events\Bus\Channel\ChannelProcessor;
+use Aztech\Events\Bus\Channel\ChannelProvider;
+use Aztech\Events\Bus\Channel\ChannelPublisher;
+use Aztech\Events\Bus\Factory\OptionsDescriptor;
+use Aztech\Events\Bus\Factory\OptionsValidator;
+use Aztech\Events\Bus\Factory\NullOptionsDescriptor;
+use Psr\Log\NullLogger;
 
 class GenericFactory implements Factory
 {
 
-    protected $options = array();
+    protected $optionsDescriptor = null;
 
-    protected $defaults = array();
+    protected $optionsValidator = null;
 
     protected $serializer;
 
     protected $logger;
 
-    protected $transportProvider;
+    protected $channelProvider;
 
-    public function __construct(Aztech\Events\Bus\Serializer $serializer,
-        TransportProvider $transportProvider,
-        array $optionKeys = array(),
-        array $optionDefaults = array())
+    public function __construct(Serializer $serializer, ChannelProvider $channelProvider, OptionsDescriptor $descriptor = null)
     {
         $this->serializer = $serializer;
-        $this->transportProvider = $transportProvider;
-
-        $this->options = $optionKeys;
-        $this->defaults = $defaults;
+        $this->channelProvider = $channelProvider;
+        $this->optionsDescriptor = $descriptor ?: new NullOptionsDescriptor();
+        $this->optionsValidator = new OptionsValidator();
+        $this->logger = new NullLogger();
     }
 
     public function setLogger(LoggerInterface $logger)
@@ -35,17 +37,14 @@ class GenericFactory implements Factory
         $this->logger = $logger;
     }
 
-    public function createConsumer(array $options = array())
-    {
-        return new Consumer($this->createProcessor($options), new EventDispatcher());
-    }
-
     public function createProcessor(array $options = array())
     {
         $options = $this->validateOptions($options);
-        $transport = $this->createTransport($options);
 
-        $processor = new TransportProcessor($transport, $this->serializer);
+        $channel = $this->channelProvider->createChannel($options);
+        $reader = $channel->getReader();
+
+        $processor = new ChannelProcessor($reader, $this->serializer);
 
         return $processor;
     }
@@ -53,42 +52,15 @@ class GenericFactory implements Factory
     public function createPublisher(array $options = array())
     {
         $options = $this->validateOptions($options);
-        $transport = $this->createTransport($options);
 
-        return new TransportPublisher($transport, $this->serializer);
+        $channel = $this->channelProvider->createChannel($options);
+        $writer = $channel->getWriter();
+
+        return new ChannelPublisher($writer, $this->serializer);
     }
 
     protected function validateOptions(array $options)
     {
-        $keys = $this->getOptionKeys();
-        $defaults = $this->getOptionDefaults();
-
-        $actual = array();
-
-        foreach ($keys as $key) {
-            if (! array_key_exists($key, $options) && ! array_key_exists($key, $defaults)) {
-                throw new \InvalidArgumentException('Options key ' . $key . ' is required in config.');
-            }
-            elseif (! array_key_exists($key, $options)) {
-                $value = $defaults[$key];
-            }
-            else {
-                $value = $options[$key];
-            }
-
-            $actual[$key] = $value;
-        }
-
-        return $actual;
-    }
-
-    protected function getOptionKeys()
-    {
-        return $this->options;
-    }
-
-    protected function getOptionDefaults()
-    {
-        return $this->defaults;
+        return $this->optionsValidator->validate($this->optionsDescriptor, $options);
     }
 }

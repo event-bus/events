@@ -19,13 +19,13 @@ interface Plugin
      *
      * @return boolean
      */
-    function hasTransport();
+    function hasChannel();
 
     /**
      *
-     * @return \Aztech\Events\Bus\Transport
+     * @return \Aztech\Events\Bus\Channel
      */
-    function getTransport();
+    function getChannel();
 
     /**
      *
