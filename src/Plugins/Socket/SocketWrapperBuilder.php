@@ -7,8 +7,8 @@ class SocketWrapperBuilder
 
     public function build(array $options)
     {
-        $domain = $this->getDomain($protocol);
-        $protocol = $this->getProtocol($protocol);
+        $domain = $this->getDomain($options['protocol']);
+        $protocol = $this->getProtocol($options['protocol']);
 
         $socket = socket_create($domain, SOCK_STREAM, $protocol);
 
