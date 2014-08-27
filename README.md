@@ -179,8 +179,8 @@ Event category matching actually follows the [AMQP topic specification](https://
 
 > The legacy-amqp-topic-binding filter consists of a described string value. The value value described by the type is interpreted as a pattern to match against the subject field of the Properties section of the message being evaluated.
 >
-> The pattern is formed using zero or more tokens, with each token delimited by the "." character. The tokens "#" and "*" have special meanings.
-> The token consisting of the single character "*" matches a single word in the subject field.
+> The pattern is formed using zero or more tokens, with each token delimited by the "." character. The tokens "#" and "\*" have special meanings.
+> The token consisting of the single character "\*" matches a single word in the subject field.
 > The token consisting of the single character "#" matches zero or more words in the subject field.
 > Thus the filter value "*.stock.#" would match the subjects "usd.stock" and "eur.stock.db" but not "stock.nasdaq".
 
