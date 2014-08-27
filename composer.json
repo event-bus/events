@@ -36,7 +36,7 @@
         "moriony/php-zmq-stubs": "dev-master"
     },
     "suggest": {
-        "centraldesktop/protobuf-php": "To use the Google ProtoBuf transport plugin",
+        "centraldesktop/protobuf-php": "To use the Google ProtoBuf serializer",
         "videlalvaro/php-amqplib": "To use the AMQP transport plugin",
         "predis/predis": "To use the Redis transport plugin.",
         "ext-mysql": "To use the PDO transport plugin with MySQL",
