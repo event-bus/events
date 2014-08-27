@@ -9,38 +9,19 @@
 
 ## Stability
 
-[![Latest Stable Version](https://poser.pugx.org/evaneos/events/v/stable.png)](https://packagist.org/packages/evaneos/events)
-[![Latest Unstable Version](https://poser.pugx.org/evaneos/events/v/unstable.png)](https://packagist.org/packages/evaneos/events)
+[![Latest Stable Version](https://poser.pugx.org/aztech/events/v/stable.png)](https://packagist.org/packages/aztech/events)
+[![Latest Unstable Version](https://poser.pugx.org/aztech/events/v/unstable.png)](https://packagist.org/packages/aztech/events)
 
-**Table of Contents**
+## Installation
 
-- [Installation](#installation)
-  - [Via Composer](#via-composer)
-- [Autoloading](#autoloading)
-- [Concepts](#concepts)
-  - [Usage](#usage)
-    - [Simple event publish/subscribe](#simple-event-publishsubscribe)
-      - [Publishing](#publishing)
-      - [Consuming](#consuming)
-    - [Event publish/subscriber via an AMQP broker](#event-publishsubscriber-via-an-amqp-broker)
-      - [Publishing](#publishing-1)
-      - [Consuming](#consuming-1)
-    - [Event publishing to WebSockets using the WAMP protocol](#event-publishing-to-websockets-using-the-wamp-protocol)
-      - [Publishing](#publishing-2)
-- [Event matching rules](#event-matching-rules)
+### Via Composer
 
-## Simple event lib 
-
-### Installation
-
-#### Via Composer
-
-Composer is the officially supported way of installing evaneos/events . Don't know Composer yet ? [Read more about it](https://getcomposer.org/doc/00-intro.md).
+Composer is the only supported way of installing *aztech/events* . Don't know Composer yet ? [Read more about it](https://getcomposer.org/doc/00-intro.md).
 
 
 `$ composer require "aztech/events":"~1"`
 
-### Autoloading
+## Autoloading
 
 Add the following code to your bootstrap file :
 
@@ -48,12 +29,15 @@ Add the following code to your bootstrap file :
 require_once 'vendor/autoload.php';
 ```
 
-### Concepts
+## Concepts
 
-In *evaneos/events*, unlike other PHP event libraries, the event dispatch process is split in two separate processes, **publishing** (or emitting events), and **dispatching** (submitting the event to the 
-relevant **subscribers**). This pattern simplifies "out-of-process" event processing by allowing asynchronous transports to be used. Instead of directly dispatching an event to listeners, it is first serialized
-and pushed to a queue of any kind via a Transport class. On the other end of the queue, you can attach a processor which will use a Transport also, but this time to deserialize the event data and dispatch it
-to listeners. This architecture makes it simple to add new transports, and the library already includes a set of transports.
+*aztech/events* aims to provide a solid foundation to build event driven architectures in PHP. 
+
+The current mainstream approach in existing libraries is currently to produce and consume events within the same process (for example, during a single HTTP request). This library attempts to solve that by decoupling totally the publish and the subscribe processes through the use of *event channels*. 
+
+An event channel is simply any resource to which data can be written to and retrieved later (read TCP socket, memory, shared memory, files, message queues...). When an event is published, it is serialized and written to a channel, instead of being dispatched to the event subscribers. 
+
+On the other end of the channel, a consumer is responsible for reading incoming events (synchronously or not, depending on the channel type used) and pushing them to a standard event dispatcher.
 
 This means you can publish and dispatch events using the following methods :
 
@@ -74,30 +58,36 @@ If you want to create and publish events, you will need to use a **publisher**. 
 
 If you want to consume published events, you will need to use a **processor**. A processor is responsible for receiving events via whatever transport it uses. Currently, the library provides native support for consuming AMQP-compatible message queues and synchronous event consumption. The library provides hooks to which you can bind **subscribers**, which are simple event handlers.
 
-### Usage
+Optionally, the library provides an Application object to which you can easily bind subscribers.
+
+## Usage
 
 For simplicity, there are factories available to create publishers and dispatchers.
 
 Listed below are examples for some of the providers. The full documentation is available [here](./doc/providers.md).
 
-#### In process publish/subscribe
+### In process memory publish/subscribe
 
 ```php
-$dispatcher = \Evaneos\Events\Events::createInProcessDispatcher();
+\Aztech\Events\Bus\Plugins::loadMemoryPlugin();
+
+$publisher = \Aztech\Events\Events::createPublisher('memory');
+$processor = \Aztech\Events\Events::createProcessor('memory');
 
 // Subscribe to all events using a wildcard filter
-$dispatcher->on('#', function (Event $event) {
+$processor->on('#', function (Event $event) {
     echo 'Received a new event : ' . $event->getCategory();
 });
 
-$event = \Evaneos\Events\Events::create('category', array('property' => 'value'));
+$event = \Aztech\Events\Events::create('category', array('property' => 'value'));
 $dispatcher->publish($event);
 ```
-#### Event publish/subscriber via an AMQP broker
+### Event publish/subscriber via an AMQP broker
 
-##### Publishing
+#### Publishing
 
 ```php
+
 $options = array(
     'host' => '127.0.0.1',
     'port' => '5672',
@@ -107,15 +97,15 @@ $options = array(
     'exchange' => 'exchangeName'
 );
 
-\Evaneos\Events\Events::
-$factory = \Evaneos\Events\Events::createAmqpFactory();
-$publisher = $factory->createPublisher($options);
-$event = new \Evaneos\Events\Events::create('category', array('property' => 'value'));
+\Aztech\Events\Bus\Plugins::loadAmqpPlugin();
+
+$publisher = \Aztech\Events\Events::createPublisher('amqp', $options);
+$event = \Aztech\Events\Events::create('category', array('property' => 'value'));
 
 $publisher->publish($event);
 ```
 
-##### Consuming
+#### Consuming
 
 ```php
 $options = array(
@@ -127,23 +117,20 @@ $options = array(
     'event-queue' => 'queueName'
 );
 
-$factory = \Evaneos\Events\Events::createAmqpFactory();
-$consumer = $factory->createConsumer($options);
+\Aztech\Events\Bus\Plugins::loadAmqpPlugin();
 
+$processor = $factory->createProcessor('amqp', $options);
 // Subscribe to all events using a wildcard filter
-$consumer->on('#', function (Event $event) {
+$processor->on('#', function (Event $event) {
     echo 'Received a new event : ' . $event->getCategory();
 });
 
-while (true) {
-    $consumer->consumeNext();
-}
-
+$processor->run();
 ```
 
 The `on` method accepts as a first argument a category filter expression. The internal matching engine evaluates matches on a first-match-wins basis, and accepts wildcards.
 
-#### Event publishing to WebSockets using the WAMP protocol
+### Event publishing to WebSockets using the WAMP protocol
 
 **Important points** 
 
@@ -153,11 +140,13 @@ requires Ratchet to create an async event loop that you can use to publish your 
 The Wamp publisher does not create nor run a server or an event loop. Instead, the provided publisher implements
 `Ratchet\Wamp\WampServerInterface` allowing to use the publisher to initialize a WampServer instance.
 
-##### Publishing
+#### Publishing
+
+**OUT OF DATE**
 
 ```php
 // See below for $options definition
-$factory = \Evaneos\Events\Events::createWampFactory();
+$factory = \Aztech\Events\Events::createWampFactory();
 $publisher = $factory->createPublisher($options);
 
 // Create a loop and a listening socket
@@ -166,7 +155,7 @@ $loop = \React\EventLoop\Factory::create();
 // Use your loop to do some stuff, like... create or fetch events and publish them to the socket
 // Here, we're just sending sample messages every second
 $loop->addPeriodicTimer(1, function() use ($publisher) {
-    $event = \Evaneos\Events\Events::create('hello', array('time' => time());
+    $event = \Aztech\Events\Events::create('hello', array('time' => time());
     $publisher->publish($event);
 });
 
@@ -181,7 +170,7 @@ $server = \Ratchet\Server\IoServer($httpServer, $socket, $loop);
 $server->run();
 ```
 
-### Event matching rules
+## Event matching rules
 
 > **tl;dr** Use '#' to match absolutely anything, '*' to match exactly one unknown word.
 
@@ -215,4 +204,4 @@ topic.# will match topic, topic.subtopic, and topic.subtopic.leaf and any subtop
 topic.#.leaf will match topic.subtopic.leaf and topic.other.leaf and many others, but not topic.subtopic.other
 ```
 
-To get check the latest truth table of event matching, please refer to the source of `Evaneos\Events\Tests\Unit\CategoryMatchTruthTable`.
+To get check the latest truth table of event matching, please refer to the source of `Aztech\Events\Tests\Unit\CategoryMatchTruthTable`.
