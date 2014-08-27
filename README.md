@@ -6,6 +6,7 @@
 [![Code Coverage](https://scrutinizer-ci.com/g/aztech-dev/events/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/aztech-dev/events/?branch=master)
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/aztech-dev/events/badges/quality-score.png?s=668e4df5ba163c804504257d4a026a0a549f220a)](https://scrutinizer-ci.com/g/aztech-dev/events/)
 [![Dependency Status](https://www.versioneye.com/user/projects/53b92a84609ff04f7f000003/badge.svg)](https://www.versioneye.com/user/projects/53b92a84609ff04f7f000003)
+[![HHVM Status](http://hhvm.h4cc.de/badge/aztech/events.png)](http://hhvm.h4cc.de/package/aztech/events)
 
 ## Stability
 
