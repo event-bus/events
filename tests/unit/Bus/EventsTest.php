@@ -1,6 +1,6 @@
 <?php
 
-namespace Aztech\Events\Tests;
+namespace Aztech\Events\Tests\Bus;
 
 use Aztech\Events\Bus\Events;
 

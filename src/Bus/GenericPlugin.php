@@ -37,7 +37,7 @@ class GenericPlugin implements Plugin
         $this->transport = $transport;
     }
 
-    public function setFactory(AbstractFactory $factory)
+    public function setFactory(Factory $factory)
     {
         $this->factory = $factory;
     }

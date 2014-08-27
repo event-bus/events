@@ -15,7 +15,7 @@ class TransportProcessorTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->transport = $this->getMock('\Aztech\Events\Bus\Transport');
+        $this->transport = $this->getMock('\Aztech\Events\Bus\Transport\Reader');
         $this->serializer = $this->getMock('\Aztech\Events\Bus\Serializer');
 
         $this->processor = new TransportProcessor($this->transport, $this->serializer);

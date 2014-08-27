@@ -3,30 +3,30 @@
 namespace Aztech\Events\Bus\Processor;
 
 use Aztech\Events\Bus\AbstractProcessor;
-use Aztech\Events\Bus\Transport;
 use Aztech\Events\Bus\Serializer;
 use Aztech\Events\Dispatcher;
+use Aztech\Events\Bus\Transport\Reader;
 
 class TransportProcessor extends AbstractProcessor
 {
 
-    private $transport;
+    private $reader;
 
     private $serializer;
 
-    public function __construct(Transport $transport, Serializer $serializer)
+    public function __construct(Reader $reader, Serializer $serializer)
     {
         parent::__construct();
 
         $this->serializer = $serializer;
-        $this->transport = $transport;
+        $this->reader = $reader;
     }
 
     public function processNext(Dispatcher $dispatcher)
     {
         $this->logger->debug('Getting next available event from transport.');
 
-        $serializedObject = $this->transport->read();
+        $serializedObject = $this->reader->read();
         $event = $this->serializer->deserialize($serializedObject);
 
         if ($event) {

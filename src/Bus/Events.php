@@ -14,6 +14,27 @@ use Psr\Log\LoggerInterface;
 class Events
 {
 
+    const NUM_ERR_NAME_REQUIRED = 100;
+    const FMT_ERR_NAME_REQUIRED = 'Plugin name is required.';
+
+    const NUM_ERR_NAME_REGISTERED = 101;
+    const FMT_ERR_NAME_REGISTERED = 'Plugin key is already registered.';
+
+    const NUM_ERR_PLUGIN_REGISTERED = 102;
+    const FMT_ERR_PLUGIN_REGISTERED = 'Plugin key is already registered.';
+
+    const NUM_ERR_NO_PROVIDERS = 103;
+    const FMT_ERR_NO_PROVIDERS = 'Plugin needs to provide at least a transport or a factory.';
+
+    const NUM_ERR_NO_FEATURES = 104;
+    const FMT_ERR_NO_FEATURES = 'Plugin provides no publish or process features (at least one is required).';
+
+    const NUM_ERR_UNKNOWN_PLUGIN = 105;
+    const FMT_ERR_UNKNOWN_PLUGIN = 'Plugin "%s" is not registered.';
+
+    const NUM_ERR_UNSUPPORTED_FEATURE = 106;
+    const FMT_ERR_UNSUPPORTED_FEATURE = 'Feature not supported by plugin "%".';
+
     private static $plugins = array();
 
     public static function reset()
@@ -30,15 +51,15 @@ class Events
     public static function addPlugin($name, Plugin $plugin)
     {
         if (empty($name)) {
-            throw new \InvalidArgumentException('Plugin name is required.');
+            throw new \InvalidArgumentException(self::FMT_ERR_NAME_REQUIRED, self::NUM_ERR_NAME_REQUIRED);
         }
 
         if (array_key_exists($name, self::$plugins)) {
-            throw new \InvalidArgumentException('Plugin key is already registered.');
+            throw new \InvalidArgumentException(self::FMT_ERR_NAME_REGISTERED, self::NUM_ERR_NAME_REGISTERED);
         }
 
         if (in_array($plugin, self::$plugins, true)) {
-            throw new \InvalidArgumentException('Plugin is already registered.');
+            throw new \InvalidArgumentException(self::FMT_ERR_PLUGIN_REGISTERED, self::NUM_ERR_PLUGIN_REGISTERED);
         }
 
         self::validatePluginFeatures($plugin);
@@ -46,14 +67,14 @@ class Events
         self::$plugins[$name] = $plugin;
     }
 
-    private static function validatePluginFeatures($plugin)
+    private static function validatePluginFeatures(Plugin $plugin)
     {
         if (! $plugin->hasFactory() && ! $plugin->hasTransport()) {
-            throw new \InvalidArgumentException('Plugin needs to provide at least a transport or a factory.');
+            throw new \InvalidArgumentException(self::FMT_ERR_NO_PROVIDERS, self::NUM_ERR_NO_PROVIDERS);
         }
 
         if (! $plugin->canProcess() && ! $plugin->canPublish()) {
-            throw new \InvalidArgumentException('Plugin provides no publish or process features (at least one is required).');
+            throw new \InvalidArgumentException(self::FMT_ERR_NO_FEATURES, self::NUM_ERR_NO_FEATURES);
         }
     }
 
@@ -95,11 +116,11 @@ class Events
         $plugin = self::getPlugin($name);
         $factory = self::getPluginFactory($name);
 
-        if ($plugin->canConsume()) {
+        if ($plugin->canProcess()) {
             return $factory->createConsumer($options);
         }
 
-        throw new \BadMethodCallException('Plugin "' . $name . '" does provide this feature. ');
+        self::throwUnsupportedFeatureException($name);
     }
 
     /**
@@ -119,7 +140,7 @@ class Events
             return $factory->createPublisher($options);
         }
 
-        throw new \BadMethodCallException('Plugin "' . $name . '" does provide this feature. ');
+        self::throwUnsupportedFeatureException($name);
     }
 
     /**
@@ -131,7 +152,7 @@ class Events
     public static function getPlugin($name)
     {
         if (! array_key_exists($name, self::$plugins)) {
-            throw new \OutOfBoundsException('Plugin "' . $name . '" is not registered.');
+            throw new \OutOfBoundsException(sprintf(self::FMT_ERR_UNKNOWN_PLUGIN, self::NUM_ERR_UNKNOWN_PLUGIN));
         }
 
         return self::$plugins[$name];
@@ -166,9 +187,22 @@ class Events
         }
         else {
             // Should never happen (guarded in addPlugin method), but you never know...
-            throw new \BadMethodCallException('Unable to find or create a factory. Plugins need at least a Transport or a Factory.');
+            throw new \BadMethodCallException(self::FMT_ERR_NO_PROVIDERS, self::NUM_ERR_NO_PROVIDERS);
         }
 
         return $factory;
+    }
+
+    /**
+     * Helper to throw an unsupported feature exception.
+     * @param string $name Name of the concerned plugin.
+     * @throws \BadMethodCallException
+     */
+    private static function throwUnsupportedFeatureException($name)
+    {
+        $message = sprintf(self::FMT_ERR_UNSUPPORTED_FEATURE, $name);
+        $code = self::NUM_ERR_UNSUPPORTED_FEATURE;
+
+        throw new \BadMethodCallException($message, $code);
     }
 }

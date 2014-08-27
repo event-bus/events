@@ -48,7 +48,7 @@ class GenericPluginTest extends \PHPUnit_Framework_TestCase
     {
         $plugin = new GenericPlugin();
 
-        $factory = $this->getMockBuilder('\Aztech\Events\Bus\AbstractFactory')
+        $factory = $this->getMockBuilder('\Aztech\Events\Bus\Factory')
             ->disableOriginalConstructor()
             ->getMockForAbstractClass();
 

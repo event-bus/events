@@ -2,24 +2,32 @@
 
 namespace Aztech\Events\Bus;
 
-use Aztech\Events\EventDispatcher;
+use Aztech\Events\Bus\Transport\TransportProvider;
 use Aztech\Events\Bus\Publisher\TransportPublisher;
-use Aztech\Events\Bus\Processor\TransportProcessor;
-use Psr\Log\LoggerAwareInterface;
-use Psr\Log\LoggerInterface;
 
-abstract class AbstractFactory implements Factory, LoggerAwareInterface
+class GenericFactory implements Factory
 {
+
+    protected $options = array();
+
+    protected $defaults = array();
 
     protected $serializer;
 
     protected $logger;
 
-    protected abstract function createTransport(array $options);
+    protected $transportProvider;
 
-    public function __construct(Aztech\Events\Bus\Serializer $serializer)
+    public function __construct(Aztech\Events\Bus\Serializer $serializer,
+        TransportProvider $transportProvider,
+        array $optionKeys = array(),
+        array $optionDefaults = array())
     {
         $this->serializer = $serializer;
+        $this->transportProvider = $transportProvider;
+
+        $this->options = $optionKeys;
+        $this->defaults = $defaults;
     }
 
     public function setLogger(LoggerInterface $logger)
@@ -36,6 +44,7 @@ abstract class AbstractFactory implements Factory, LoggerAwareInterface
     {
         $options = $this->validateOptions($options);
         $transport = $this->createTransport($options);
+
         $processor = new TransportProcessor($transport, $this->serializer);
 
         return $processor;
@@ -75,11 +84,11 @@ abstract class AbstractFactory implements Factory, LoggerAwareInterface
 
     protected function getOptionKeys()
     {
-        return array();
+        return $this->options;
     }
 
     protected function getOptionDefaults()
     {
-        return array();
+        return $this->defaults;
     }
 }

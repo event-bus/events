@@ -1,11 +1,16 @@
 <?php
 
-namespace Aztech\Events\Plugins\ZeroMq;
+namespace Aztech\Events\Bus\Plugins\ZeroMq;
 
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
+/**
+ * ZMQSocket wrapper class (poor man's proxy)
+ * @author thibaud
+ *
+ */
 class SocketWrapper implements LoggerAwareInterface
 {
 

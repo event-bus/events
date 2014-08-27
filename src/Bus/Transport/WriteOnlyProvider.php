@@ -2,7 +2,7 @@
 
 namespace Aztech\Events\Bus\Transport;
 
-class WriteOnlyTransport implements TransportProvider
+class WriteOnlyProvider implements TransportProvider
 {
 
     private $writer;
