@@ -37,7 +37,7 @@ class FileChannelReader implements ChannelReader
         $data = false;
 
         if ($handle = fopen($this->file, "c+")) {
-            $data = Files::invokeEx(array ($this, 'readFile'), $handle);
+            $data = Files::invokeEx(array ($this, 'readAndRemoveFirstLine'), $handle);
 
             fclose($handle);
         }
@@ -52,12 +52,13 @@ class FileChannelReader implements ChannelReader
         }
     }
 
-    public function readFile($handle)
+    public function readAndRemoveFirstLine($handle)
     {
         $lines = array();
+        $data = false;
 
         while (($line = fgets($handle)) !== false) {
-            if (isset($data)) {
+            if ($data) {
                 $lines[] = trim($line);
             }
             elseif (trim($line) != '') {
@@ -67,6 +68,6 @@ class FileChannelReader implements ChannelReader
 
         file_put_contents($this->file, implode(PHP_EOL, $lines));
 
-        return isset($data) ? $data : false;
+        return $data;
     }
 }
