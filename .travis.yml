@@ -15,6 +15,7 @@ before_script:
 script: 
   - phpunit --coverage-text --coverage-clover=coverage.clover
   - vendor/bin/phpcs --standard=./phpcs.xml -n --report=gitblame ./src
+  - vendor/bin/bugfree lint src/
   - if [ $(phpenv version-name) = '5.6' ]; then wget https://scrutinizer-ci.com/ocular.phar; php ocular.phar code-coverage:upload --format=php-clover coverage.clover; fi
 
 notifications:

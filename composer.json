@@ -33,7 +33,8 @@
         "centraldesktop/protobuf-php": "~0.5",
         "mixpanel/mixpanel-php": "~2",
         "mikey179/vfsStream": "~1",
-        "moriony/php-zmq-stubs": "dev-master"
+        "moriony/php-zmq-stubs": "dev-master",
+        "vektah/bugfree-dangerzone": "0.2.0"
     },
     "suggest": {
         "centraldesktop/protobuf-php": "To use the Google ProtoBuf serializer",
