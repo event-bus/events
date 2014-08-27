@@ -8,6 +8,7 @@ use Aztech\Events\Bus\Channel\ReadWriteChannel;
 
 class RedisChannelProvider implements ChannelProvider
 {
+
     public function createChannel(array $options)
     {
         $redis = new Client($options);
@@ -25,5 +26,4 @@ class RedisChannelProvider implements ChannelProvider
 
         return new ReadWriteChannel($reader, $writer);
     }
-
 }

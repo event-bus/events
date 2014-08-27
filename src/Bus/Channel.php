@@ -6,12 +6,14 @@ use Aztech\Events\Bus\Channel\ChannelReader;
 use Aztech\Events\Bus\Channel\ChannelWriter;
 
 /**
- * @author thibaud
  *
+ * @author thibaud
  */
 interface Channel
 {
+
     /**
+     *
      * @return bool true if a reader is available for the channel, false otherwise.
      */
     function canRead();
@@ -24,6 +26,7 @@ interface Channel
     function getReader();
 
     /**
+     *
      * @return bool true if a writer is available for the channel, false otherwise.
      */
     function canWrite();
@@ -34,5 +37,4 @@ interface Channel
      * @throws \BadMethodCallException when no writer is available, as indicated by the return value of canWrite().
      */
     function getWriter();
-
 }

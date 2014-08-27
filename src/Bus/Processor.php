@@ -6,8 +6,8 @@ use Aztech\Events\Dispatcher;
 use Aztech\Events\Subscriber;
 
 /**
- * @author thibaud
  *
+ * @author thibaud
  */
 interface Processor
 {
@@ -17,5 +17,4 @@ interface Processor
      * @param Dispatcher $dispatcher
      */
     function processNext(Dispatcher $dispatcher);
-
 }

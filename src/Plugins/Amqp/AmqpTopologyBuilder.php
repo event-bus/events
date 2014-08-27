@@ -37,5 +37,4 @@ class AmqpTopologyBuilder
             $this->built = true;
         }
     }
-
 }

@@ -10,10 +10,8 @@ use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
-
 class AmqpChannelWriter implements ChannelWriter, LoggerAwareInterface
 {
-
 
     /**
      *
@@ -62,10 +60,5 @@ class AmqpChannelWriter implements ChannelWriter, LoggerAwareInterface
         $category = $this->categoryHelper->getPrefixedCategory($event->getCategory());
 
         $this->channel->basic_publish($message, $this->writeExchange, $category);
-    }
-
-    private function initializeIfNecessary()
-    {
-
     }
 }

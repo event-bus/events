@@ -9,13 +9,14 @@ interface PluginFactory
 {
 
     /**
+     *
      * @return OptionsDescriptor
      */
     function getOptionsDescriptor();
 
     /**
+     *
      * @return ChannelProvider
      */
     function getChannelProvider();
-
 }

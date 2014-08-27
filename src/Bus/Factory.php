@@ -18,5 +18,4 @@ interface Factory
      * @return \Aztech\Events\Bus\Processor
      */
     function createProcessor(array $options = array());
-
 }

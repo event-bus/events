@@ -28,5 +28,4 @@ class OptionsValidator
 
         return $actual;
     }
-
 }
