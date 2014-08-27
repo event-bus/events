@@ -5,7 +5,6 @@ namespace Aztech\Events\Bus;
 use Aztech\Events\EventDispatcher;
 use Aztech\Events\Bus\Serializer\NativeSerializer;
 use Psr\Log\LoggerInterface;
-use Psr\Log\NullLogger;
 
 /**
  * Facade-like class providing easy access to event factories.
