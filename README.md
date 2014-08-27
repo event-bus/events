@@ -1,4 +1,4 @@
-# evaneos/events
+# aztech/events
 
 ## Build status
 
