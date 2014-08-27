@@ -10,6 +10,7 @@ php:
 before_script:
   - composer selfupdate
   - echo 'extension = "zmq.so"' > /tmp/zmq.ini
+  - cat /tmp/zmq.ini
   - php-env config-add /tmp/zmq.ini
   - composer install --dev
   - wget https://scrutinizer-ci.com/ocular.phar
