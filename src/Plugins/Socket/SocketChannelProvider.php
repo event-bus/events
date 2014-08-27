@@ -12,15 +12,21 @@ class SocketChannelProvider implements ChannelProvider
     {
         switch($options['protocol']) {
             case 'ipc':
-                return AF_UNIX;
+                $domain = AF_UNIX;
+                $protocol = SOL_SOCKET;
+                break;
             case 'ipv6':
-                return AF_INET6;
+                $domain = AF_INET6;
+                $protocol = SOL_TCP;
+                break;
             case 'ipv4':
             default:
-                return AF_INET;
+                $domain = AF_INET;
+                $protocol = SOL_TCP;
+                break;
         }
 
-        $socket = socket_create($domain, SOCK_STREAM);
+        $socket = socket_create($domain, SOCK_STREAM, $protocol);
         $socket = new SocketWrapper($socket);
 
         $reader = new SocketChannelReader($socket);

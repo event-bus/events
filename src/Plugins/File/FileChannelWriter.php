@@ -39,7 +39,7 @@ class FileChannelWriter implements ChannelWriter
 
     public function append($handle, $data)
     {
-        while (($line = fgets($handle) !== false)) {
+        while (fgets($handle) !== false) {
             continue;
         }
 

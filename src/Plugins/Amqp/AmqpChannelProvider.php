@@ -11,7 +11,7 @@ class AmqpChannelProvider implements ChannelProvider
     function createChannel(array $options = array())
     {
         $amqpConnection = new AMQPStreamConnection($options['host'], $options['port'], $options['user'], $options['pass'], $options['vhost']);
-        $amqpChannel = $connection->channel();
+        $amqpChannel = $amqpConnection->channel();
 
         $topologyBuilder = new AmqpTopologyBuilder($amqpChannel, $options['exchange'], $options['event-queue'], $options['event-prefix']);
         $topologyBuilder->build();

@@ -58,7 +58,7 @@ class SocketWrapper
         $readLen = 1;
 
         do {
-            $data = socket_read($this->socket, 1);
+            $data = socket_read($this->socket, $readLen);
             $received .= $data;
 
             $this->dumpPotentialError(__METHOD__);

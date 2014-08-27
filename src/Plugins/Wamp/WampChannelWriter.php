@@ -11,6 +11,7 @@ use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Ratchet\ConnectionInterface;
 use Ratchet\Wamp\WampServerInterface;
+use Ratchet\Wamp\Topic;
 
 class WampChannelWriter implements ChannelWriter, WampServerInterface, LoggerAwareInterface
 {
@@ -46,6 +47,10 @@ class WampChannelWriter implements ChannelWriter, WampServerInterface, LoggerAwa
 
     public function onSubscribe(ConnectionInterface $conn, $topic)
     {
+        if (is_string($topic)) {
+            $topic = new Topic($topic);
+        }
+
         if (array_key_exists($topic->getId(), $this->subscribedTopics)) {
             $this->logger->debug(sprintf('Topic "%s" already registered, ignoring.'));
             return;

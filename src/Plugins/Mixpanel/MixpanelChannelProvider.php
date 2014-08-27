@@ -11,8 +11,8 @@ class MixpanelChannelProvider implements ChannelProvider
     public function createChannel(array $options = array())
     {
         $mixpanel = \Mixpanel::getInstance($options['project-token']);
-        $writer = new MixpanelChannelWriter($mixpanel);
+        $writer = new MixpanelChannelWriter($mixpanel, $options['always-flush']);
 
-        return new WriteOnlyChannel($writer, $options['always-flush']);
+        return new WriteOnlyChannel($writer);
     }
 }

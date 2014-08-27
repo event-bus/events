@@ -9,7 +9,9 @@ use Psr\Log\NullLogger;
 /**
  * ZMQSocket wrapper class (poor man's proxy)
  * @author thibaud
- *
+ * @method send
+ * @method recv
+ * @method setSockOpt
  */
 class ZeroMqSocketWrapper implements LoggerAwareInterface
 {
@@ -49,13 +51,6 @@ class ZeroMqSocketWrapper implements LoggerAwareInterface
         $this->dsn = $dsn;
         $this->socket = $socket;
         $this->logger = $logger ?: new NullLogger();
-    }
-
-    public function __destruct()
-    {
-        if ($this->boundOrConnected) {
-            $this->socket->unbind($this->dsn);
-        }
     }
 
     public function setLogger(LoggerInterface $logger)

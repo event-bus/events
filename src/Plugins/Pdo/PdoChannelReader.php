@@ -14,18 +14,17 @@ class PdoChannelReader implements ChannelReader
     public function __construct(\PDO $connection, PdoHelper $helper)
     {
         $this->pdo = $connection;
-        $this->helper = $pdoHelper;
+        $this->helper = $helper;
     }
 
     public function read()
     {
-        $query = $this->helper->getReadQuery();
-
         if (! $this->pdo->beginTransaction()) {
             throw new \RuntimeException('Unable to start a database transaction.');
         }
 
         $statement = $this->pdo->query($this->helper->getReadQuery());
+
         if (! ($result = $statement->execute())) {
             $this->pdo->rollBack();
             throw new \RuntimeException('Unable to query database.');
@@ -40,18 +39,19 @@ class PdoChannelReader implements ChannelReader
         $id = $data['id'];
         $event = $data['data'];
 
-        $statement = $this->pdo->exec($this->helper->getDeleteQuery(), array('id' => $id));
-        if ($statement == 0) {
+        $statement = $this->pdo->prepare($this->helper->getDeleteQuery());
+
+        if (! $statement->execute(array('id' => $id))) {
             $this->pdo->rollBack();
             throw new \RuntimeException('Unable to delete event record.');
         }
-        elseif ($statement > 1) {
+        elseif ($statement->rowCount() > 1) {
             $this->pdo->rollBack();
             throw new \RuntimeException('Tried to delete more than one event.');
         }
 
         $this->pdo->commit();
 
-        return $data;
+        return $event;
     }
 }

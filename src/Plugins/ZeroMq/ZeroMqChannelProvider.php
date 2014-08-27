@@ -5,6 +5,7 @@ namespace Aztech\Events\Bus\Plugins\ZeroMq;
 use Aztech\Events\Bus\Channel\ChannelProvider;
 use Aztech\Events\Bus\Plugins\ZeroMq\Reader\SubscribeChannelReader;
 use Aztech\Events\Bus\Plugins\ZeroMq\Writer\PublishChannelWriter;
+use Aztech\Events\Bus\Channel\ReadWriteChannel;
 
 class ZeroMqChannelProvider implements ChannelProvider
 {
@@ -19,7 +20,7 @@ class ZeroMqChannelProvider implements ChannelProvider
         $writer = new PublishChannelWriter($publisher);
         $reader = new SubscribeChannelReader($subscriber);
 
-        return $transport;
+        return new ReadWriteChannel($reader, $writer);
     }
 
     private function getDsn($options)
@@ -33,14 +34,14 @@ class ZeroMqChannelProvider implements ChannelProvider
     {
         $options['host'] = $options['publisher'];
 
-        return $this->createSocketWrapper($context, $options, \ZMQ::SOCKET_PUB, true);
+        return $this->createSocketWrapper($context, $options, \ZMQ::SOCKET_PUB);
     }
 
     private function createZmqSubscriber($context, $options)
     {
         $options['host'] = $options['subscriber'];
 
-        $wrapper = $this->createSocketWrapper($context, $options, \ZMQ::SOCKET_SUB, false);
+        $wrapper = $this->createSocketWrapper($context, $options, \ZMQ::SOCKET_SUB);
         $wrapper->setSockOpt(\ZMQ::SOCKOPT_SUBSCRIBE, '');
 
         return $wrapper;
@@ -53,6 +54,6 @@ class ZeroMqChannelProvider implements ChannelProvider
 
         $socket = new \ZMQSocket($context, $type);
 
-        return new ZeroMqSocketWrapper($socket, $dsn, $this->logger);
+        return new ZeroMqSocketWrapper($socket, $dsn);
     }
 }

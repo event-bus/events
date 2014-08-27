@@ -10,9 +10,12 @@ class MixpanelChannelWriter implements ChannelWriter
 {
     private $mixpanel;
 
-    public function __construct(\Mixpanel $mixpanel)
+    private $alwaysFlush = false;
+
+    public function __construct(\Mixpanel $mixpanel, $alwaysFlush = false)
     {
         $this->mixpanel = $mixpanel;
+        $this->alwaysFlush = $alwaysFlush;
     }
 
     public function write(Event $event, $serializedEvent)
@@ -24,5 +27,9 @@ class MixpanelChannelWriter implements ChannelWriter
         }
 
         $this->mixpanel->track($event->getCategory(), $properties);
+
+        if ($this->alwaysFlush) {
+            $this->mixpanel->flush();
+        }
     }
 }

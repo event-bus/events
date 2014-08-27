@@ -7,16 +7,16 @@ use Aztech\Events\Bus\Plugins\ZeroMq\ZeroMqSocketWrapper;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
+;
 
 class SubscribeChannelReader implements ChannelReader, LoggerAwareInterface
 {
 
     /**
-     * Var is declared as ZMQSocket for autocomplete, but is actually a SocketWrapper.
      *
-     * @var \ZMQSocket
+     * @var ZeroMqSocketWrapper
      */
-    private $socket;
+    private $subscriber;
 
     /**
      *
@@ -26,7 +26,7 @@ class SubscribeChannelReader implements ChannelReader, LoggerAwareInterface
 
     public function __construct(ZeroMqSocketWrapper $subscriber)
     {
-        $this->socket = $wrapper;
+        $this->subscriber = $subscriber;
         $this->logger = new NullLogger();
     }
 
@@ -42,13 +42,13 @@ class SubscribeChannelReader implements ChannelReader, LoggerAwareInterface
      */
     public function subscribeTo($prefix = '')
     {
-        $this->socket->setSockOpt(\ZMQ::SOCKOPT_SUBSCRIBE, (string)$prefix);
+        $this->subscriber->setSockOpt(\ZMQ::SOCKOPT_SUBSCRIBE, (string)$prefix);
     }
 
     public function read()
     {
-        $this->pullSocket->bindIfNecessary();
-        $data = $this->pullSocket->recv();
+        $this->subscriber->bindIfNecessary();
+        $data = $this->subscriber->recv();
 
         $this->logger->debug(sprintf('Read %d characters, returning.', strlen($data), [
             'data' => $data

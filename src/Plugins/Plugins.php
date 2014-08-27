@@ -35,7 +35,7 @@ class Plugins
         Events::addPlugin('file', new GenericPluginFactory(function ()
         {
             return new FileChannelProvider();
-        }), $descriptor);
+        }, $descriptor));
     }
 
     static function loadMemoryPlugin($name = 'memory')

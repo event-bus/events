@@ -11,11 +11,11 @@ class RedisChannelProvider implements ChannelProvider
 
     public function createChannel(array $options)
     {
-        $redis = new Client($options);
-        $redis->connect();
+        $redisClient = new Client($options);
+        $redisClient->connect();
 
         if (isset($options['password']) && ! empty($options['password'])) {
-            $redis->auth($options['password']);
+            $redisClient->auth($options['password']);
         }
 
         $eventKey = $options['event-key'] . ':queue';

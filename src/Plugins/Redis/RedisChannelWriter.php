@@ -9,7 +9,7 @@ use Predis\Client;
 class RedisChannelWriter implements ChannelWriter
 {
 
-    private $redis;
+    private $client;
 
     private $key = null;
 

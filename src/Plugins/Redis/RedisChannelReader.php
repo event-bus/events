@@ -8,7 +8,7 @@ use Predis\Client;
 class RedisChannelReader implements ChannelReader
 {
 
-    private $redis;
+    private $client;
 
     private $key = null;
 

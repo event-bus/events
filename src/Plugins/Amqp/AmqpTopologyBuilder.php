@@ -29,10 +29,10 @@ class AmqpTopologyBuilder
     {
         if (! $this->built) {
             $this->channel->exchange_declare($this->exchange, 'topic', false, true, false);
-            $this->channel->queue_declare($this->readQueue, false, true, false, false);
+            $this->channel->queue_declare($this->queueName, false, true, false, false);
 
             $routingKey = $this->categoryHelper->getPrefixedCategory('#');
-            $this->channel->queue_bind($this->readQueue, $this->exchange, $routingKey);
+            $this->channel->queue_bind($this->queueName, $this->exchange, $routingKey);
 
             $this->built = true;
         }

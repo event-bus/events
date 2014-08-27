@@ -27,7 +27,7 @@ class AmqpChannelWriter implements ChannelWriter, LoggerAwareInterface
 
     /**
      *
-     * @var LoggerAwareInterface
+     * @var LoggerInterface
      */
     private $logger;
 

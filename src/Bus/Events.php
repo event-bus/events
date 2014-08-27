@@ -26,25 +26,9 @@ class Events
 
     const FMT_ERR_PLUGIN_REGISTERED = 'Plugin key is already registered.';
 
-    const NUM_ERR_NO_PROVIDERS = 103;
-
-    const FMT_ERR_NO_PROVIDERS = 'Plugin needs to provide at least a transport or a factory.';
-
-    const NUM_ERR_NO_FEATURES = 104;
-
-    const FMT_ERR_NO_FEATURES = 'Plugin provides no publish or process features (at least one is required).';
-
     const NUM_ERR_UNKNOWN_PLUGIN = 105;
 
     const FMT_ERR_UNKNOWN_PLUGIN = 'Plugin "%s" is not registered.';
-
-    const NUM_ERR_UNSUPPORTED_FEATURE = 106;
-
-    const FMT_ERR_UNSUPPORTED_FEATURE = 'Feature not supported by plugin "%".';
-
-    const NUM_ERR_INVALID_PLUGIN = 107;
-
-    const FMT_ERR_INVALID_PLUGIN = 'Plugin must be an instance of PluginFactory or Factory';
 
     /**
      *
@@ -123,29 +107,30 @@ class Events
      * @param LoggerInterface $logger A logger instance or null.
      * @return Factory
      */
-    public static function createFactory(PluginFactory $plugin, Serializer $serializer = null, LoggerInterface $logger = null)
+    public static function createFactory(PluginFactory $plugin, Serializer $serializer = null)
     {
         $serializer = $serializer ?  : new NativeSerializer();
-
         $factory = new GenericFactory($serializer, $plugin->getChannelProvider(), $plugin->getOptionsDescriptor());
-        $factory->setLogger($logger ?  : new NullLogger());
 
         return $factory;
     }
 
     /**
-     * Creates a new event consumer.
+     * Creates a new application.
      *
      * @param string $name Name of the plugin to use to create the consumer
      * @param array $options Options to pass to the factory.
      * @return Application
-     * @throws \BadMethodCallException when the selected plugin does not support consumers.
      * @throws \OutOfBoundsException when the plugin name is not registered.
      */
     public static function createApplication($name, array $options = array(), array $bindings = array())
     {
         $factory = self::getFactory($name);
         $application = new Application($factory->createProcessor($options), new EventDispatcher());
+
+        foreach ($bindings as $filter => $subscriber) {
+            $application->on($filter, $subscriber);
+        }
 
         return $application;
     }
@@ -156,7 +141,6 @@ class Events
      * @param string $name Name of the plugin to ues to create the publisher.
      * @param array $options Options to pass to the factory.
      * @return Publisher
-     * @throws \BadMethodCallException when the selected plugin does not support publishers.
      * @throws \OutOfBoundsException when the plugin name is not registered.
      */
     public static function createPublisher($name, array $options = array())
@@ -167,12 +151,11 @@ class Events
     }
 
     /**
-     * Creates a new event publisher.
+     * Creates a new event processor.
      *
-     * @param string $name Name of the plugin to ues to create the publisher.
+     * @param string $name Name of the plugin to ues to create the processor.
      * @param array $options Options to pass to the factory.
-     * @return Publisher
-     * @throws \BadMethodCallException when the selected plugin does not support publishers.
+     * @return Processor
      * @throws \OutOfBoundsException when the plugin name is not registered.
      */
     public static function createProcessor($name, array $options = array())
@@ -180,20 +163,6 @@ class Events
         $factory = self::getFactory($name);
 
         return new Application($factory->createProcessor($options), new EventDispatcher());
-    }
-
-    /**
-     * Helper to throw an unsupported feature exception.
-     *
-     * @param string $name Name of the concerned plugin.
-     * @throws \BadMethodCallException
-     */
-    private static function throwUnsupportedFeatureException($name)
-    {
-        $message = sprintf(self::FMT_ERR_UNSUPPORTED_FEATURE, $name);
-        $code = self::NUM_ERR_UNSUPPORTED_FEATURE;
-
-        throw new \BadMethodCallException($message, $code);
     }
 
     /**
