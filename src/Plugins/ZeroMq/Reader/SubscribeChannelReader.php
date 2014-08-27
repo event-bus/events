@@ -7,7 +7,6 @@ use Aztech\Events\Bus\Plugins\ZeroMq\ZeroMqSocketWrapper;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
-;
 
 class SubscribeChannelReader implements ChannelReader, LoggerAwareInterface
 {
