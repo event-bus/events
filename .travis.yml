@@ -10,7 +10,6 @@ php:
 before_script:
   - composer selfupdate
   - composer install --dev
-  - wget https://scrutinizer-ci.com/ocular.phar
 
 script:
   - phpunit --coverage-text --coverage-clover=coverage.clover

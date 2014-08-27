@@ -33,13 +33,18 @@ class GenericSerializer implements Serializer
             if ($serializationPair[1] === $serializer) {
                 return true;
             }
-            elseif ($serializationPair[1] instanceof Serializer && $serializationPair[1]->hasInChildren($serializer))
-            {
+            elseif ($this->guardedHasInChildren($serializer, $serializationPair[1])) {
                 return true;
             }
         }
 
         return false;
+    }
+
+    private function guardedHasInChildren(GenericSerializer $serializer, Serializer $container)
+    {
+        return ($container instanceof GenericSerializer &&
+            $container->hasInChildren($serializer));
     }
 
     public function getSerializer($category)

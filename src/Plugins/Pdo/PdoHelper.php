@@ -13,19 +13,34 @@ class PdoHelper
 
     public function setPdoMetadata($tableName, $idColumn, $dataColumn)
     {
-        if (empty($tableName) || ! is_string($tableName)) {
-            throw new \InvalidArgumentException('Table name must be a non-empty string.');
-        }
-        elseif (empty($idColumn) || ! is_string($idColumn)) {
-            throw new \InvalidArgumentException('Id column must be a non-empty string.');
-        }
-        elseif (empty($dataColumn) || ! is_string($dataColumn)) {
-            throw new \InvalidArgumentException('Data column must be a non-empty string.');
-        }
+        $this->checkTableName($tableName);
+        $this->checkIdColumn($idColumn);
+        $this->checkDataColumn($dataColumn);
 
         $this->eventTable = $tableName;
         $this->idColumn = $idColumn;
         $this->dataColumn = $dataColumn;
+    }
+
+    private function checkTableName($tableName)
+    {
+        if (empty($tableName) || ! is_string($tableName)) {
+            throw new \InvalidArgumentException('Table name must be a non-empty string.');
+        }
+    }
+
+    private function checkIdColumn($idColumn)
+    {
+        if (empty($idColumn) || ! is_string($idColumn)) {
+            throw new \InvalidArgumentException('Id column must be a non-empty string.');
+        }
+    }
+
+    private function checkDataColumn($dataColumn)
+    {
+        if (empty($dataColumn) || ! is_string($dataColumn)) {
+            throw new \InvalidArgumentException('Data column must be a non-empty string.');
+        }
     }
 
     public function getWriteQuery()

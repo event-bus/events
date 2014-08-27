@@ -8,10 +8,14 @@ use Psr\Log\NullLogger;
 
 /**
  * ZMQSocket wrapper class (poor man's proxy)
+ *
  * @author thibaud
- * @method void send(string $data)
+ *
  * @method string recv()
+ * @method void send(string $data)
  * @method void setSockOpt(mixed $option, mixed $value)
+ * @method void bind(string $dsn)
+ * @method void unbind()
  */
 class ZeroMqSocketWrapper implements LoggerAwareInterface
 {
