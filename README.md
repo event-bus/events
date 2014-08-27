@@ -33,7 +33,8 @@ require_once 'vendor/autoload.php';
 
 *aztech/events* aims to provide a solid foundation to build event driven architectures in PHP. 
 
-The current mainstream approach in existing libraries is currently to produce and consume events within the same process (for example, during a single HTTP request). This library attempts to solve that by decoupling totally the publish and the subscribe processes through the use of *event channels*. 
+The current mainstream approach in existing libraries is currently to produce and consume events within the same process (for example, during a single HTTP request). While this is fine in most cases,
+it does not fit in well with distributed systems, where events need to cross process/host boundaries. This library attempts to solve that by decoupling totally the publish and the subscribe processes through the use of *event channels*. 
 
 An event channel is simply any resource to which data can be written to and retrieved later (read TCP socket, memory, shared memory, files, message queues...). When an event is published, it is serialized and written to a channel, instead of being dispatched to the event subscribers. 
 
