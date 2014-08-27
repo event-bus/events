@@ -38,7 +38,7 @@
 Composer is the officially supported way of installing evaneos/events . Don't know Composer yet ? [Read more about it](https://getcomposer.org/doc/00-intro.md).
 
 
-`$ composer require "evaneos/events":"dev-master"`
+`$ composer require "aztech/events":"~1"`
 
 ### Autoloading
 
