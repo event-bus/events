@@ -2,8 +2,10 @@
 
 namespace Aztech\Events\Bus;
 
+use Aztech\Events\Event as EventInterface;
+
 interface Publisher
 {
 
-    public function publish(\Aztech\Events\Event $event);
+    public function publish(EventInterface $event);
 }

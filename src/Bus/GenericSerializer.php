@@ -3,8 +3,9 @@
 namespace Aztech\Events\Bus;
 
 use Aztech\Events\Util\Pattern\PatternMatcher;
+use Aztech\Events\Event as EventInterface;
 
-class GenericSerializer implements \Aztech\Events\Bus\Serializer
+class GenericSerializer implements Serializer
 {
 
     private $serializationMap = array();
@@ -55,7 +56,7 @@ class GenericSerializer implements \Aztech\Events\Bus\Serializer
         throw new \OutOfBoundsException('No matching serializers : ' . $category);
     }
 
-    public function serialize(\Aztech\Events\Event $object)
+    public function serialize(EventInterface $object)
     {
         $serializer = $this->getSerializer($object->getCategory());
 

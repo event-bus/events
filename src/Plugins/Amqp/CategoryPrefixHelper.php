@@ -2,8 +2,6 @@
 
 namespace Aztech\Events\Bus\Plugins\Amqp;
 
-use Aztech\Events\Event;
-
 class CategoryPrefixHelper
 {
     private $prefix = '';

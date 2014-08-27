@@ -3,8 +3,9 @@
 namespace Aztech\Events\Bus;
 
 use Rhumsaa\Uuid\Uuid;
+use Aztech\Events\Event as EventInterface;
 
-abstract class AbstractEvent implements \Aztech\Events\Event
+abstract class AbstractEvent implements EventInterface
 {
 
     /**

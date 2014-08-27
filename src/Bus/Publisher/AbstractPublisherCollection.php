@@ -15,7 +15,7 @@ abstract class AbstractPublisherCollection
 
     /**
      *
-     * @param \Aztech\Events\Bus\Publisher[] $publishers
+     * @param Publisher[] $publishers
      */
     public function __construct(array $publishers = array())
     {

@@ -5,23 +5,26 @@ namespace Aztech\Events\Bus\Plugins;
 use Aztech\Events\Bus\Events;
 use Aztech\Events\Bus\Factory\GenericOptionsDescriptor;
 use Aztech\Events\Bus\GenericPluginFactory;
-use Aztech\Events\Bus\Plugins\Amqp\AmqpPluginFactory;
+use Aztech\Events\Bus\Plugins\File\FileChannelProvider;
 use Aztech\Events\Bus\Plugins\Memory\MemoryChannelProvider;
-use Aztech\Events\Bus\Plugins\File\FileChannel;
-use Aztech\Events\Bus\Plugins\Mixpanel\MixpanelOptionsDescriptor;
 use Aztech\Events\Bus\Plugins\Mixpanel\MixpanelChannelProvider;
+use Aztech\Events\Bus\Plugins\Mixpanel\MixpanelOptionsDescriptor;
 use Aztech\Events\Bus\Plugins\Stomp\StompChannelProvider;
 use Aztech\Events\Bus\Plugins\Stomp\StompOptionsDescriptor;
-use Aztech\Events\Bus\Plugins\File\FileChannelProvider;
 use Aztech\Events\Bus\Plugins\Socket\SocketChannelProvider;
 use Aztech\Events\Bus\Plugins\Socket\SocketOptionsDescriptor;
+use Aztech\Events\Bus\Plugins\Amqp\AmqpChannelProvider;
+use Aztech\Events\Bus\Plugins\Amqp\AmqpOptionsDescriptor;
 
 class Plugins
 {
 
     static function loadAmqpPlugin()
     {
-        Events::addPlugin('amqp', new AmqpPluginFactory());
+        Events::addPlugin('amqp', new GenericPluginFactory(function ()
+        {
+            return new AmqpChannelProvider();
+        }, new AmqpOptionsDescriptor()));
     }
 
     static function loadFilePlugin()

@@ -17,7 +17,7 @@ class JsonSerializer implements Serializer
         $this->instantiator = new Instantiator();
     }
 
-    public function serialize(\Aztech\Events\Event $object)
+    public function serialize(Event $object)
     {
         $properties=  $this->getProperties($object);
         $class = get_class($object);

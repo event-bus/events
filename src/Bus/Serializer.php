@@ -2,10 +2,12 @@
 
 namespace Aztech\Events\Bus;
 
+use \Aztech\Events\Event as EventInterface;
+
 interface Serializer
 {
 
-    public function serialize(\Aztech\Events\Event $object);
+    public function serialize(EventInterface $object);
 
     /**
      *

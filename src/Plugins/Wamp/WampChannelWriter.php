@@ -2,15 +2,17 @@
 
 namespace Aztech\Events\Bus\Plugins\Wamp;
 
+use Aztech\Events\Event as EventInterface;
 use Aztech\Events\Bus\Event;
+use Aztech\Events\Category\Subscription;
+use Aztech\Events\Bus\Channel\ChannelWriter;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Ratchet\ConnectionInterface;
 use Ratchet\Wamp\WampServerInterface;
-use Aztech\Events\Category\Subscription;
 
-class WampChannelWriter implements \Aztech\Events\Bus\Channel\ChannelWriter, WampServerInterface, LoggerAwareInterface
+class WampChannelWriter implements ChannelWriter, WampServerInterface, LoggerAwareInterface
 {
 
     private $logger;
@@ -27,7 +29,7 @@ class WampChannelWriter implements \Aztech\Events\Bus\Channel\ChannelWriter, Wam
         $this->logger = $logger;
     }
 
-    public function write(\Aztech\Events\Event $event, $serializedRepresentation)
+    public function write(EventInterface $event, $serializedRepresentation)
     {
         foreach ($this->subscribedTopics as $name => $subscription) {
             /* @var $subscription CategorySubscription */

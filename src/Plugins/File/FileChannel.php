@@ -2,7 +2,6 @@
 
 namespace Aztech\Events\Bus\Plugins\File;
 
-use Aztech\Events\Event;
 use Aztech\Events\Bus\Channel\ReadWriteChannel;
 
 class FileChannel extends ReadWriteChannel

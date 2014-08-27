@@ -2,8 +2,6 @@
 
 namespace Aztech\Events\Bus\Plugins\Mixpanel;
 
-use Aztech\Events\Event;
-use Aztech\Events\Bus\AbstractEvent;
 use Aztech\Events\Bus\Channel\ChannelProvider;
 use Aztech\Events\Bus\Channel\WriteOnlyChannel;
 

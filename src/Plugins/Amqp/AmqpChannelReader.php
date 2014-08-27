@@ -8,6 +8,7 @@ use PhpAmqpLib\Message\AMQPMessage;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
+use Rhumsaa\Uuid\Uuid;
 
 class AmqpChannelReader implements ChannelReader, LoggerAwareInterface
 {

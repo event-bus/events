@@ -2,10 +2,10 @@
 
 namespace Aztech\Events\Bus\Plugins\Redis;
 
-use Aztech\Events\Event;
+use Aztech\Events\Bus\Channel\ChannelReader;
 use Predis\Client;
 
-class RedisChannelReader implements \Aztech\Events\Bus\Channel\ChannelReader
+class RedisChannelReader implements ChannelReader
 {
 
     private $redis;

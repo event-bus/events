@@ -20,7 +20,7 @@ class PublishChannelWriter implements ChannelWriter, LoggerAwareInterface
 
     /**
      *
-     * @var \Psr\Log\LoggerInterface
+     * @var LoggerInterface
      */
     private $logger;
 

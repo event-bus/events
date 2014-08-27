@@ -3,9 +3,10 @@
 namespace Aztech\Events\Bus\Plugins\Redis;
 
 use Aztech\Events\Event;
+use Aztech\Events\Bus\Channel\ChannelWriter;
 use Predis\Client;
 
-class RedisChannelWriter implements \Aztech\Events\Bus\Channel\ChannelWriter
+class RedisChannelWriter implements ChannelWriter
 {
 
     private $redis;

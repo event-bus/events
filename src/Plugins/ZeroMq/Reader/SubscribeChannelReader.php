@@ -20,7 +20,7 @@ class SubscribeChannelReader implements ChannelReader, LoggerAwareInterface
 
     /**
      *
-     * @var \Psr\Log\LoggerInterface
+     * @var LoggerInterface
      */
     private $logger;
 

@@ -8,14 +8,14 @@ interface Factory
     /**
      *
      * @param array $options
-     * @return \Aztech\Events\Bus\Publisher
+     * @return Publisher
      */
     function createPublisher(array $options = array());
 
     /**
      *
      * @param array $options
-     * @return \Aztech\Events\Bus\Processor
+     * @return Processor
      */
     function createProcessor(array $options = array());
 }

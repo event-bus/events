@@ -1,11 +1,11 @@
 <?php
 
-namespace Aztech\Events\Bus\Plugins\PDO;
+namespace Aztech\Events\Bus\Plugins\Pdo;
 
 use Aztech\Events\Event;
-use Aztech\Events\Bus\Plugins\Pdo\PdoHelper;
+use Aztech\Events\Bus\Channel\ChannelWriter;
 
-class PdoChannelWriter implements \Aztech\Events\Bus\Channel\ChannelWriter
+class PdoChannelWriter implements ChannelWriter
 {
 
     private $pdo;

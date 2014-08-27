@@ -4,8 +4,9 @@ namespace Aztech\Events\Bus\Plugins\Stomp;
 
 use FuseSource\Stomp\Stomp;
 use Aztech\Events\Event;
+use Aztech\Events\Bus\Channel\ChannelWriter;
 
-class StompChannelWriter implements \Aztech\Events\Bus\Channel\ChannelWriter
+class StompChannelWriter implements ChannelWriter
 {
 
     private $queueName;

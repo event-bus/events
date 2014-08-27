@@ -6,6 +6,7 @@ use Aztech\Events\Bus\Publisher;
 use Aztech\Events\Callback;
 use Aztech\Events\Dispatcher;
 use Aztech\Events\Event;
+use Aztech\Events\EventDispatcher;
 use Aztech\Events\Subscriber;
 
 /**
@@ -18,13 +19,13 @@ class SynchronousPublisher implements Publisher
 
     /**
      *
-     * @var \Aztech\Events\Dispatcher
+     * @var Dispatcher
      */
     private $dispatcher;
 
     public function __construct(Dispatcher $dispatcher = null)
     {
-        $this->dispatcher = $dispatcher ?: new \Aztech\Events\EventDispatcher();
+        $this->dispatcher = $dispatcher ?: new EventDispatcher();
     }
 
     public function publish(Event $event)

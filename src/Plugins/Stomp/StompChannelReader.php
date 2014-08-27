@@ -3,9 +3,9 @@
 namespace Aztech\Events\Bus\Plugins\Stomp;
 
 use FuseSource\Stomp\Stomp;
-use Aztech\Events\Event;
+use Aztech\Events\Bus\Channel\ChannelReader;
 
-class StompChannelReader implements \Aztech\Events\Bus\Channel\ChannelReader
+class StompChannelReader implements ChannelReader
 {
 
     private $queueName;

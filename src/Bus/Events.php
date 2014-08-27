@@ -3,8 +3,6 @@
 namespace Aztech\Events\Bus;
 
 use Aztech\Events\EventDispatcher;
-use Aztech\Events\Bus\Channel\ChannelProcessor;
-use Aztech\Events\Bus\Channel\ChannelProvider;
 use Aztech\Events\Bus\Serializer\NativeSerializer;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
@@ -110,7 +108,7 @@ class Events
      *
      * @param string $name Category of the event.
      * @param array $properties An indexed array where keys are property names and values are matching property values.
-     * @return \Aztech\Events\Bus\Event
+     * @return Event
      */
     public static function create($name, array $properties = array())
     {
@@ -123,7 +121,7 @@ class Events
      * @param PluginFactory the plugin factory from which the actual factory will be built.
      * @param Serializer $serializer Serializer used for serializing the emitted events. Defaults to a new NativeSerializer instance.
      * @param LoggerInterface $logger A logger instance or null.
-     * @return \Aztech\Events\Bus\Factory
+     * @return Factory
      */
     public static function createFactory(PluginFactory $plugin, Serializer $serializer = null, LoggerInterface $logger = null)
     {
@@ -140,7 +138,7 @@ class Events
      *
      * @param string $name Name of the plugin to use to create the consumer
      * @param array $options Options to pass to the factory.
-     * @return \Aztech\Events\Bus\Application
+     * @return Application
      * @throws \BadMethodCallException when the selected plugin does not support consumers.
      * @throws \OutOfBoundsException when the plugin name is not registered.
      */
@@ -157,7 +155,7 @@ class Events
      *
      * @param string $name Name of the plugin to ues to create the publisher.
      * @param array $options Options to pass to the factory.
-     * @return \Aztech\Events\Bus\Publisher
+     * @return Publisher
      * @throws \BadMethodCallException when the selected plugin does not support publishers.
      * @throws \OutOfBoundsException when the plugin name is not registered.
      */
@@ -173,7 +171,7 @@ class Events
      *
      * @param string $name Name of the plugin to ues to create the publisher.
      * @param array $options Options to pass to the factory.
-     * @return \Aztech\Events\Bus\Publisher
+     * @return Publisher
      * @throws \BadMethodCallException when the selected plugin does not support publishers.
      * @throws \OutOfBoundsException when the plugin name is not registered.
      */
@@ -201,7 +199,7 @@ class Events
     /**
      *
      * @param string $name
-     * @return \Aztech\Events\Bus\Factory
+     * @return Factory
      */
     private static function getFactory($name)
     {

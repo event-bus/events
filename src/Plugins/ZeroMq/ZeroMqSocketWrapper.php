@@ -28,7 +28,7 @@ class ZeroMqSocketWrapper implements LoggerAwareInterface
 
     /**
      *
-     * @var \Psr\Log\LoggerInterface
+     * @var LoggerInterface
      */
     private $logger;
 

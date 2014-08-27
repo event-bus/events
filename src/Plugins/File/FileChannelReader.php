@@ -2,7 +2,6 @@
 
 namespace Aztech\Events\Bus\Plugins\File;
 
-use Aztech\Events\Event;
 use Aztech\Events\Bus\Channel\ChannelReader;
 use Aztech\Util\File\Files;
 

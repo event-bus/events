@@ -3,7 +3,6 @@
 namespace Aztech\Events\Bus;
 
 use Aztech\Events\Dispatcher;
-use Aztech\Events\Subscriber;
 
 /**
  *

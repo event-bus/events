@@ -10,7 +10,7 @@ class SocketChannelWriter implements ChannelWriter
 
     private $socket;
 
-    public function __construct(Wrapper $socket)
+    public function __construct(SocketWrapper $socket)
     {
         $this->socket = $socket;
     }

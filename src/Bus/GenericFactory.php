@@ -8,7 +8,6 @@ use Aztech\Events\Bus\Channel\ChannelPublisher;
 use Aztech\Events\Bus\Factory\OptionsDescriptor;
 use Aztech\Events\Bus\Factory\OptionsValidator;
 use Aztech\Events\Bus\Factory\NullOptionsDescriptor;
-use Psr\Log\NullLogger;
 
 class GenericFactory implements Factory
 {

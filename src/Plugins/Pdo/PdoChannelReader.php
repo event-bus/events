@@ -2,9 +2,9 @@
 
 namespace Aztech\Events\Bus\Plugins\Pdo;
 
-use Aztech\Events\Event;
+use Aztech\Events\Bus\Channel\ChannelReader;
 
-class PdoChannelReader implements \Aztech\Events\Bus\Channel\ChannelReader
+class PdoChannelReader implements ChannelReader
 {
 
     private $pdo;

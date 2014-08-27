@@ -3,7 +3,6 @@
 namespace Aztech\Events\Bus\Plugins\Pdo;
 
 use Aztech\Events\Bus\Channel\ChannelProvider;
-use Aztech\Events\Bus\Plugins\PDO\PdoChannelWriter;
 use Aztech\Events\Bus\Channel\ReadWriteChannel;
 
 class PdoChannelProvider implements ChannelProvider

@@ -4,6 +4,7 @@ namespace Aztech\Events\Bus\Plugins\Amqp;
 
 use Aztech\Events\Bus\Channel\ChannelProvider;
 use Aztech\Events\Bus\Channel\ReadWriteChannel;
+use PhpAmqpLib\Connection\AMQPStreamConnection;
 
 class AmqpChannelProvider implements ChannelProvider
 {
