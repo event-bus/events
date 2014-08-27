@@ -5,7 +5,7 @@ namespace Aztech\Events\Bus\Plugins\Wamp;
 use Aztech\Events\Event;
 use Ratchet\Wamp\Topic;
 
-class Subscriber implements \Aztech\Events\Subscriber
+class WampTopicSubscriber implements \Aztech\Events\Subscriber
 {
 
     private $topic;
@@ -24,6 +24,6 @@ class Subscriber implements \Aztech\Events\Subscriber
 
     public function supports(Event $event)
     {
-        return $event instanceof \Aztech\Events\Bus\Event && $event->getCategory() == 'publish';
+        return true;
     }
 }

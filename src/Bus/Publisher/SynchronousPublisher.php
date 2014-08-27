@@ -2,7 +2,6 @@
 
 namespace Aztech\Events\Bus\Publisher;
 
-use Aztech\Events\Bus\Consumer;
 use Aztech\Events\Bus\Publisher;
 use Aztech\Events\Callback;
 use Aztech\Events\Dispatcher;

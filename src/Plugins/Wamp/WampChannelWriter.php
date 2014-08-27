@@ -8,15 +8,17 @@ use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Ratchet\ConnectionInterface;
 use Ratchet\Wamp\WampServerInterface;
+use Aztech\Events\Category\Subscription;
 
-class Channel implements \Aztech\Events\Bus\Channel, WampServerInterface, LoggerAwareInterface
+class WampChannelWriter implements \Aztech\Events\Bus\Channel\ChannelWriter, WampServerInterface, LoggerAwareInterface
 {
 
     private $logger;
 
     private $subscribedTopics = array();
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->logger = new NullLogger();
     }
 
@@ -25,17 +27,15 @@ class Channel implements \Aztech\Events\Bus\Channel, WampServerInterface, Logger
         $this->logger = $logger;
     }
 
-    public function read()
-    {
-        throw new \NotSupportedException();
-    }
-
     public function write(\Aztech\Events\Event $event, $serializedRepresentation)
     {
         foreach ($this->subscribedTopics as $name => $subscription) {
             /* @var $subscription CategorySubscription */
             if ($subscription->matches($event->getCategory())) {
-                $pubEvent = new Event('publish', array('event' => $event, 'data' => $serializedRepresentation));
+                $pubEvent = new Event('publish', array(
+                    'event' => $event,
+                    'data' => $serializedRepresentation
+                ));
 
                 $subscription->getSubscriber()->handle($pubEvent);
             }
@@ -50,15 +50,11 @@ class Channel implements \Aztech\Events\Bus\Channel, WampServerInterface, Logger
         }
 
         $this->logger->debug(sprintf('Registering topic subscription : "%s".', $topic->getId()));
-
-        $topicSub = new Subscriber($topic);
-        $this->subscribedTopics[$topic->getId()] = new CategorySubscription($topic->getId(), $topicSub);
+        $this->subscribedTopics[$topic->getId()] = new Subscription($topic->getId(), new WampTopicSubscriber($topic));
     }
 
     public function onUnSubscribe(ConnectionInterface $conn, $topic)
-    {
-
-    }
+    {}
 
     public function onOpen(ConnectionInterface $conn)
     {
@@ -66,9 +62,7 @@ class Channel implements \Aztech\Events\Bus\Channel, WampServerInterface, Logger
     }
 
     public function onClose(ConnectionInterface $conn)
-    {
-
-    }
+    {}
 
     public function onCall(ConnectionInterface $conn, $id, $topic, array $params)
     {
@@ -82,7 +76,7 @@ class Channel implements \Aztech\Events\Bus\Channel, WampServerInterface, Logger
         $conn->close();
     }
 
-    public function onError(ConnectionInterface $conn,\Exception $e)
+    public function onError(ConnectionInterface $conn, \Exception $e)
     {
         $this->logger->error($e->getMessage() . PHP_EOL . $e->getTraceAsString());
     }

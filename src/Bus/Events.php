@@ -2,14 +2,12 @@
 
 namespace Aztech\Events\Bus;
 
-use Aztech\Events\Factory\StandardFactory;
-use Aztech\Events\Bus\MemoryChannel;
-use Aztech\Events\Bus\Serializer\NativeSerializer;
-use Psr\Log\LoggerInterface;
-use Aztech\Events\Bus\Channel\ChannelProvider;
-use Psr\Log\NullLogger;
 use Aztech\Events\EventDispatcher;
 use Aztech\Events\Bus\Channel\ChannelProcessor;
+use Aztech\Events\Bus\Channel\ChannelProvider;
+use Aztech\Events\Bus\Serializer\NativeSerializer;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 
 /**
  * Facade-like class providing easy access to event factories.
@@ -116,7 +114,7 @@ class Events
      */
     public static function create($name, array $properties = array())
     {
-        return new Bus\Event($name, $properties);
+        return new Event($name, $properties);
     }
 
     /**
@@ -125,7 +123,7 @@ class Events
      * @param PluginFactory the plugin factory from which the actual factory will be built.
      * @param Serializer $serializer Serializer used for serializing the emitted events. Defaults to a new NativeSerializer instance.
      * @param LoggerInterface $logger A logger instance or null.
-     * @return \Aztech\Events\Factory
+     * @return \Aztech\Events\Bus\Factory
      */
     public static function createFactory(PluginFactory $plugin, Serializer $serializer = null, LoggerInterface $logger = null)
     {
@@ -142,7 +140,7 @@ class Events
      *
      * @param string $name Name of the plugin to use to create the consumer
      * @param array $options Options to pass to the factory.
-     * @return \Aztech\Events\Bus\Consumer
+     * @return \Aztech\Events\Bus\Application
      * @throws \BadMethodCallException when the selected plugin does not support consumers.
      * @throws \OutOfBoundsException when the plugin name is not registered.
      */

@@ -3,9 +3,9 @@
 namespace Aztech\Events\Bus\Plugins\Socket;
 
 use Aztech\Events\Event;
-use Aztech\Events\Bus\Channel\ChannelReader;
+use Aztech\Events\Bus\Channel\ChannelWriter;
 
-class SocketChannelWriter implements ChannelReader
+class SocketChannelWriter implements ChannelWriter
 {
 
     private $socket;

@@ -1,13 +1,14 @@
 <?php
 
-namespace Aztech\Events\Bus\Plugins\ZeroMq\ChannelReader;
+namespace Aztech\Events\Bus\Plugins\ZeroMq\Reader;
 
 use Aztech\Events\Bus\Channel\ChannelReader;
-use Aztech\Events\Bus\Plugins\ZeroMq\SocketWrapper;
+use Aztech\Events\Bus\Plugins\ZeroMq\ZeroMqSocketWrapper;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 
-class Subscribe implements ChannelReader, LoggerAwareInterface
+class SubscribeChannelReader implements ChannelReader, LoggerAwareInterface
 {
 
     /**
@@ -23,10 +24,10 @@ class Subscribe implements ChannelReader, LoggerAwareInterface
      */
     private $logger;
 
-    public function __construct(SocketWrapper $wrapper)
+    public function __construct(ZeroMqSocketWrapper $subscriber)
     {
         $this->socket = $wrapper;
-        $this->logger = $logger;
+        $this->logger = new NullLogger();
     }
 
     public function setLogger(LoggerInterface $logger)
@@ -35,12 +36,9 @@ class Subscribe implements ChannelReader, LoggerAwareInterface
     }
 
     /**
-     * Sets the subscription prefix filter.
-     * If set to a non empty value,
-     * received messages that do not begin with the prefix filter
-     * are ignored.
-     * 
-     * @param string $prefix            
+     * Sets the subscription prefix filter. If set to a non empty value, received messages that do not begin with the prefix filter are ignored.
+     *
+     * @param string $prefix
      */
     public function subscribeTo($prefix = '')
     {
@@ -51,9 +49,11 @@ class Subscribe implements ChannelReader, LoggerAwareInterface
     {
         $this->pullSocket->bindIfNecessary();
         $data = $this->pullSocket->recv();
-        
-        $this->logger->debug(sprintf('Read %d characters, returning.', strlen($data), ['data' => $data]));
-        
+
+        $this->logger->debug(sprintf('Read %d characters, returning.', strlen($data), [
+            'data' => $data
+        ]));
+
         return $data;
     }
 }

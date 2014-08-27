@@ -2,7 +2,7 @@
 
 namespace Aztech\Events\Bus\Serializer;
 
-use Aztech\Events\Serializer;
+use Aztech\Events\Bus\Serializer;
 use Aztech\Events\Event;
 use DrSlump\Protobuf\CodecInterface;
 

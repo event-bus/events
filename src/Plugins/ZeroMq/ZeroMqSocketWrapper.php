@@ -11,7 +11,7 @@ use Psr\Log\NullLogger;
  * @author thibaud
  *
  */
-class SocketWrapper implements LoggerAwareInterface
+class ZeroMqSocketWrapper implements LoggerAwareInterface
 {
 
     /**
@@ -80,7 +80,7 @@ class SocketWrapper implements LoggerAwareInterface
 
     /**
      * Gets the underlying \ZMQSocket instance.
-     * @return ZMQSocket
+     * @return \ZMQSocket
      */
     public function getSocket()
     {

@@ -5,6 +5,7 @@ namespace Aztech\Events\Bus;
 use Aztech\Events\Bus\Processor;
 use Aztech\Events\Callback;
 use Aztech\Events\Subscriber;
+use Aztech\Events\Dispatcher;
 
 class Application implements Processor
 {

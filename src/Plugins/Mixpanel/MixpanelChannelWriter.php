@@ -3,6 +3,7 @@
 namespace Aztech\Events\Bus\Plugins\Mixpanel;
 
 use Aztech\Events\Bus\Channel\ChannelWriter;
+use Aztech\Events\Event;
 
 class MixpanelChannelWriter implements ChannelWriter
 {

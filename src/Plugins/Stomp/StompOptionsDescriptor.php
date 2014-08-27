@@ -2,25 +2,12 @@
 
 namespace Aztech\Events\Bus\Plugins\Stomp;
 
-use Aztech\Events\Bus\AbstractFactory;
-use FuseSource\Stomp\Stomp;
+use Aztech\Events\Bus\Factory\OptionsDescriptor;
 
-class Factory extends AbstractFactory
+class StompOptionsDescriptor implements OptionsDescriptor
 {
 
-    protected function createChannel(array $options)
-    {
-        $options = $this->validateOptions($options);
-
-        $brokerUri = sprintf('%s://%s:%s', $options['scheme'], $options['host'], $options['port']);
-        $client = new Stomp($brokerUri);
-
-        $transport = new Channel($client, $options['queue']);
-
-        return $transport;
-    }
-
-    protected function getOptionDefaults()
+    public function getOptionDefaults()
     {
         return array(
             'scheme' => 'tcp',
@@ -30,7 +17,7 @@ class Factory extends AbstractFactory
         );
     }
 
-    protected function getOptionKeys()
+    public function getOptionKeys()
     {
         return array(
             'scheme',

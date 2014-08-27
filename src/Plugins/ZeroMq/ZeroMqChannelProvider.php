@@ -2,21 +2,22 @@
 
 namespace Aztech\Events\Bus\Plugins\ZeroMq;
 
-use Aztech\Events\Bus\AbstractFactory;
+use Aztech\Events\Bus\Channel\ChannelProvider;
+use Aztech\Events\Bus\Plugins\ZeroMq\Reader\SubscribeChannelReader;
+use Aztech\Events\Bus\Plugins\ZeroMq\Writer\PublishChannelWriter;
 
-class Factory extends AbstractFactory
+class ZeroMqChannelProvider implements ChannelProvider
 {
 
-    protected function createChannel(array $options)
+    public function createChannel(array $options)
     {
-        $options = $this->validateOptions($options);
-
         $context = new \ZMQContext();
 
-        $publisher = $this->createPushSocketWrapper($context, $options);
-        $subscriber = $this->createPullSocketWrapper($context, $options);
+        $publisher = $this->createZmqPublisher($context, $options);
+        $subscriber = $this->createZmqSubscriber($context, $options);
 
-        $transport = new PubSubChannel($publisher, $subscriber, $this->logger);
+        $writer = new PublishChannelWriter($publisher);
+        $reader = new SubscribeChannelReader($subscriber);
 
         return $transport;
     }
@@ -25,23 +26,19 @@ class Factory extends AbstractFactory
     {
         $dsn = sprintf('%s://%s:%s', $options['scheme'], $options['host'], $options['port']);
 
-        if ($options['multicast']) {
-            $dsn = ('ipc://routing.ipc');
-        }
-
         return $dsn;
     }
 
-    private function createPushSocketWrapper($context, $options)
+    private function createZmqPublisher($context, $options)
     {
-        $options['host'] = $options['push-host'];
+        $options['host'] = $options['publisher'];
 
         return $this->createSocketWrapper($context, $options, \ZMQ::SOCKET_PUB, true);
     }
 
-    private function createPullSocketWrapper($context, $options)
+    private function createZmqSubscriber($context, $options)
     {
-        $options['host'] = $options['pull-host'];
+        $options['host'] = $options['subscriber'];
 
         $wrapper = $this->createSocketWrapper($context, $options, \ZMQ::SOCKET_SUB, false);
         $wrapper->setSockOpt(\ZMQ::SOCKOPT_SUBSCRIBE, '');
@@ -49,39 +46,13 @@ class Factory extends AbstractFactory
         return $wrapper;
     }
 
-    private function createSocketWrapper($context, $options, $socketType, $forceBind)
+    private function createSocketWrapper($context, $options, $socketType)
     {
         $dsn = $this->getDsn($options);
         $type = $socketType;
 
         $socket = new \ZMQSocket($context, $type);
 
-        if ($options['multicast']) {
-            $dsn = ('ipc://routing.ipc');
-        }
-
-        return new SocketWrapper($socket, $dsn, $this->logger);
-    }
-
-    protected function getOptionDefaults()
-    {
-        return array(
-            'scheme' => 'tcp',
-            'pull-host' => '127.0.0.1',
-            'push-host' => '127.0.0.1',
-            'port' => 5563,
-            'multicast' => false
-        );
-    }
-
-    protected function getOptionKeys()
-    {
-        return array(
-            'scheme',
-            'push-host',
-            'pull-host',
-            'port',
-            'multicast'
-        );
+        return new ZeroMqSocketWrapper($socket, $dsn, $this->logger);
     }
 }
