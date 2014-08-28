@@ -1,79 +1,180 @@
 <!DOCTYPE html>
 <html>
-
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="description" content="Events : ">
-
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-
-    <title>Events</title>
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Events by aztech-dev</title>
   </head>
 
   <body>
+    <div id="container">
+      <div class="inner">
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/aztech-dev/events">View on GitHub</a>
-
-          <h1 id="project_title">Events</h1>
-          <h2 id="project_tagline"></h2>
-
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/aztech-dev/events/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/aztech-dev/events/tarball/master">Download this project as a tar.gz file</a>
-            </section>
+        <header>
+          <h1>Events</h1>
+          <h2></h2>
         </header>
-    </div>
 
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/aztech-dev/events/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/aztech-dev/events/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/aztech-dev/events" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+        <hr>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
+        <section id="main_content">
+          <h1>
+<a name="aztechevents" class="anchor" href="#aztechevents"><span class="octicon octicon-link"></span></a>aztech/events</h1>
+
+<h2>
+<a name="build-status" class="anchor" href="#build-status"><span class="octicon octicon-link"></span></a>Build status</h2>
+
+<p><a href="https://travis-ci.org/aztech-dev/events"><img src="https://travis-ci.org/aztech-dev/events.png?branch=master" alt="Build Status"></a>
+<a href="https://scrutinizer-ci.com/g/aztech-dev/events/?branch=master"><img src="https://scrutinizer-ci.com/g/aztech-dev/events/badges/coverage.png?b=master" alt="Code Coverage"></a>
+<a href="https://scrutinizer-ci.com/g/aztech-dev/events/"><img src="https://scrutinizer-ci.com/g/aztech-dev/events/badges/quality-score.png?s=668e4df5ba163c804504257d4a026a0a549f220a" alt="Scrutinizer Quality Score"></a>
+<a href="https://www.versioneye.com/user/projects/53b92a84609ff04f7f000003"><img src="https://www.versioneye.com/user/projects/53b92a84609ff04f7f000003/badge.svg" alt="Dependency Status"></a>
+<a href="http://hhvm.h4cc.de/package/aztech/events"><img src="http://hhvm.h4cc.de/badge/aztech/events.png" alt="HHVM Status"></a></p>
+
+<h2>
+<a name="stability" class="anchor" href="#stability"><span class="octicon octicon-link"></span></a>Stability</h2>
+
+<p><a href="https://packagist.org/packages/aztech/events"><img src="https://poser.pugx.org/aztech/events/v/stable.png" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/aztech/events"><img src="https://poser.pugx.org/aztech/events/v/unstable.png" alt="Latest Unstable Version"></a></p>
+
+<h2>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<h3>
+<a name="via-composer" class="anchor" href="#via-composer"><span class="octicon octicon-link"></span></a>Via Composer</h3>
+
+<p>Composer is the only supported way of installing <em>aztech/events</em> . Don't know Composer yet ? <a href="https://getcomposer.org/doc/00-intro.md">Read more about it</a>.</p>
+
+<p><code>$ composer require "aztech/events":"~1"</code></p>
+
+<h2>
+<a name="autoloading" class="anchor" href="#autoloading"><span class="octicon octicon-link"></span></a>Autoloading</h2>
+
+<p>Add the following code to your bootstrap file :</p>
+
+<pre><code>require_once 'vendor/autoload.php';
 </code></pre>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+<h2>
+<a name="concepts" class="anchor" href="#concepts"><span class="octicon octicon-link"></span></a>Concepts</h2>
+
+<p><em>aztech/events</em> aims to provide a solid foundation to build event driven architectures in PHP. </p>
+
+<p>The current mainstream approach in existing libraries is currently to produce and consume events within the same process (for example, during a single HTTP request). While this is fine in most cases,
+it does not fit in well with distributed systems, where events need to cross process/host boundaries. This library attempts to solve that by decoupling totally the publish and the subscribe processes through the use of <em>event channels</em>. </p>
+
+<p>An event channel is simply any resource to which data can be written to and retrieved later (read TCP socket, memory, shared memory, files, message queues...). When an event is published, it is serialized and written to a channel, instead of being dispatched to the event subscribers. </p>
+
+<p>On the other end of the channel, a consumer is responsible for reading incoming events (synchronously or not, depending on the channel type used) and pushing them to a standard event dispatcher.</p>
+
+<p>This means you can publish and dispatch events using the following methods :</p>
+
+<pre><code>* In process (tested)
+* Out-of-process
+  * Database via PDO (untested)
+  * AMQP (tested)
+  * STOMP (untested)
+  * Wamp (publish only, partially tested)
+  * Redis (untested)
+  * Mixpanel (publish only, untested)
+  * File (tested)
+  * And more to come...
+</code></pre>
+
+<p><strong>TODO</strong> : Test the untested transports</p>
+
+<p>If you want to create and publish events, you will need to use a <strong>publisher</strong>. Currently, the library provides native support for publishing events to AMQP-compatible message queues and synchronous event publishing.</p>
+
+<p>If you want to consume published events, you will need to use a <strong>processor</strong>. A processor is responsible for receiving events via whatever transport it uses. Currently, the library provides native support for consuming AMQP-compatible message queues and synchronous event consumption. The library provides hooks to which you can bind <strong>subscribers</strong>, which are simple event handlers.</p>
+
+<p>Optionally, the library provides an Application object to which you can easily bind subscribers.</p>
+
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>For simplicity, there are factories available to create publishers and dispatchers.</p>
+
+<p>Listed below are examples for some of the providers. The full documentation is available <a href="./doc/plugins.md">here</a>.</p>
 
 <h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
+<a name="basic-usage" class="anchor" href="#basic-usage"><span class="octicon octicon-link"></span></a>Basic usage</h3>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+<div class="highlight highlight-php"><pre><span class="nx">\Aztech\Events\Bus\Plugins</span><span class="o">::</span><span class="na">loadMemoryPlugin</span><span class="p">();</span>
 
-<h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
+<span class="nv">$publisher</span> <span class="o">=</span> <span class="nx">\Aztech\Events\Events</span><span class="o">::</span><span class="na">createPublisher</span><span class="p">(</span><span class="s1">'memory'</span><span class="p">);</span>
+<span class="nv">$processor</span> <span class="o">=</span> <span class="nx">\Aztech\Events\Events</span><span class="o">::</span><span class="na">createProcessor</span><span class="p">(</span><span class="s1">'memory'</span><span class="p">);</span>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+<span class="c1">// Subscribe to all events using a wildcard filter</span>
+<span class="nv">$processor</span><span class="o">-&gt;</span><span class="na">on</span><span class="p">(</span><span class="s1">'#'</span><span class="p">,</span> <span class="k">function</span> <span class="p">(</span><span class="nx">Event</span> <span class="nv">$event</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s1">'Received a new event : '</span> <span class="o">.</span> <span class="nv">$event</span><span class="o">-&gt;</span><span class="na">getCategory</span><span class="p">();</span>
+<span class="p">});</span>
 
-<h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+<span class="nv">$event</span> <span class="o">=</span> <span class="nx">\Aztech\Events\Events</span><span class="o">::</span><span class="na">create</span><span class="p">(</span><span class="s1">'category'</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">'property'</span> <span class="o">=&gt;</span> <span class="s1">'value'</span><span class="p">));</span>
+<span class="nv">$publisher</span><span class="o">-&gt;</span><span class="na">publish</span><span class="p">(</span><span class="nv">$event</span><span class="p">);</span>
+</pre></div>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+<p>Checkout the provider specific documentations for more usage examples.</p>
 
-<h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
+<h2>
+<a name="event-matching-rules" class="anchor" href="#event-matching-rules"><span class="octicon octicon-link"></span></a>Event matching rules</h2>
 
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
-      </section>
+<blockquote>
+<p><strong>tl;dr</strong> Use '#' to match absolutely anything, '*' to match exactly one unknown word.</p>
+</blockquote>
+
+<p>Event category matching actually follows the <a href="https://svn.apache.org/repos/asf/qpid/trunk/qpid/specs/apache-filters.xml#section-legacy-amqp">AMQP topic specification</a>, which is quite flexible :</p>
+
+<blockquote>
+<p>The legacy-amqp-topic-binding filter consists of a described string value. The value value described by the type is interpreted as a pattern to match against the subject field of the Properties section of the message being evaluated.</p>
+
+<p>The pattern is formed using zero or more tokens, with each token delimited by the "." character. The tokens "#" and "*" have special meanings.
+The token consisting of the single character "*" matches a single word in the subject field.
+The token consisting of the single character "#" matches zero or more words in the subject field.
+Thus the filter value "*.stock.#" would match the subjects "usd.stock" and "eur.stock.db" but not "stock.nasdaq".</p>
+</blockquote>
+
+<p>Basically, a topic name must be composed of letters and/or numbers and dashes. Sub-topics can be 
+specified by using dots :</p>
+
+<pre><code>topic
+topic.subtopic
+topic.subtopic.leaf
+</code></pre>
+
+<p>You can use '*' as a wildcard to match exactly one component in a topic :</p>
+
+<pre><code>topic.* will match with topic.subtopic, but not with topic nor topic.subtopic.leaf
+</code></pre>
+
+<p>There is also '#', which means 0 or more components :</p>
+
+<pre><code># will match all possible topics. 
+topic.# will match topic, topic.subtopic, and topic.subtopic.leaf and any subtopic of topic no matter its nesting level
+topic.#.leaf will match topic.subtopic.leaf and topic.other.leaf and many others, but not topic.subtopic.other
+</code></pre>
+
+<p>To get check the latest truth table of event matching, please refer to the source of <code>Aztech\Events\Tests\Unit\CategoryMatchTruthTable</code>.</p>
+        </section>
+
+        <footer>
+          Events is maintained by <a href="https://github.com/aztech-dev">aztech-dev</a><br>
+          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
     </div>
-
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Events maintained by <a href="https://github.com/aztech-dev">aztech-dev</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
-
-    
-
   </body>
 </html>
