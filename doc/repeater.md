@@ -5,6 +5,8 @@ This can be useful to create for example an intermediate event broker with round
 
 ## Simple repeater
 
+** Repeater daemon **
+
 ```php
 <?php 
 
@@ -33,3 +35,31 @@ $bridge = Events::bridge($processor, $publisher, '#');
 // This method blocks and run forever
 $bridge->run();
 ```
+
+** Consuming the repeated events **
+
+```php
+<?php 
+
+require_once 'vendor/autoload.php';
+
+use \Aztech\Events\Event;
+use \Aztech\Events\Bus\Events;
+use \Aztech\Events\Bus\Plugins\Plugins;
+
+Plugins::loadFilePlugin('file');
+
+$fileOpts = array(
+    'file' => '/tmp/events.queue'
+);
+
+$application = Events::createApplication('file', $fileOpts);
+$application->on('#', function(Event $event) {
+    echo $event->getCategory() . ' : received event #' . $event->getId() . PHP_EOL;
+});
+
+// This method runs forever
+$application->run();
+
+```
+
