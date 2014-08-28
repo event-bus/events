@@ -117,6 +117,7 @@ Listed below are examples for some of the providers. The full documentation is a
 
 require_once 'vendor/autoload.php';
 
+use \Aztech\Events\Event;
 use \Aztech\Events\Bus\Events;
 use \Aztech\Events\Bus\Plugins\Plugins;
 
