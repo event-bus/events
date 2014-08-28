@@ -114,12 +114,16 @@ Listed below are examples for some of the providers. The full documentation is a
 ### Basic usage
 
 ```php
+
 require_once 'vendor/autoload.php';
 
-\Aztech\Events\Bus\Plugins::loadMemoryPlugin();
+use \Aztech\Events\Bus\Events;
+use \Aztech\Events\Bus\Plugins\Plugins;
 
-$publisher = \Aztech\Events\Events::createPublisher('memory');
-$processor = \Aztech\Events\Events::createProcessor('memory');
+Plugins::loadMemoryPlugin();
+
+$publisher = Events::createPublisher('memory');
+$processor = Events::createProcessor('memory');
 
 // Subscribe to all events using a wildcard filter
 $processor->on('#', function (Event $event) {
