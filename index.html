@@ -1,47 +1,51 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
-    <meta charset='utf-8'>
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
     <title>Events by aztech-dev</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
   </head>
-
   <body>
-    <div id="container">
-      <div class="inner">
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/aztech-dev/events">View On GitHub</a></li>
+          <li class="downloads"><a href="https://github.com/aztech-dev/events/zipball/master">ZIP</a></li>
+          <li class="downloads"><a href="https://github.com/aztech-dev/events/tarball/master">TAR</a></li>
+          <li class="title">DOWNLOADS</li>
+        </nav>
+      </div><!-- end header -->
 
-        <header>
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
           <h1>Events</h1>
-          <h2></h2>
-        </header>
+          <p></p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/aztech-dev">aztech-dev</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
+        </div>
 
-        <section id="downloads" class="clearfix">
-          <a href="https://github.com/aztech-dev/events/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
-          <a href="https://github.com/aztech-dev/events/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
-          <a href="https://github.com/aztech-dev/events" id="view-on-github" class="button"><span>View on GitHub</span></a>
-        </section>
-
-        <hr>
-
-        <section id="main_content">
-          <h1>
+        <h1>
 <a name="aztechevents" class="anchor" href="#aztechevents"><span class="octicon octicon-link"></span></a>aztech/events</h1>
 
 <h2>
-<a name="build-status" class="anchor" href="#build-status"><span class="octicon octicon-link"></span></a>Build status</h2>
+<a name="important-notice" class="anchor" href="#important-notice"><span class="octicon octicon-link"></span></a>Important notice</h2>
 
-<p><a href="https://travis-ci.org/aztech-dev/events"><img src="https://travis-ci.org/aztech-dev/events.png?branch=master" alt="Build Status"></a>
-<a href="https://scrutinizer-ci.com/g/aztech-dev/events/?branch=master"><img src="https://scrutinizer-ci.com/g/aztech-dev/events/badges/coverage.png?b=master" alt="Code Coverage"></a>
-<a href="https://scrutinizer-ci.com/g/aztech-dev/events/"><img src="https://scrutinizer-ci.com/g/aztech-dev/events/badges/quality-score.png?s=668e4df5ba163c804504257d4a026a0a549f220a" alt="Scrutinizer Quality Score"></a>
-<a href="https://www.versioneye.com/user/projects/53b92a84609ff04f7f000003"><img src="https://www.versioneye.com/user/projects/53b92a84609ff04f7f000003/badge.svg" alt="Dependency Status"></a>
-<a href="http://hhvm.h4cc.de/package/aztech/events"><img src="http://hhvm.h4cc.de/badge/aztech/events.png" alt="HHVM Status"></a></p>
+<p>This package is the main repository for aztech/events, and does not contain any code. Please refer
+to the composer.json to view the list of the packages provided by this package.</p>
 
 <h2>
 <a name="stability" class="anchor" href="#stability"><span class="octicon octicon-link"></span></a>Stability</h2>
@@ -57,15 +61,16 @@
 
 <p>Composer is the only supported way of installing <em>aztech/events</em> . Don't know Composer yet ? <a href="https://getcomposer.org/doc/00-intro.md">Read more about it</a>.</p>
 
-<p><code>$ composer require "aztech/events":"~1"</code></p>
+<div class="highlight highlight-bash"><pre><span class="nv">$ </span>composer require <span class="s2">"aztech/events"</span>:<span class="s2">"~1"</span>
+</pre></div>
 
 <h2>
 <a name="autoloading" class="anchor" href="#autoloading"><span class="octicon octicon-link"></span></a>Autoloading</h2>
 
 <p>Add the following code to your bootstrap file :</p>
 
-<pre><code>require_once 'vendor/autoload.php';
-</code></pre>
+<div class="highlight highlight-php"><pre><span class="k">require_once</span> <span class="s1">'vendor/autoload.php'</span><span class="p">;</span>
+</pre></div>
 
 <h2>
 <a name="concepts" class="anchor" href="#concepts"><span class="octicon octicon-link"></span></a>Concepts</h2>
@@ -166,15 +171,10 @@ topic.#.leaf will match topic.subtopic.leaf and topic.other.leaf and many others
 </code></pre>
 
 <p>To get check the latest truth table of event matching, please refer to the source of <code>Aztech\Events\Tests\Unit\CategoryMatchTruthTable</code>.</p>
-        </section>
+      </section>
 
-        <footer>
-          Events is maintained by <a href="https://github.com/aztech-dev">aztech-dev</a><br>
-          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
-        </footer>
-
-        
-      </div>
     </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
   </body>
 </html>
