@@ -20,15 +20,14 @@ class BroadcastPublisherTest extends \PHPUnit_Framework_TestCase
             $this->getPublisherMock()
         );
         $event = new Event('test');
-        $broadcaster = new BroadcastPublisher();
 
         foreach ($publishers as $publisher) {
             $publisher->expects($this->once())
                 ->method('publish')
                 ->with($event);
-
-            $broadcaster->addPublisher($publisher);
         }
+
+        $broadcaster = new BroadcastPublisher($publishers);
 
         $broadcaster->publish($event);
     }

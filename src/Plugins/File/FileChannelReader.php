@@ -13,12 +13,7 @@ class FileChannelReader implements ChannelReader
     public function __construct($file)
     {
         $this->file = $file;
-
-        if (! file_exists($this->file)) {
-            file_put_contents($this->file, '');
-        }
     }
-
 
     public function read()
     {
@@ -37,7 +32,10 @@ class FileChannelReader implements ChannelReader
         $data = false;
 
         if ($handle = fopen($this->file, "c+")) {
-            $data = Files::invokeEx(array ($this, 'readAndRemoveFirstLine'), $handle);
+            $data = Files::invokeEx(array(
+                $this,
+                'readAndRemoveFirstLine'
+            ), $handle);
 
             fclose($handle);
         }
@@ -48,8 +46,10 @@ class FileChannelReader implements ChannelReader
     private function checkDataBlock($data)
     {
         if (! $data) {
+            // @codeCoverageIgnoreStart
             usleep(250000);
         }
+        // @codeCoverageIgnoreEnd
     }
 
     public function readAndRemoveFirstLine($handle)

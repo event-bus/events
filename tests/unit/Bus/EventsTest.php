@@ -55,4 +55,30 @@ class EventsTest extends \PHPUnit_Framework_TestCase
         Events::addPlugin($name, $plugin);
         Events::addPlugin($nextName, $plugin);
     }
+
+    /**
+     * @expectedException \OutOfBoundsException
+     */
+    public function testGetPluginThrowsExceptionForUnregisteredKeys()
+    {
+        Events::getPlugin('test');
+    }
+
+    public function testGetPluginReturnsRegisteredInstance()
+    {
+        $plugin = $this->getMock('\Aztech\Events\Bus\PluginFactory');
+
+        Events::addPlugin('test', $plugin);
+
+        $this->assertSame($plugin, Events::getPlugin('test'));
+    }
+
+    public function testCreateReturnsEvent()
+    {
+        $event = Events::create('test', array('property' => 'value'));
+
+        $this->assertNotNull($event);
+        $this->assertInstanceOf('\Aztech\Events\Event', $event);
+        $this->assertEquals('test', $event->getCategory());
+    }
 }

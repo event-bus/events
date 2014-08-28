@@ -8,6 +8,27 @@ use Aztech\Events\Bus\Event;
 class JsonSerializerTest extends \PHPUnit_Framework_TestCase
 {
 
+    public function testDeserializationReturnsNullWithUnknownEventClasses()
+    {
+        $object = new Event('category');
+        $serializer = new JsonSerializer();
+
+        $serializedObject = $serializer->serialize($object);
+        $unserializedObject = $serializer->deserialize($serializedObject);
+
+        $this->assertEquals($object, $unserializedObject);
+
+        $object = new Event('category', array('property' => 'value'));
+        $serializer = new JsonSerializer();
+
+        $serializedObject = $serializer->serialize($object);
+        $serializedObject = json_decode($serializedObject);
+        $serializedObject->class = '\Aztech\Events\Tests\Bus\Serializer\SomeClassHopefullyNoOneWillEverDeclare';
+        $serializedObject = json_encode($serializedObject);
+
+        $this->assertNull($serializer->deserialize($serializedObject));
+    }
+
     public function testSerializationPassReturnsIdenticalObject()
     {
         $object = new Event('category');

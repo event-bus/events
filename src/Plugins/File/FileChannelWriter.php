@@ -25,6 +25,9 @@ class FileChannelWriter implements ChannelWriter
         }
     }
 
+    /**
+     * @todo Loop until lock is avail, within timeout
+     */
     private function callEx($handle, $data, $callback)
     {
         if (flock($handle, LOCK_EX)) {

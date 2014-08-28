@@ -32,6 +32,9 @@ class Application implements Processor
         $this->dispatcher->addListener($filter, $subscriber);
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function run()
     {
         while (true) {
