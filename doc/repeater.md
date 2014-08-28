@@ -5,7 +5,7 @@ This can be useful to create for example an intermediate event broker with round
 
 ## Simple repeater
 
-** Repeater daemon **
+**Repeater daemon**
 
 ```php
 <?php 
@@ -36,7 +36,7 @@ $bridge = Events::bridge($processor, $publisher, '#');
 $bridge->run();
 ```
 
-** Consuming the repeated events **
+**Consuming the repeated events**
 
 ```php
 <?php 
