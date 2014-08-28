@@ -38,55 +38,38 @@ it does not fit in well with distributed systems, where events need to cross pro
 
 An event channel is simply any resource to which data can be written to and retrieved later (read TCP socket, memory, shared memory, files, message queues...). When an event is published, it is serialized and written to a channel, instead of being dispatched to the event subscribers. 
 
-On the other end of the channel, a consumer is responsible for reading incoming events (synchronously or not, depending on the channel type used) and pushing them to a standard event dispatcher.
+On the other end of the channel, a consumer is responsible for reading incoming events (synchronously or not, depending on the channel type used) and pushing them to a standard event dispatcher. The dispatcher used by the consumer is responsible for dispatching received events to your handlers.
 
 This means you can publish and dispatch events using the following methods :
 
-    * In process (tested)
-    * Out-of-process
-      * Database via PDO (untested)
-      * AMQP (tested)
-      * STOMP (untested)
-      * Wamp (publish only, partially tested)
-      * Redis (untested)
-      * Mixpanel (publish only, untested)
-      * File (tested)
-      * And more to come...
-    
-**TODO** : Test the untested transports
+  * [Native plugins](https://github.com/aztech-dev/event-bus-core-plugins)
+      * [File](https://github.com/aztech-dev/event-bus-core-plugins/blob/master/doc/File.md)
+      * [Socket](https://github.com/aztech-dev/event-bus-core-plugins/blob/master/doc/Socket.md)
+      * [Memory](https://github.com/aztech-dev/event-bus-core-plugins/blob/master/doc/Memory.md)
+      * [Database via PDO (untested)](https://github.com/aztech-dev/event-bus-core-plugins/blob/master/doc/PDO.md)
+  * [Extra plugins](https://github.com/aztech-dev/event-bus-extra-plugins)
+      * [AMQP](https://github.com/aztech-dev/event-bus-extra-amqp)
+      * [Mixpanel](https://github.com/aztech-dev/event-bus-extra-mixpanel)
+      * [STOMP](https://github.com/aztech-dev/event-bus-extra-stomp)
+      * [Redis](https://github.com/aztech-dev/event-bus-extra-redis)
+      * [Wamp](https://github.com/aztech-dev/event-bus-extra-wamp)
+      * [ZMQ](https://github.com/aztech-dev/event-bus-extra-zmq)
 
-If you want to create and publish events, you will need to use a **publisher**. Currently, the library provides native support for publishing events to AMQP-compatible message queues and synchronous event publishing.
-
-If you want to consume published events, you will need to use a **processor**. A processor is responsible for receiving events via whatever transport it uses. Currently, the library provides native support for consuming AMQP-compatible message queues and synchronous event consumption. The library provides hooks to which you can bind **subscribers**, which are simple event handlers.
+If you want to create and publish events, you will need to use a **publisher**.
+If you want to consume published events, you will need to use a **processor**. 
+A processor is responsible for receiving events via whatever transport it uses. The library provides hooks to which you can bind **subscribers**, which are simple event handlers.
 
 Optionally, the library provides an Application object to which you can easily bind subscribers.
 
-## Usage
-
-For simplicity, there are factories available to create publishers and dispatchers.
-
-Listed below are examples for some of the providers. The full documentation is available [here](./doc/plugins.md).
-
-### Basic usage
-
-```php
-\Aztech\Events\Bus\Plugins::loadMemoryPlugin();
-
-$publisher = \Aztech\Events\Events::createPublisher('memory');
-$processor = \Aztech\Events\Events::createProcessor('memory');
-
-// Subscribe to all events using a wildcard filter
-$processor->on('#', function (Event $event) {
-    echo 'Received a new event : ' . $event->getCategory();
-});
-
-$event = \Aztech\Events\Events::create('category', array('property' => 'value'));
-$publisher->publish($event);
-```
-
-Checkout the provider specific documentations for more usage examples.
 
 ## Event matching rules
+
+In *events*, all events are published and subscribed to on topic basis. An event has to expose a category
+property, which must return the topic to which the event belongs. It can be any word, or chain of words separated by dots. Each dot indicates a sub-topic.
+
+Subscribers can then choose to subscribe to topic on an exact match basis, or by using wildcards to subscribe to multiple events.
+
+### Using wildcards
 
 > **tl;dr** Use '#' to match absolutely anything, '*' to match exactly one unknown word.
 
@@ -121,3 +104,30 @@ topic.#.leaf will match topic.subtopic.leaf and topic.other.leaf and many others
 ```
 
 To get check the latest truth table of event matching, please refer to the source of `Aztech\Events\Tests\Unit\CategoryMatchTruthTable`.
+
+## Usage
+
+For simplicity, there are factories available to create publishers and dispatchers.
+
+Listed below are examples for some of the providers. The full documentation is available [here](https://github.com/aztech-dev/events/tree/master/doc/plugins.md).
+
+### Basic usage
+
+```php
+require_once 'vendor/autoload.php';
+
+\Aztech\Events\Bus\Plugins::loadMemoryPlugin();
+
+$publisher = \Aztech\Events\Events::createPublisher('memory');
+$processor = \Aztech\Events\Events::createProcessor('memory');
+
+// Subscribe to all events using a wildcard filter
+$processor->on('#', function (Event $event) {
+    echo 'Received a new event : ' . $event->getCategory();
+});
+
+$event = \Aztech\Events\Events::create('category', array('property' => 'value'));
+$publisher->publish($event);
+```
+
+Checkout the provider specific documentations for more usage examples.
