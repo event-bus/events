@@ -75,58 +75,49 @@ it does not fit in well with distributed systems, where events need to cross pro
 
 <p>An event channel is simply any resource to which data can be written to and retrieved later (read TCP socket, memory, shared memory, files, message queues...). When an event is published, it is serialized and written to a channel, instead of being dispatched to the event subscribers. </p>
 
-<p>On the other end of the channel, a consumer is responsible for reading incoming events (synchronously or not, depending on the channel type used) and pushing them to a standard event dispatcher.</p>
+<p>On the other end of the channel, a consumer is responsible for reading incoming events (synchronously or not, depending on the channel type used) and pushing them to a standard event dispatcher. The dispatcher used by the consumer is responsible for dispatching received events to your handlers.</p>
 
 <p>This means you can publish and dispatch events using the following methods :</p>
 
-<pre><code>* In process (tested)
-* Out-of-process
-  * Database via PDO (untested)
-  * AMQP (tested)
-  * STOMP (untested)
-  * Wamp (publish only, partially tested)
-  * Redis (untested)
-  * Mixpanel (publish only, untested)
-  * File (tested)
-  * And more to come...
-</code></pre>
+<ul>
+<li>
+<a href="https://github.com/aztech-dev/event-bus-core-plugins">Native plugins</a>
 
-<p><strong>TODO</strong> : Test the untested transports</p>
+<ul>
+<li><a href="https://github.com/aztech-dev/event-bus-core-plugins/blob/master/doc/File.md">File</a></li>
+<li><a href="https://github.com/aztech-dev/event-bus-core-plugins/blob/master/doc/Socket.md">Socket</a></li>
+<li><a href="https://github.com/aztech-dev/event-bus-core-plugins/blob/master/doc/Memory.md">Memory</a></li>
+<li><a href="https://github.com/aztech-dev/event-bus-core-plugins/blob/master/doc/Pdo.md">Database via PDO (untested)</a></li>
+</ul>
+</li>
+<li>
+<a href="https://github.com/aztech-dev/event-bus-extra-plugins">Extra plugins</a>
 
-<p>If you want to create and publish events, you will need to use a <strong>publisher</strong>. Currently, the library provides native support for publishing events to AMQP-compatible message queues and synchronous event publishing.</p>
-
-<p>If you want to consume published events, you will need to use a <strong>processor</strong>. A processor is responsible for receiving events via whatever transport it uses. Currently, the library provides native support for consuming AMQP-compatible message queues and synchronous event consumption. The library provides hooks to which you can bind <strong>subscribers</strong>, which are simple event handlers.</p>
+<ul>
+<li><a href="https://github.com/aztech-dev/event-bus-extra-amqp">AMQP</a></li>
+<li><a href="https://github.com/aztech-dev/event-bus-extra-mixpanel">Mixpanel</a></li>
+<li><a href="https://github.com/aztech-dev/event-bus-extra-stomp">STOMP</a></li>
+<li><a href="https://github.com/aztech-dev/event-bus-extra-redis">Redis</a></li>
+<li><a href="https://github.com/aztech-dev/event-bus-extra-wamp">Wamp</a></li>
+<li><a href="https://github.com/aztech-dev/event-bus-extra-zmq">ZMQ</a></li>
+</ul>
+</li>
+</ul><p>If you want to create and publish events, you will need to use a <strong>publisher</strong>.
+If you want to consume published events, you will need to use a <strong>processor</strong>. 
+A processor is responsible for receiving events via whatever transport it uses. The library provides hooks to which you can bind <strong>subscribers</strong>, which are simple event handlers.</p>
 
 <p>Optionally, the library provides an Application object to which you can easily bind subscribers.</p>
 
 <h2>
-<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+<a name="event-matching-rules" class="anchor" href="#event-matching-rules"><span class="octicon octicon-link"></span></a>Event matching rules</h2>
 
-<p>For simplicity, there are factories available to create publishers and dispatchers.</p>
+<p>In <em>events</em>, all events are published and subscribed to on topic basis. An event has to expose a category
+property, which must return the topic to which the event belongs. It can be any word, or chain of words separated by dots. Each dot indicates a sub-topic.</p>
 
-<p>Listed below are examples for some of the providers. The full documentation is available <a href="./doc/plugins.md">here</a>.</p>
+<p>Subscribers can then choose to subscribe to topic on an exact match basis, or by using wildcards to subscribe to multiple events.</p>
 
 <h3>
-<a name="basic-usage" class="anchor" href="#basic-usage"><span class="octicon octicon-link"></span></a>Basic usage</h3>
-
-<div class="highlight highlight-php"><pre><span class="nx">\Aztech\Events\Bus\Plugins</span><span class="o">::</span><span class="na">loadMemoryPlugin</span><span class="p">();</span>
-
-<span class="nv">$publisher</span> <span class="o">=</span> <span class="nx">\Aztech\Events\Events</span><span class="o">::</span><span class="na">createPublisher</span><span class="p">(</span><span class="s1">'memory'</span><span class="p">);</span>
-<span class="nv">$processor</span> <span class="o">=</span> <span class="nx">\Aztech\Events\Events</span><span class="o">::</span><span class="na">createProcessor</span><span class="p">(</span><span class="s1">'memory'</span><span class="p">);</span>
-
-<span class="c1">// Subscribe to all events using a wildcard filter</span>
-<span class="nv">$processor</span><span class="o">-&gt;</span><span class="na">on</span><span class="p">(</span><span class="s1">'#'</span><span class="p">,</span> <span class="k">function</span> <span class="p">(</span><span class="nx">Event</span> <span class="nv">$event</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">echo</span> <span class="s1">'Received a new event : '</span> <span class="o">.</span> <span class="nv">$event</span><span class="o">-&gt;</span><span class="na">getCategory</span><span class="p">();</span>
-<span class="p">});</span>
-
-<span class="nv">$event</span> <span class="o">=</span> <span class="nx">\Aztech\Events\Events</span><span class="o">::</span><span class="na">create</span><span class="p">(</span><span class="s1">'category'</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">'property'</span> <span class="o">=&gt;</span> <span class="s1">'value'</span><span class="p">));</span>
-<span class="nv">$publisher</span><span class="o">-&gt;</span><span class="na">publish</span><span class="p">(</span><span class="nv">$event</span><span class="p">);</span>
-</pre></div>
-
-<p>Checkout the provider specific documentations for more usage examples.</p>
-
-<h2>
-<a name="event-matching-rules" class="anchor" href="#event-matching-rules"><span class="octicon octicon-link"></span></a>Event matching rules</h2>
+<a name="using-wildcards" class="anchor" href="#using-wildcards"><span class="octicon octicon-link"></span></a>Using wildcards</h3>
 
 <blockquote>
 <p><strong>tl;dr</strong> Use '#' to match absolutely anything, '*' to match exactly one unknown word.</p>
@@ -164,6 +155,38 @@ topic.#.leaf will match topic.subtopic.leaf and topic.other.leaf and many others
 </code></pre>
 
 <p>To get check the latest truth table of event matching, please refer to the source of <code>Aztech\Events\Tests\Unit\CategoryMatchTruthTable</code>.</p>
+
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>For simplicity, there are factories available to create publishers and dispatchers.</p>
+
+<p>Listed below are examples for some of the providers. The full documentation is available <a href="https://github.com/aztech-dev/events/tree/master/doc/plugins.md">here</a>.</p>
+
+<h3>
+<a name="basic-usage" class="anchor" href="#basic-usage"><span class="octicon octicon-link"></span></a>Basic usage</h3>
+
+<div class="highlight highlight-php"><pre>
+<span class="k">require_once</span> <span class="s1">'vendor/autoload.php'</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">\Aztech\Events\Bus\Events</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">\Aztech\Events\Bus\Plugins\Plugins</span><span class="p">;</span>
+
+<span class="nx">Plugins</span><span class="o">::</span><span class="na">loadMemoryPlugin</span><span class="p">();</span>
+
+<span class="nv">$publisher</span> <span class="o">=</span> <span class="nx">Events</span><span class="o">::</span><span class="na">createPublisher</span><span class="p">(</span><span class="s1">'memory'</span><span class="p">);</span>
+<span class="nv">$processor</span> <span class="o">=</span> <span class="nx">Events</span><span class="o">::</span><span class="na">createProcessor</span><span class="p">(</span><span class="s1">'memory'</span><span class="p">);</span>
+
+<span class="c1">// Subscribe to all events using a wildcard filter</span>
+<span class="nv">$processor</span><span class="o">-&gt;</span><span class="na">on</span><span class="p">(</span><span class="s1">'#'</span><span class="p">,</span> <span class="k">function</span> <span class="p">(</span><span class="nx">Event</span> <span class="nv">$event</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s1">'Received a new event : '</span> <span class="o">.</span> <span class="nv">$event</span><span class="o">-&gt;</span><span class="na">getCategory</span><span class="p">();</span>
+<span class="p">});</span>
+
+<span class="nv">$event</span> <span class="o">=</span> <span class="nx">\Aztech\Events\Events</span><span class="o">::</span><span class="na">create</span><span class="p">(</span><span class="s1">'category'</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">'property'</span> <span class="o">=&gt;</span> <span class="s1">'value'</span><span class="p">));</span>
+<span class="nv">$publisher</span><span class="o">-&gt;</span><span class="na">publish</span><span class="p">(</span><span class="nv">$event</span><span class="p">);</span>
+</pre></div>
+
+<p>Checkout the provider specific documentations for more usage examples.</p>
         </section>
 
         <footer>
