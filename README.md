@@ -1,12 +1,9 @@
 # aztech/events
 
-## Build status
+## Important notice
 
-[![Build Status](https://travis-ci.org/aztech-dev/events.png?branch=master)](https://travis-ci.org/aztech-dev/events)
-[![Code Coverage](https://scrutinizer-ci.com/g/aztech-dev/events/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/aztech-dev/events/?branch=master)
-[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/aztech-dev/events/badges/quality-score.png?s=668e4df5ba163c804504257d4a026a0a549f220a)](https://scrutinizer-ci.com/g/aztech-dev/events/)
-[![Dependency Status](https://www.versioneye.com/user/projects/53b92a84609ff04f7f000003/badge.svg)](https://www.versioneye.com/user/projects/53b92a84609ff04f7f000003)
-[![HHVM Status](http://hhvm.h4cc.de/badge/aztech/events.png)](http://hhvm.h4cc.de/package/aztech/events)
+This package is the main repository for aztech/events, and does not contain any code. Please refer
+to the composer.json to view the list of the packages provided by this package.
 
 ## Stability
 
@@ -20,13 +17,15 @@
 Composer is the only supported way of installing *aztech/events* . Don't know Composer yet ? [Read more about it](https://getcomposer.org/doc/00-intro.md).
 
 
-`$ composer require "aztech/events":"~1"`
+```bash
+$ composer require "aztech/events":"~1"
+```
 
 ## Autoloading
 
 Add the following code to your bootstrap file :
 
-```
+```php
 require_once 'vendor/autoload.php';
 ```
 
