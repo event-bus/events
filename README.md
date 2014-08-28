@@ -46,7 +46,7 @@ This means you can publish and dispatch events using the following methods :
       * [File](https://github.com/aztech-dev/event-bus-core-plugins/blob/master/doc/File.md)
       * [Socket](https://github.com/aztech-dev/event-bus-core-plugins/blob/master/doc/Socket.md)
       * [Memory](https://github.com/aztech-dev/event-bus-core-plugins/blob/master/doc/Memory.md)
-      * [Database via PDO (untested)](https://github.com/aztech-dev/event-bus-core-plugins/blob/master/doc/PDO.md)
+      * [Database via PDO (untested)](https://github.com/aztech-dev/event-bus-core-plugins/blob/master/doc/Pdo.md)
   * [Extra plugins](https://github.com/aztech-dev/event-bus-extra-plugins)
       * [AMQP](https://github.com/aztech-dev/event-bus-extra-amqp)
       * [Mixpanel](https://github.com/aztech-dev/event-bus-extra-mixpanel)
