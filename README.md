@@ -66,9 +66,9 @@ Optionally, the library provides an Application object to which you can easily b
 
 For simplicity, there are factories available to create publishers and dispatchers.
 
-Listed below are examples for some of the providers. The full documentation is available [here](./doc/providers.md).
+Listed below are examples for some of the providers. The full documentation is available [here](./doc/plugins.md).
 
-### In process memory publish/subscribe
+### Basic usage
 
 ```php
 \Aztech\Events\Bus\Plugins::loadMemoryPlugin();
@@ -82,95 +82,10 @@ $processor->on('#', function (Event $event) {
 });
 
 $event = \Aztech\Events\Events::create('category', array('property' => 'value'));
-$dispatcher->publish($event);
-```
-### Event publish/subscriber via an AMQP broker
-
-#### Publishing
-
-```php
-
-$options = array(
-    'host' => '127.0.0.1',
-    'port' => '5672',
-    'user' => 'username',
-    'pass' => 'password',
-    'vhost' => '/',
-    'exchange' => 'exchangeName'
-);
-
-\Aztech\Events\Bus\Plugins::loadAmqpPlugin();
-
-$publisher = \Aztech\Events\Events::createPublisher('amqp', $options);
-$event = \Aztech\Events\Events::create('category', array('property' => 'value'));
-
 $publisher->publish($event);
 ```
 
-#### Consuming
-
-```php
-$options = array(
-    'host' => '127.0.0.1',
-    'port' => '5672',
-    'user' => 'username',
-    'pass' => 'password',
-    'vhost' => '/',
-    'event-queue' => 'queueName'
-);
-
-\Aztech\Events\Bus\Plugins::loadAmqpPlugin();
-
-$processor = $factory->createProcessor('amqp', $options);
-// Subscribe to all events using a wildcard filter
-$processor->on('#', function (Event $event) {
-    echo 'Received a new event : ' . $event->getCategory();
-});
-
-$processor->run();
-```
-
-The `on` method accepts as a first argument a category filter expression. The internal matching engine evaluates matches on a first-match-wins basis, and accepts wildcards.
-
-### Event publishing to WebSockets using the WAMP protocol
-
-**Important points** 
-
-Only publishing to a WebSocket is implemented for the time being. Publishing to a WebSocket requires
-requires Ratchet to create an async event loop that you can use to publish your events.
-
-The Wamp publisher does not create nor run a server or an event loop. Instead, the provided publisher implements
-`Ratchet\Wamp\WampServerInterface` allowing to use the publisher to initialize a WampServer instance.
-
-#### Publishing
-
-**OUT OF DATE**
-
-```php
-// See below for $options definition
-$factory = \Aztech\Events\Events::createWampFactory();
-$publisher = $factory->createPublisher($options);
-
-// Create a loop and a listening socket
-$loop = \React\EventLoop\Factory::create();
-
-// Use your loop to do some stuff, like... create or fetch events and publish them to the socket
-// Here, we're just sending sample messages every second
-$loop->addPeriodicTimer(1, function() use ($publisher) {
-    $event = \Aztech\Events\Events::create('hello', array('time' => time());
-    $publisher->publish($event);
-});
-
-// Required to get a server running
-$socket = new \React\Socket\Server($loop);
-$socket->listen(8080, '127.0.0.1');
-$wampServer = new \Ratchet\Wamp\WampServer($publisher);
-$wsServer = new \Ratchet\WebSocket\WsServer($wampServer);
-$httpServer = new \Ratchet\Http\HttpServer($wsServer);
-$server = \Ratchet\Server\IoServer($httpServer, $socket, $loop);
-
-$server->run();
-```
+Checkout the provider specific documentations for more usage examples.
 
 ## Event matching rules
 

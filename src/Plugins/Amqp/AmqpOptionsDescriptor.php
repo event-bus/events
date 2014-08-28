@@ -16,7 +16,8 @@ class AmqpOptionsDescriptor implements OptionsDescriptor
             'vhost',
             'exchange',
             'event-queue',
-            'event-prefix'
+            'event-prefix',
+            'auto-create'
         );
     }
 
@@ -30,7 +31,8 @@ class AmqpOptionsDescriptor implements OptionsDescriptor
             'vhost' => '/',
             'exchange' => 'aztech.events',
             'event-queue' => 'events',
-            'event-prefix' => ''
+            'event-prefix' => '',
+            'auto-create' => true
         );
     }
 }

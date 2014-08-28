@@ -2,58 +2,16 @@
 
 The core of the library is made up of interfaces, without implementations.
 
-Each provider available in the `Providers` sub-directory provides implementations for those interfaces.
+Each provider available in the `Plugins` sub-directory provides implementations for those interfaces.
 
-Listed here are all the providers that the library natively provides.
+Listed here are all the providers that the library natively provides, in alphabetical order.
 
 **By default, the dependencies for each provider are not required in the library's Composer file. YOU NEED TO
 REQUIRE VIA COMPOSER THE PROVIDER'S DEPENDENCIES WHEN NEEDED.**
 
-## Simple provider
+## Plugin doc pages
 
-### Requires
-
-*No dependencies*
-
-### Supported elements
-
-  * Publish
-  * Dispatch
-  
-### Initialization
-
-```php
-
-include __DIR__ . '/vendor/autoload.php';
-
-$factory = \Aztech\Events\Events::createSimpleFactory();
-$publisher = $factory->createPublisher();
-
-// ...
-```
-
-## AMQP provider
-
-### Requires
-
-  * videlalvaro/php-amqplib : ~2
-
-### Supported elements :
-
-  * Publish
-  * Dispatch
-
-### Initialization
-
-```php
-
-include __DIR__ . '/vendor/autoload.php';
-
-$factory = \Aztech\Events\Events::createAmqpFactory();
-$publisher = $factory->createPublisher();
-
-// ...
-```
+* [AMQP](./plugins/amqp.md)
 
 ## Wamp provider
 
