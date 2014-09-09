@@ -1,5 +1,0 @@
-message ProtobufEvent
-{
-    required string category = 1;
-    required string content = 2;
-}

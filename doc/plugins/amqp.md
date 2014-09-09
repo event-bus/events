@@ -20,7 +20,7 @@
 | `vhost` | `/` | Virtual host name on the AMQP broker. |
 | `exchange` | `exchange` | Name of the exchange. |
 | `event-queue` | `event-queue` | Name of the event queue. |
-| `event-prefix` | ` ` | Prefix that will be automatically added to published/stripped from received event topics. |
+| `event-prefix` | `` | Prefix that will be automatically added to published/stripped from received event topics. |
 | `auto-create` | `true` | Toggles the providers topology creation feature. Allows to auto-create the required exchanges, queues, and bindings for the provider's need. |
 
 ## Initialization
@@ -28,7 +28,7 @@
 ```php
 include __DIR__ . '/vendor/autoload.php';
 
-\Aztech\Events\Bus\Plugins::loadAmqpPlugin();
+\Aztech\Events\Bus\Plugins::loadAmqpPlugin('amqp');
 
 $options = array(...);
 
