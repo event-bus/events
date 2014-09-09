@@ -5,6 +5,8 @@
 This package is the main repository for aztech/events, and does not contain any code. Please refer
 to the composer.json to view the list of the packages provided by this package.
 
+It **imports all extra plugins** into your dependencies, and it **highly recommended** to not depend on this package, as it is present mostly for backwards compatibility.
+
 ## Stability
 
 [![Latest Stable Version](https://poser.pugx.org/aztech/events/v/stable.png)](https://packagist.org/packages/aztech/events)
