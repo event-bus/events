@@ -3,70 +3,65 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+
     <title>Events by aztech-dev</title>
   </head>
 
   <body>
-    <div id="container">
+    <header>
       <div class="inner">
+        <h1>Events</h1>
+        <h2></h2>
+        <a href="https://github.com/aztech-dev/events" class="button"><small>View project on</small> GitHub</a>
+      </div>
+    </header>
 
-        <header>
-          <h1>Events</h1>
-          <h2></h2>
-        </header>
-
-        <section id="downloads" class="clearfix">
-          <a href="https://github.com/aztech-dev/events/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
-          <a href="https://github.com/aztech-dev/events/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
-          <a href="https://github.com/aztech-dev/events" id="view-on-github" class="button"><span>View on GitHub</span></a>
-        </section>
-
-        <hr>
-
-        <section id="main_content">
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
           <h1>
-<a name="aztechevents" class="anchor" href="#aztechevents"><span class="octicon octicon-link"></span></a>aztech/events</h1>
+<a id="aztechevents" class="anchor" href="#aztechevents" aria-hidden="true"><span class="octicon octicon-link"></span></a>aztech/events</h1>
 
 <h2>
-<a name="important-notice" class="anchor" href="#important-notice"><span class="octicon octicon-link"></span></a>Important notice</h2>
+<a id="important-notice" class="anchor" href="#important-notice" aria-hidden="true"><span class="octicon octicon-link"></span></a>Important notice</h2>
 
 <p>This package is the main repository for aztech/events, and does not contain any code. Please refer
 to the composer.json to view the list of the packages provided by this package.</p>
 
 <h2>
-<a name="stability" class="anchor" href="#stability"><span class="octicon octicon-link"></span></a>Stability</h2>
+<a id="stability" class="anchor" href="#stability" aria-hidden="true"><span class="octicon octicon-link"></span></a>Stability</h2>
 
 <p><a href="https://packagist.org/packages/aztech/events"><img src="https://poser.pugx.org/aztech/events/v/stable.png" alt="Latest Stable Version"></a>
 <a href="https://packagist.org/packages/aztech/events"><img src="https://poser.pugx.org/aztech/events/v/unstable.png" alt="Latest Unstable Version"></a></p>
 
 <h2>
-<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
 
 <h3>
-<a name="via-composer" class="anchor" href="#via-composer"><span class="octicon octicon-link"></span></a>Via Composer</h3>
+<a id="via-composer" class="anchor" href="#via-composer" aria-hidden="true"><span class="octicon octicon-link"></span></a>Via Composer</h3>
 
 <p>Composer is the only supported way of installing <em>aztech/events</em> . Don't know Composer yet ? <a href="https://getcomposer.org/doc/00-intro.md">Read more about it</a>.</p>
 
-<div class="highlight highlight-bash"><pre><span class="nv">$ </span>composer require <span class="s2">"aztech/events"</span>:<span class="s2">"~1"</span>
-</pre></div>
+<div class="highlight highlight-bash"><pre>$ composer require <span class="pl-s1"><span class="pl-pds">"</span>aztech/events<span class="pl-pds">"</span></span>:<span class="pl-s1"><span class="pl-pds">"</span>~1<span class="pl-pds">"</span></span></pre></div>
 
 <h2>
-<a name="autoloading" class="anchor" href="#autoloading"><span class="octicon octicon-link"></span></a>Autoloading</h2>
+<a id="autoloading" class="anchor" href="#autoloading" aria-hidden="true"><span class="octicon octicon-link"></span></a>Autoloading</h2>
 
 <p>Add the following code to your bootstrap file :</p>
 
-<div class="highlight highlight-php"><pre><span class="k">require_once</span> <span class="s1">'vendor/autoload.php'</span><span class="p">;</span>
-</pre></div>
+<div class="highlight highlight-php"><pre><span class="pl-s2"><span class="pl-k">require_once</span> <span class="pl-s1"><span class="pl-pds">'</span>vendor/autoload.php<span class="pl-pds">'</span></span>;</span></pre></div>
 
 <h2>
-<a name="concepts" class="anchor" href="#concepts"><span class="octicon octicon-link"></span></a>Concepts</h2>
+<a id="concepts" class="anchor" href="#concepts" aria-hidden="true"><span class="octicon octicon-link"></span></a>Concepts</h2>
 
 <p><em>aztech/events</em> aims to provide a solid foundation to build event driven architectures in PHP. </p>
 
@@ -102,14 +97,16 @@ it does not fit in well with distributed systems, where events need to cross pro
 <li><a href="https://github.com/aztech-dev/event-bus-extra-zmq">ZMQ</a></li>
 </ul>
 </li>
-</ul><p>If you want to create and publish events, you will need to use a <strong>publisher</strong>.
+</ul>
+
+<p>If you want to create and publish events, you will need to use a <strong>publisher</strong>.
 If you want to consume published events, you will need to use a <strong>processor</strong>. 
 A processor is responsible for receiving events via whatever transport it uses. The library provides hooks to which you can bind <strong>subscribers</strong>, which are simple event handlers.</p>
 
 <p>Optionally, the library provides an Application object to which you can easily bind subscribers.</p>
 
 <h2>
-<a name="event-matching-rules" class="anchor" href="#event-matching-rules"><span class="octicon octicon-link"></span></a>Event matching rules</h2>
+<a id="event-matching-rules" class="anchor" href="#event-matching-rules" aria-hidden="true"><span class="octicon octicon-link"></span></a>Event matching rules</h2>
 
 <p>In <em>events</em>, all events are published and subscribed to on topic basis. An event has to expose a category
 property, which must return the topic to which the event belongs. It can be any word, or chain of words separated by dots. Each dot indicates a sub-topic.</p>
@@ -117,7 +114,7 @@ property, which must return the topic to which the event belongs. It can be any 
 <p>Subscribers can then choose to subscribe to topic on an exact match basis, or by using wildcards to subscribe to multiple events.</p>
 
 <h3>
-<a name="using-wildcards" class="anchor" href="#using-wildcards"><span class="octicon octicon-link"></span></a>Using wildcards</h3>
+<a id="using-wildcards" class="anchor" href="#using-wildcards" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using wildcards</h3>
 
 <blockquote>
 <p><strong>tl;dr</strong> Use '#' to match absolutely anything, '*' to match exactly one unknown word.</p>
@@ -157,45 +154,54 @@ topic.#.leaf will match topic.subtopic.leaf and topic.other.leaf and many others
 <p>To get check the latest truth table of event matching, please refer to the source of <code>Aztech\Events\Tests\Unit\CategoryMatchTruthTable</code>.</p>
 
 <h2>
-<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
 
 <p>For simplicity, there are factories available to create publishers and dispatchers.</p>
 
 <p>Listed below are examples for some of the providers. The full documentation is available <a href="https://github.com/aztech-dev/events/tree/master/doc/plugins.md">here</a>.</p>
 
 <h3>
-<a name="basic-usage" class="anchor" href="#basic-usage"><span class="octicon octicon-link"></span></a>Basic usage</h3>
+<a id="basic-usage" class="anchor" href="#basic-usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Basic usage</h3>
 
-<div class="highlight highlight-php"><pre>
-<span class="k">require_once</span> <span class="s1">'vendor/autoload.php'</span><span class="p">;</span>
-
-<span class="k">use</span> <span class="nx">\Aztech\Events\Bus\Events</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">\Aztech\Events\Bus\Plugins\Plugins</span><span class="p">;</span>
-
-<span class="nx">Plugins</span><span class="o">::</span><span class="na">loadMemoryPlugin</span><span class="p">();</span>
-
-<span class="nv">$publisher</span> <span class="o">=</span> <span class="nx">Events</span><span class="o">::</span><span class="na">createPublisher</span><span class="p">(</span><span class="s1">'memory'</span><span class="p">);</span>
-<span class="nv">$processor</span> <span class="o">=</span> <span class="nx">Events</span><span class="o">::</span><span class="na">createProcessor</span><span class="p">(</span><span class="s1">'memory'</span><span class="p">);</span>
-
-<span class="c1">// Subscribe to all events using a wildcard filter</span>
-<span class="nv">$processor</span><span class="o">-&gt;</span><span class="na">on</span><span class="p">(</span><span class="s1">'#'</span><span class="p">,</span> <span class="k">function</span> <span class="p">(</span><span class="nx">Event</span> <span class="nv">$event</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">echo</span> <span class="s1">'Received a new event : '</span> <span class="o">.</span> <span class="nv">$event</span><span class="o">-&gt;</span><span class="na">getCategory</span><span class="p">();</span>
-<span class="p">});</span>
-
-<span class="nv">$event</span> <span class="o">=</span> <span class="nx">\Aztech\Events\Events</span><span class="o">::</span><span class="na">create</span><span class="p">(</span><span class="s1">'category'</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">'property'</span> <span class="o">=&gt;</span> <span class="s1">'value'</span><span class="p">));</span>
-<span class="nv">$publisher</span><span class="o">-&gt;</span><span class="na">publish</span><span class="p">(</span><span class="nv">$event</span><span class="p">);</span>
-</pre></div>
+<div class="highlight highlight-php"><pre><span class="pl-s2"></span>
+<span class="pl-s2"><span class="pl-k">require_once</span> <span class="pl-s1"><span class="pl-pds">'</span>vendor/autoload.php<span class="pl-pds">'</span></span>;</span>
+<span class="pl-s2"></span>
+<span class="pl-s2"><span class="pl-k">use</span> <span class="pl-s3">\Aztech\Events\Bus\Events</span>;</span>
+<span class="pl-s2"><span class="pl-k">use</span> <span class="pl-s3">\Aztech\Events\Bus\Plugins\Plugins</span>;</span>
+<span class="pl-s2"></span>
+<span class="pl-s2"><span class="pl-s3">Plugins</span><span class="pl-k">::</span>loadMemoryPlugin();</span>
+<span class="pl-s2"></span>
+<span class="pl-s2"><span class="pl-vo">$publisher</span> <span class="pl-k">=</span> <span class="pl-s3">Events</span><span class="pl-k">::</span>createPublisher(<span class="pl-s1"><span class="pl-pds">'</span>memory<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s2"><span class="pl-vo">$processor</span> <span class="pl-k">=</span> <span class="pl-s3">Events</span><span class="pl-k">::</span>createProcessor(<span class="pl-s1"><span class="pl-pds">'</span>memory<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s2"></span>
+<span class="pl-s2"><span class="pl-c">// Subscribe to all events using a wildcard filter</span></span>
+<span class="pl-s2"><span class="pl-vo">$processor</span><span class="pl-k">-&gt;</span>on(<span class="pl-s1"><span class="pl-pds">'</span>#<span class="pl-pds">'</span></span>, <span class="pl-st">function</span> (<span class="pl-s3">Event</span> <span class="pl-vo">$event</span>) {</span>
+<span class="pl-s2">    <span class="pl-s3">echo</span> <span class="pl-s1"><span class="pl-pds">'</span>Received a new event : <span class="pl-pds">'</span></span> <span class="pl-k">.</span> <span class="pl-vo">$event</span><span class="pl-k">-&gt;</span>getCategory();</span>
+<span class="pl-s2">});</span>
+<span class="pl-s2"></span>
+<span class="pl-s2"><span class="pl-vo">$event</span> <span class="pl-k">=</span> <span class="pl-s3">\Aztech\Events\</span><span class="pl-s3">Events</span><span class="pl-k">::</span>create(<span class="pl-s1"><span class="pl-pds">'</span>category<span class="pl-pds">'</span></span>, <span class="pl-s3">array</span>(<span class="pl-s1"><span class="pl-pds">'</span>property<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-s1"><span class="pl-pds">'</span>value<span class="pl-pds">'</span></span>));</span>
+<span class="pl-s2"><span class="pl-vo">$publisher</span><span class="pl-k">-&gt;</span>publish(<span class="pl-vo">$event</span>);</span></pre></div>
 
 <p>Checkout the provider specific documentations for more usage examples.</p>
         </section>
 
-        <footer>
-          Events is maintained by <a href="https://github.com/aztech-dev">aztech-dev</a><br>
-          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
-        </footer>
+        <aside id="sidebar">
+          <a href="https://github.com/aztech-dev/events/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/aztech-dev/events/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
 
-        
+          <p class="repo-owner"><a href="https://github.com/aztech-dev/events"></a> is maintained by <a href="https://github.com/aztech-dev">aztech-dev</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
       </div>
     </div>
+
+  
   </body>
 </html>
